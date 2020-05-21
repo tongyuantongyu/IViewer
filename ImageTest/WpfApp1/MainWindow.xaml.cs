@@ -24,7 +24,12 @@ namespace WpfApp1 {
   /// <summary>
   /// MainWindow.xaml 的交互逻辑
   /// </summary>
-  public partial class MainWindow : Window {
+  public partial class MainWindow {
+    private bool isMoving;
+
+    private double movX;
+    private double movY;
+    private Point absolute;
     public MainWindow() {
       InitializeComponent();
     }
@@ -67,6 +72,13 @@ namespace WpfApp1 {
           }
 
           break;
+      }
+    }
+
+    private void Pic_MouseDown(object sender, MouseButtonEventArgs e) {
+      var pos = Mouse.GetPosition(this);
+      if (4 <= pos.Y && pos.Y <= 40 && 4 <= pos.X && pos.X <= Width - 4 && WindowState == WindowState.Normal) {
+        DragMove();
       }
     }
   }
