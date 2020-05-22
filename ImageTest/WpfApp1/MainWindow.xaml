@@ -12,7 +12,6 @@
             ResizeBorderThickness="5" />
     </WindowChrome.WindowChrome>
     <Grid>
-        <Image x:Name="Pic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Stretch="None" MouseDown="Pic_MouseDown"/>
-
+        <Image x:Name="Pic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Stretch="None" MouseLeftButtonDown="Pic_MouseDown"/>
     </Grid>
 </Window>

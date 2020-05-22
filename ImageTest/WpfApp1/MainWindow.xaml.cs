@@ -25,11 +25,7 @@ namespace WpfApp1 {
   /// MainWindow.xaml 的交互逻辑
   /// </summary>
   public partial class MainWindow {
-    private bool isMoving;
 
-    private double movX;
-    private double movY;
-    private Point absolute;
     public MainWindow() {
       InitializeComponent();
     }
@@ -50,7 +46,7 @@ namespace WpfApp1 {
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e) {
-      var d = File.ReadAllBytes("65261833.heic");
+      var d = File.ReadAllBytes("sayo.heic");
       var dpi = GetDPI();
       var bitmap = HeifDecoder.WBitmapFromBytes(d, dpi);
       Pic.Source = bitmap;

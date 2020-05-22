@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "easybmp", "easybmp\easybmp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageDecoder", "Decoder\ImageDecoder.csproj", "{0F9585ED-038D-4CA3-88FF-895D143D9F13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{CC69AD47-F916-4EC4-83CE-0181524B375A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,26 @@ Global
 		{0F9585ED-038D-4CA3-88FF-895D143D9F13}.Release|x64.Build.0 = Release|Any CPU
 		{0F9585ED-038D-4CA3-88FF-895D143D9F13}.Release|x86.ActiveCfg = Release|Any CPU
 		{0F9585ED-038D-4CA3-88FF-895D143D9F13}.Release|x86.Build.0 = Release|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Debug|ARM.Build.0 = Debug|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Debug|x64.Build.0 = Debug|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Debug|x86.Build.0 = Debug|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Release|ARM.Build.0 = Release|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Release|ARM64.Build.0 = Release|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Release|x64.ActiveCfg = Release|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Release|x64.Build.0 = Release|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Release|x86.ActiveCfg = Release|Any CPU
+		{CC69AD47-F916-4EC4-83CE-0181524B375A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
