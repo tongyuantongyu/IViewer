@@ -4,30 +4,249 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
+        xmlns:c="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" Background="Black" WindowStyle="None" KeyUp="Window_KeyUp" MouseMove="MainWindow1_MouseMove">
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" Background="Black" WindowStyle="None" MouseMove="MainWindow1_MouseMove">
+    <Window.Style>
+        <Style TargetType="Window">
+            <Style.Triggers>
+                <Trigger Property="WindowState" Value="Maximized">
+                    <Setter Property="Button.Content" Value="&#xE923;"/>
+                </Trigger>
+                <Trigger Property="WindowState" Value="Normal">
+                    <Setter Property="Content" Value="&#xE739;"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+    <Window.Resources>
+        <Style x:Key="CloseButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              Content="{TemplateBinding Content}"
+                                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                              Focusable="False"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}" RecognizesAccessKey="True"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsDefaulted" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border"
+                                        Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation To="Red"
+                                                            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                                            FillBehavior="HoldEnd" Duration="0:0:0.15"
+                                                            AutoReverse="False"
+                                                            RepeatBehavior="1x" />
+                                            <ColorAnimation To="White"
+                                                            Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                            FillBehavior="HoldEnd" Duration="0:0:0.15"
+                                                            AutoReverse="False"
+                                                            RepeatBehavior="1x" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                                FillBehavior="HoldEnd" Duration="0:0:0.15" AutoReverse="False"
+                                                RepeatBehavior="1x" />
+                                            <ColorAnimation
+                                                Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                                FillBehavior="HoldEnd" Duration="0:0:0.15" AutoReverse="False"
+                                                RepeatBehavior="1x" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FF5B5B" />
+                                <Setter Property="BorderBrush" TargetName="border" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FFBCDDEE" />
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4" />
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5" />
+                                <Setter Property="Foreground" Value="#FF838383" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MinMaxButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              Content="{TemplateBinding Content}"
+                                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                              Focusable="False"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}" RecognizesAccessKey="True"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsDefaulted" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border"
+                                        Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation To="#EEEEEE"
+                                                            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                                            FillBehavior="HoldEnd" Duration="0:0:0.15"
+                                                            AutoReverse="False"
+                                                            RepeatBehavior="1x" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                                FillBehavior="HoldEnd" Duration="0:0:0.15" AutoReverse="False"
+                                                RepeatBehavior="1x" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#DDDDDD" />
+                            </Trigger>
+                            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FFBCDDEE" />
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" TargetName="border" Value="#FFF4F4F4" />
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5" />
+                                <Setter Property="Foreground" Value="#FF838383" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="GripButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              Content="{TemplateBinding Content}"
+                                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                              Focusable="False"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}" RecognizesAccessKey="True"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsDefaulted" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border"
+                                        Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" TargetName="border" Value="SizeAll" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Cursor" TargetName="border" Value="Arrow" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TopBarStyle" TargetType="{x:Type Grid}">
+            <!-- <Setter Property="Template"> -->
+            <!--     <Setter.Value> -->
+            <!--         <ControlTemplate TargetType="{x:Type Grid}"> -->
+            <!--             <ControlTemplate.Triggers> -->
+            <!--                 <Trigger Property="IsMouseOver" Value="True"> -->
+            <!--                     <Setter Property="Cursor" TargetName="border" Value="SizeAll" /> -->
+            <!--                 </Trigger> -->
+            <!--                 <Trigger Property="IsMouseOver" Value="False"> -->
+            <!--                     <Setter Property="Cursor" TargetName="border" Value="Arrow" /> -->
+            <!--                 </Trigger> -->
+            <!--                 <DataTrigger Binding="{Binding Data}" Value="True"> -->
+            <!--                     <Setter Property="Margin" TargetName="border" Value="0,0,0,0" /> -->
+            <!--                 </DataTrigger> -->
+            <!--                 <DataTrigger Binding="{Binding Data}" Value="False"> -->
+            <!--                     <Setter Property="Margin" TargetName="border" Value="0,0,-30,0" /> -->
+            <!--                 </DataTrigger> -->
+            <!--             </ControlTemplate.Triggers> -->
+            <!--         </ControlTemplate> -->
+            <!--     </Setter.Value> -->
+            <!-- </Setter> -->
+        </Style>
+    </Window.Resources>
     <WindowChrome.WindowChrome>
-        <WindowChrome 
+        <WindowChrome
             CaptionHeight="0"
             ResizeBorderThickness="5" />
     </WindowChrome.WindowChrome>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="59*"/>
-            <ColumnDefinition Width="735*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="Pic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Stretch="None" Grid.ColumnSpan="2"/>
-        <ToolBar x:Name="UpToolBar" HorizontalAlignment="Stretch" Height="60" VerticalAlignment="Top" Margin="0" Grid.ColumnSpan="2" MouseLeftButtonDown="Pic_MouseDown">
-            <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="0,10,0,0" Height="40"/>
-            <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="0,10,0,0" Height="40"/>
-            <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="0,10,0,0" Height="40"/>
-            <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="0,10,0,0" Height="40"/>
-            <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="0,10,0,0" Height="40"/>
-            <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="0,10,0,0" Height="40"/>
-            <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="0,10,0,0" Height="40"/>
-            <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="0,10,0,0" Height="40"/>
-            <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="0,10,0,0" Height="40"/>
-            <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="0,10,0,0" Height="40"/>
-        </ToolBar>
+        <Image x:Name="Pic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Stretch="None"
+               Grid.ColumnSpan="1" />
+        <Grid x:Name="TopBar" HorizontalAlignment="Stretch" Height="30" Margin="0,-30,0,0" VerticalAlignment="Top" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="CloseButton" HorizontalAlignment="Stretch" Style="{StaticResource CloseButtonStyle}"
+                    VerticalAlignment="Stretch" BorderThickness="0" Background="White" Foreground="Black" Padding="0"
+                    Click="Close_Click"
+                    FontFamily="Segoe MDL2 Assets" FontSize="10" Content="&#xE106;" Grid.Column="4" Margin="0"/>
+            <Button x:Name="MaxButton" HorizontalAlignment="Stretch"  Style="{StaticResource MinMaxButtonStyle}"
+                    BorderThickness="0" Background="White" Foreground="Black" Padding="0"
+                    Margin="0" VerticalAlignment="Stretch" Content="&#xE739;" Grid.Column="3"
+                    FontFamily="Segoe MDL2 Assets" FontSize="10" Click="Max_Click" />
+            <Button x:Name="MinButton" HorizontalAlignment="Stretch" Style="{StaticResource MinMaxButtonStyle}"
+                    BorderThickness="0" Background="White" Foreground="Black" Padding="0"
+                    Margin="0" VerticalAlignment="Stretch" Content="&#xE949;" Grid.Column="2"
+                    FontFamily="Segoe MDL2 Assets" FontSize="10" Click="Min_Click"/>
+            <Button x:Name="MenuButton" HorizontalAlignment="Stretch"  Style="{StaticResource MinMaxButtonStyle}"
+                    BorderThickness="0" Background="White" Foreground="Black" Padding="0" VerticalAlignment="Stretch" Content="&#xE700;"
+                    FontFamily="Segoe MDL2 Assets" FontSize="12" Grid.Column="0"/>
+            <Button x:Name="Grip" Content="" Grid.Column="1" Style="{StaticResource GripButtonStyle}"
+                    VerticalAlignment="Stretch" Margin="0,0,0,0" BorderThickness="0" Padding="0" HorizontalAlignment="Stretch"
+                    Background="#00FFFFFF" PreviewMouseLeftButtonDown="Grip_PreviewMouseLeftButtonDown" PreviewMouseDoubleClick="Grip_MouseDoubleClick"/>
+        </Grid>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -12,48 +13,57 @@ namespace WpfApp1 {
   ///   MainWindow.xaml 的交互逻辑
   /// </summary>
   public partial class MainWindow {
-    private bool isUpToolBarUp; //布尔量，判断顶栏移动方向
+
+    private static readonly ThicknessAnimationUsingKeyFrames TopBarShowAnimation = new ThicknessAnimationUsingKeyFrames {
+      KeyFrames = new ThicknessKeyFrameCollection {
+        new EasingThicknessKeyFrame(new Thickness(0, -30, 0, 0), KeyTime.FromTimeSpan(TimeSpan.Zero),
+          new CubicEase()),
+        new EasingThicknessKeyFrame(new Thickness(0, 0, 0, 0), KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(150)),
+          new CubicEase())
+      }
+    };
+
+    private static readonly ThicknessAnimationUsingKeyFrames TopBarHideAnimation = new ThicknessAnimationUsingKeyFrames {
+      KeyFrames = new ThicknessKeyFrameCollection {
+        new EasingThicknessKeyFrame(new Thickness(0, 0, 0, 0), KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(500)),
+          new CubicEase()),
+        new EasingThicknessKeyFrame(new Thickness(0, -30, 0, 0), KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(650)),
+          new CubicEase())
+      }
+    };
+
+    private bool showTopbar = false;
 
     public MainWindow() {
       InitializeComponent();
-      var isUpToolBarUp = true; //顶栏移动初始方向向上
-      UpToolBarAnimation(isUpToolBarUp);
     }
 
-    private void UpToolBarAnimation(bool isUpToolBarUp) //顶栏动画
-    {
-      var tt = new TranslateTransform(); //创建一个一个对象，对两个值在时间线上进行动画处理（移动距离，移动到的位置）
-      var da = new DoubleAnimation(); //设定动画时间线
-      var duration = new Duration(TimeSpan.FromSeconds(0.2)); //btnFlash要进行动画操作的控件名
-      UpToolBar.RenderTransform = tt;
-      if (isUpToolBarUp) //移出
-      {
-        tt.Y = 0; //开始
-        da.To = -80; //结束
-      }
-      else //移入
-      {
-        tt.Y = -80;
-        da.To = 0;
-      }
-
-      da.Duration = duration;
-      //开始进行动画处理
-      tt.BeginAnimation(TranslateTransform.YProperty, da);
+    private void TopBarAnimation(bool show) {
+      TopBar.BeginAnimation(MarginProperty, show ? TopBarShowAnimation : TopBarHideAnimation);
     }
 
     private void MainWindow1_MouseMove(object sender, MouseEventArgs e) {
-      var pt = e.GetPosition(this); //GetPosition返回相对指定元素的鼠标位置
-      if (pt.Y > 50 && isUpToolBarUp) //鼠标移出框
-      {
-        UpToolBarAnimation(isUpToolBarUp);
-        isUpToolBarUp = !isUpToolBarUp;
+      var pos = e.GetPosition(this);
+      if (showTopbar == (pos.Y < 60)) {
+        return;
       }
 
-      if (pt.Y < 50 && !isUpToolBarUp) //鼠标移入框
-      {
-        UpToolBarAnimation(isUpToolBarUp);
-        isUpToolBarUp = !isUpToolBarUp;
+      showTopbar = !showTopbar;
+      TopBarAnimation(showTopbar);
+    }
+
+    private void SwitchWindowState() {
+      switch (WindowState) {
+        case WindowState.Normal:
+          ResizeMode = ResizeMode.NoResize;
+          WindowState = WindowState.Maximized;
+          MaxButton.Content = "\xE923";
+          break;
+        case WindowState.Maximized:
+          ResizeMode = ResizeMode.CanResize;
+          WindowState = WindowState.Normal;
+          MaxButton.Content = "\xE739";
+          break;
       }
     }
 
@@ -73,7 +83,7 @@ namespace WpfApp1 {
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e) {
-      var d = File.ReadAllBytes("sayo.heic");
+      var d = File.ReadAllBytes("trans.heic");
       var dpi = GetDPI();
       var bitmap = HeifDecoder.WBitmapFromBytes(d, dpi);
       Pic.Source = bitmap;
@@ -85,24 +95,58 @@ namespace WpfApp1 {
           Close();
           break;
         case Key.Space:
-          switch (WindowState) {
-            case WindowState.Normal:
-              WindowState = WindowState.Maximized;
-              break;
-            case WindowState.Maximized:
-              WindowState = WindowState.Normal;
-              break;
-          }
-
+          SwitchWindowState();
           break;
       }
     }
 
-    private void Pic_MouseDown(object sender, MouseButtonEventArgs e) {
-      var pos = Mouse.GetPosition(this);
-      if (4 <= pos.Y && pos.Y <= 40 && 4 <= pos.X && pos.X <= Width - 4 && WindowState == WindowState.Normal) {
+
+    private void Close_Click(object sender, RoutedEventArgs e) {
+      Close();
+    }
+
+    private void Max_Click(object sender, RoutedEventArgs e) {
+      SwitchWindowState();
+    }
+
+    private void Min_Click(object sender, RoutedEventArgs e) {
+      WindowState = WindowState.Minimized;
+    }
+
+    private void GripMove(object sender, MouseButtonEventArgs e) {
+      if (e.ButtonState == MouseButtonState.Pressed) {
+        DragMove();
+      }
+    }
+
+    private void Grip_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+      SwitchWindowState();
+    }
+
+    private void Grip_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
+      if (e.ButtonState == MouseButtonState.Pressed && WindowState == WindowState.Normal) {
         DragMove();
       }
     }
   }
+
+  // public class Bindable<T> : INotifyPropertyChanged {
+  //   public event PropertyChangedEventHandler PropertyChanged;
+  //   private T data;
+  //   public T Data {
+  //     get => data;
+  //     set {
+  //       if (data.Equals(value)) {
+  //         return;
+  //       }
+  //       data = value;
+  //       PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Data"));
+  //     }
+  //   }
+  //   public Bindable(T value) {
+  //     data = value;
+  //   }
+  //
+  //   public Bindable() { }
+  // }
 }
