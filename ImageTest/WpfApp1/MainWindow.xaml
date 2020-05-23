@@ -228,7 +228,20 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Image x:Name="Pic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Stretch="None"
-               Grid.ColumnSpan="1" >
+               Grid.ColumnSpan="1" 
+               MouseDown="img_MouseDown"
+               MouseMove="img_MouseMove"
+               MouseUp="img_MouseUp"
+               MouseLeave="img_MouseLeave"
+               MouseWheel="img_MouseWheel"
+               >
+            <!--图片变换相关-->
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform x:Name="PicScaleTransform" />
+                    <TranslateTransform x:Name="PicTranslateTransform" />
+                </TransformGroup>
+            </Image.RenderTransform>
             <!--图片右键-->
             <Image.ContextMenu>
                 <ContextMenu Name="PicMenu" StaysOpen="true">

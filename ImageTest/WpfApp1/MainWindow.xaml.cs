@@ -182,8 +182,45 @@ namespace WpfApp1 {
       showMenu = !showMenu;
       MenuItemAnimation(showMenu);
     }
-  }
+    //图片拖拽相关
+    private bool isMouseLeftButtonDown = false;
+    Point previousMousePoint = new Point(0, 0);
+    private void img_MouseDown(object sender, MouseButtonEventArgs e) {
+      isMouseLeftButtonDown = true;
+      previousMousePoint = e.GetPosition(Pic);
+    }
 
+    private void img_MouseUp(object sender, MouseButtonEventArgs e) {
+      isMouseLeftButtonDown = false;
+    }
+
+    private void img_MouseLeave(object sender, MouseEventArgs e) {
+      isMouseLeftButtonDown = false;
+    }
+
+    private void img_MouseMove(object sender, MouseEventArgs e) {
+      if (isMouseLeftButtonDown == true) {
+        Point position = e.GetPosition(Pic);
+        PicTranslateTransform.X += position.X - this.previousMousePoint.X;
+        PicTranslateTransform.Y += position.Y - this.previousMousePoint.Y;
+      }
+    }
+
+    private void img_MouseWheel(object sender, MouseWheelEventArgs e) {//滚轮缩放事件
+      Point centerPoint = e.GetPosition(Pic);
+
+      double val = (double)e.Delta / 2000;   //描述鼠标滑轮滚动
+      if (PicScaleTransform.ScaleX < 0.3 && PicScaleTransform.ScaleY < 0.3 && e.Delta < 0) {
+        return;
+      }
+      PicScaleTransform.CenterX = centerPoint.X;
+      PicScaleTransform.CenterY = centerPoint.Y;
+
+      PicScaleTransform.ScaleX += val;
+      PicScaleTransform.ScaleY += val;
+    }
+  }
+ 
   // public class Bindable<T> : INotifyPropertyChanged {
   //   public event PropertyChangedEventHandler PropertyChanged;
   //   private T data;
