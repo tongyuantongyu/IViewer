@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
@@ -6,7 +7,10 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Xml.Serialization;
 using ImageDecoder.Heif;
+using WpfAppImageTest;
+
 
 namespace WpfApp1 {
   /// <summary>
@@ -98,7 +102,6 @@ namespace WpfApp1 {
       }
     }
 
-
     private void Close_Click(object sender, RoutedEventArgs e) {
       Close();
     }
@@ -184,7 +187,25 @@ namespace WpfApp1 {
       PicScaleTransform.ScaleX += val;
       PicScaleTransform.ScaleY += val;
     }
+    private Setting setting = new Setting();
+    //导入设置
+    private void ImportSetting(object sender, RoutedEventArgs e) {
+      string FileName = "Setting.xml";
+      XmlSerializer xmlSerializer = new XmlSerializer(typeof(Setting));
+      using (FileStream fs = new FileStream(FileName, FileMode.Open)) {
+        setting = (Setting)xmlSerializer.Deserialize(fs);
+      }
+    }
+    //导出设置
+    private void ExportSetting(object sender, RoutedEventArgs e) {
+      string FileName = "Setting.xml";
+      XmlSerializer xmlSerializer = new XmlSerializer(typeof(Setting));
+      using (FileStream fs = new FileStream(FileName, FileMode.Create)) {
+        xmlSerializer.Serialize(fs, setting);
+      }
+    }
   }
+
  
   // public class Bindable<T> : INotifyPropertyChanged {
   //   public event PropertyChangedEventHandler PropertyChanged;

@@ -283,9 +283,9 @@
                     <MenuItem Header="Open" Click="OpenFileButton_Click"/>
                     <MenuItem Header="Save"/>
                     <MenuItem Header="SaveAs"/>
-                    <MenuItem Header="Recent Files">
-                        <MenuItem Header="ReadMe.txt"/>
-                        <MenuItem Header="Schedule.xls"/>          
+                    <MenuItem Header="Setting">
+                        <MenuItem Header="Import Setting" Click="ImportSetting"/>
+                        <MenuItem Header="Export Setting" Click="ExportSetting"/>          
                     </MenuItem>
                 </ContextMenu>
             </Rectangle.ContextMenu>
