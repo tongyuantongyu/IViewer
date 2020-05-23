@@ -34,36 +34,14 @@ namespace WpfApp1 {
     private void TopBarAnimation(bool show) {
       TopBar.BeginAnimation(MarginProperty, show ? TopBarShowAnimation : TopBarHideAnimation);
     }
-    //菜单项动画
-    private static readonly ThicknessAnimationUsingKeyFrames MenuItemShowAnimation = new ThicknessAnimationUsingKeyFrames {
-      KeyFrames = new ThicknessKeyFrameCollection {
-        new EasingThicknessKeyFrame(new Thickness(0, -45, 0, 0), KeyTime.FromTimeSpan(TimeSpan.Zero),
-          new CubicEase()),
-        new EasingThicknessKeyFrame(new Thickness(0, 30, 0, 0), KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(150)),
-          new CubicEase())
-      }
-    };
-
-    private static readonly ThicknessAnimationUsingKeyFrames MenuItemHideAnimation = new ThicknessAnimationUsingKeyFrames {
-      KeyFrames = new ThicknessKeyFrameCollection {
-        new EasingThicknessKeyFrame(new Thickness(0, 30, 0, 0), KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(400)),
-          new CubicEase()),
-        new EasingThicknessKeyFrame(new Thickness(0, -45, 0, 0), KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(450)),
-          new CubicEase())
-      }
-    };
-    private void MenuItemAnimation(bool show) {
-      OpenFileButton.BeginAnimation(MarginProperty, show ? MenuItemShowAnimation : MenuItemHideAnimation);
-    }
+    
     //动画相关布尔量
     private bool showTopbar;
-    private bool showMenu;
 
     public MainWindow() {
       InitializeComponent();
       //初始化
       showTopbar = false;
-      showMenu = false;
     }
 
     private void MainWindow1_MouseMove(object sender, MouseEventArgs e) {
@@ -73,11 +51,7 @@ namespace WpfApp1 {
       }
       showTopbar = !showTopbar;
       TopBarAnimation(showTopbar);
-      //菜单隐藏时将菜单项一起隐藏
-      if (showTopbar == false) {
-        showMenu = false;
-        MenuItemAnimation(showMenu);
-      }
+
     }
 
     private void SwitchWindowState() {
@@ -111,10 +85,6 @@ namespace WpfApp1 {
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e) {
-      //var d = File.ReadAllBytes("trans.heic");
-      //var dpi = GetDPI();
-      //var bitmap = HeifDecoder.WBitmapFromBytes(d, dpi);
-      //Pic.Source = bitmap;
     }
 
     private void Window_KeyUp(object sender, KeyEventArgs e) {
@@ -159,7 +129,7 @@ namespace WpfApp1 {
 
     private void OpenFileButton_Click(object sender, RoutedEventArgs e) {//打开文件
       Microsoft.Win32.OpenFileDialog op = new Microsoft.Win32.OpenFileDialog();
-      op.InitialDirectory = @"E:\C sharp\IViewer\ImageTest\WpfApp1\bin\x64\Debug";//初始目录
+      op.InitialDirectory = @"%userprofile%";//初始目录
       op.RestoreDirectory = true;
       op.Filter = "heic图片(*.heic)|*.heic|所有文件(*.*)|*.*";//文件类型选项
       op.FilterIndex = 1;//默认为第一项
@@ -178,10 +148,6 @@ namespace WpfApp1 {
       Pic.Source = bitmap;
     }
 
-    private void MenuButton_Click(object sender, RoutedEventArgs e) {//点击菜单键弹出功能按钮
-      showMenu = !showMenu;
-      MenuItemAnimation(showMenu);
-    }
     //图片拖拽相关
     private bool isMouseLeftButtonDown = false;
     Point previousMousePoint = new Point(0, 0);
@@ -215,7 +181,6 @@ namespace WpfApp1 {
       }
       PicScaleTransform.CenterX = centerPoint.X;
       PicScaleTransform.CenterY = centerPoint.Y;
-
       PicScaleTransform.ScaleX += val;
       PicScaleTransform.ScaleY += val;
     }

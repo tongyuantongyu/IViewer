@@ -229,12 +229,7 @@
         </Grid.ColumnDefinitions>
         <Image x:Name="Pic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Stretch="None"
                Grid.ColumnSpan="1" 
-               MouseDown="img_MouseDown"
-               MouseMove="img_MouseMove"
-               MouseUp="img_MouseUp"
-               MouseLeave="img_MouseLeave"
-               MouseWheel="img_MouseWheel"
-               >
+        >
             <!--图片变换相关-->
             <Image.RenderTransform>
                 <TransformGroup>
@@ -242,18 +237,6 @@
                     <TranslateTransform x:Name="PicTranslateTransform" />
                 </TransformGroup>
             </Image.RenderTransform>
-            <!--图片右键-->
-            <Image.ContextMenu>
-                <ContextMenu Name="PicMenu" StaysOpen="true">
-                    <MenuItem Header="File"/>
-                    <MenuItem Header="Save"/>
-                    <MenuItem Header="SaveAs"/>
-                    <MenuItem Header="Recent Files">
-                        <MenuItem Header="ReadMe.txt"/>
-                        <MenuItem Header="Schedule.xls"/>          
-                    </MenuItem>
-                </ContextMenu>
-           </Image.ContextMenu>
         </Image>
         <Grid x:Name="TopBar" HorizontalAlignment="Stretch" Height="30" Margin="0,-30,0,0" VerticalAlignment="Top" Grid.Column="0">
             <Grid.ColumnDefinitions>
@@ -266,22 +249,46 @@
             <Button x:Name="CloseButton" HorizontalAlignment="Stretch" Style="{StaticResource CloseButtonStyle}"
                     VerticalAlignment="Stretch" BorderThickness="0" Background="White" Foreground="Black" Padding="0"
                     Click="Close_Click"
-                    FontFamily="Segoe MDL2 Assets" FontSize="10" Content="&#xE106;" Grid.Column="4" Margin="0"/>
+                    FontFamily="Segoe MDL2 Assets" FontSize="10" Content="&#xE106;" Grid.Column="4" Margin="0" Panel.ZIndex="2"/>
             <Button x:Name="MaxButton" HorizontalAlignment="Stretch"  Style="{StaticResource MinMaxButtonStyle}"
                     BorderThickness="0" Background="White" Foreground="Black" Padding="0"
                     Margin="0" VerticalAlignment="Stretch" Content="&#xE739;" Grid.Column="3"
-                    FontFamily="Segoe MDL2 Assets" FontSize="10" Click="Max_Click" />
+                    FontFamily="Segoe MDL2 Assets" FontSize="10" Click="Max_Click" Panel.ZIndex="2" />
             <Button x:Name="MinButton" HorizontalAlignment="Stretch" Style="{StaticResource MinMaxButtonStyle}"
                     BorderThickness="0" Background="White" Foreground="Black" Padding="0"
                     Margin="0" VerticalAlignment="Stretch" Content="&#xE949;" Grid.Column="2"
-                    FontFamily="Segoe MDL2 Assets" FontSize="10" Click="Min_Click"/>
+                    FontFamily="Segoe MDL2 Assets" FontSize="10" Click="Min_Click" Panel.ZIndex="2"/>
             <Button x:Name="MenuButton" HorizontalAlignment="Stretch"  Style="{StaticResource MinMaxButtonStyle}"
                     BorderThickness="0" Background="White" Foreground="Black" Padding="0" VerticalAlignment="Stretch" Content="&#xE700;"
-                    FontFamily="Segoe MDL2 Assets" FontSize="12" Grid.Column="0" Click="MenuButton_Click"/>
+                    FontFamily="Segoe MDL2 Assets" FontSize="12" Grid.Column="0" Panel.ZIndex="2"/>
             <Button x:Name="Grip" Content="" Grid.Column="1" Style="{StaticResource GripButtonStyle}"
                     VerticalAlignment="Stretch" Margin="0,0,0,0" BorderThickness="0" Padding="0" HorizontalAlignment="Stretch"
                     Background="#00FFFFFF" PreviewMouseLeftButtonDown="Grip_PreviewMouseLeftButtonDown" PreviewMouseDoubleClick="Grip_MouseDoubleClick"/>
         </Grid>
-        <Button x:Name="OpenFileButton" Content="Open" HorizontalAlignment="Left" VerticalAlignment="Top" Width="51" Click="OpenFileButton_Click" Height="31" Margin="0,-44,0,0"/>
+        <Rectangle x:Name="TopRectangle" HorizontalAlignment="Left" Height="420" VerticalAlignment="Top" Width="800" Panel.ZIndex="1" Margin="-3,24,-3.667,-0.667"
+                   MouseDown="img_MouseDown"
+                   MouseMove="img_MouseMove"
+                   MouseUp="img_MouseUp"
+                   MouseLeave="img_MouseLeave"
+                   MouseWheel="img_MouseWheel"
+                   >
+            <Rectangle.Stroke>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Rectangle.Stroke>
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#FFFCFCFC" Opacity="0"/>
+            </Rectangle.Fill>
+            <Rectangle.ContextMenu>
+                <ContextMenu Name="TopPicMenu" StaysOpen="true">
+                    <MenuItem Header="Open" Click="OpenFileButton_Click"/>
+                    <MenuItem Header="Save"/>
+                    <MenuItem Header="SaveAs"/>
+                    <MenuItem Header="Recent Files">
+                        <MenuItem Header="ReadMe.txt"/>
+                        <MenuItem Header="Schedule.xls"/>          
+                    </MenuItem>
+                </ContextMenu>
+            </Rectangle.ContextMenu>
+        </Rectangle>
     </Grid>
 </Window>
