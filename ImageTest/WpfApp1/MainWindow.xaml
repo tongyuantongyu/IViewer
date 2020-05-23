@@ -243,10 +243,11 @@
                     FontFamily="Segoe MDL2 Assets" FontSize="10" Click="Min_Click"/>
             <Button x:Name="MenuButton" HorizontalAlignment="Stretch"  Style="{StaticResource MinMaxButtonStyle}"
                     BorderThickness="0" Background="White" Foreground="Black" Padding="0" VerticalAlignment="Stretch" Content="&#xE700;"
-                    FontFamily="Segoe MDL2 Assets" FontSize="12" Grid.Column="0"/>
+                    FontFamily="Segoe MDL2 Assets" FontSize="12" Grid.Column="0" Click="MenuButton_Click"/>
             <Button x:Name="Grip" Content="" Grid.Column="1" Style="{StaticResource GripButtonStyle}"
                     VerticalAlignment="Stretch" Margin="0,0,0,0" BorderThickness="0" Padding="0" HorizontalAlignment="Stretch"
                     Background="#00FFFFFF" PreviewMouseLeftButtonDown="Grip_PreviewMouseLeftButtonDown" PreviewMouseDoubleClick="Grip_MouseDoubleClick"/>
         </Grid>
+        <Button x:Name="OpenFileButton" Content="Open" HorizontalAlignment="Left" VerticalAlignment="Top" Width="51" Click="OpenFileButton_Click" Height="31" Margin="0,-44,0,0"/>
     </Grid>
 </Window>
