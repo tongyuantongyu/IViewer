@@ -19,6 +19,14 @@
             </Style.Triggers>
         </Style>
     </Window.Style>
+    <!--窗口右键-->
+    <Window.ContextMenu>
+        <ContextMenu Name="MainWindowMenu" StaysOpen="true">
+            <MenuItem Header="File" Click="OpenFileButton_Click"/>
+            <MenuItem Header="Save"/>
+            <MenuItem Header="SaveAs"/>
+        </ContextMenu>
+    </Window.ContextMenu>
     <Window.Resources>
         <Style x:Key="CloseButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Template">
@@ -220,7 +228,20 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Image x:Name="Pic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Stretch="None"
-               Grid.ColumnSpan="1" />
+               Grid.ColumnSpan="1" >
+            <!--图片右键-->
+            <Image.ContextMenu>
+                <ContextMenu Name="PicMenu" StaysOpen="true">
+                    <MenuItem Header="File"/>
+                    <MenuItem Header="Save"/>
+                    <MenuItem Header="SaveAs"/>
+                    <MenuItem Header="Recent Files">
+                        <MenuItem Header="ReadMe.txt"/>
+                        <MenuItem Header="Schedule.xls"/>          
+                    </MenuItem>
+                </ContextMenu>
+           </Image.ContextMenu>
+        </Image>
         <Grid x:Name="TopBar" HorizontalAlignment="Stretch" Height="30" Margin="0,-30,0,0" VerticalAlignment="Top" Grid.Column="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50" />
