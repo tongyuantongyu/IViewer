@@ -11,6 +11,10 @@ using System.Xml.Serialization;
 using ImageDecoder.Heif;
 using WpfAppImageTest;
 
+using MetadataExtractor;
+using MetadataExtractor.Formats.Exif;
+using System.Linq;
+using System.Windows.Controls;
 
 namespace WpfApp1 {
   /// <summary>
@@ -38,7 +42,7 @@ namespace WpfApp1 {
     private void TopBarAnimation(bool show) {
       TopBar.BeginAnimation(MarginProperty, show ? TopBarShowAnimation : TopBarHideAnimation);
     }
-    
+
     //动画相关布尔量
     private bool showTopbar;
 
@@ -46,6 +50,12 @@ namespace WpfApp1 {
       InitializeComponent();
       //初始化
       showTopbar = false;
+      //设置图片拉伸
+      Pic.Stretch = Stretch.UniformToFill;
+      //扩大顶层范围，避免全屏后鼠标判定范围过小
+      TopRectangle.Width = SystemParameters.PrimaryScreenWidth;
+      TopRectangle.Height = SystemParameters.PrimaryScreenHeight;
+
     }
 
     private void MainWindow1_MouseMove(object sender, MouseEventArgs e) {
@@ -136,11 +146,11 @@ namespace WpfApp1 {
       op.RestoreDirectory = true;
       op.Filter = "heic图片(*.heic)|*.heic|所有文件(*.*)|*.*";//文件类型选项
       op.FilterIndex = 1;//默认为第一项
-      if (op.ShowDialog()==true)
-      {
+      if (op.ShowDialog() == true) {
         //获取文件名
         string FileName = op.FileName;
-        OpenImgFile(FileName);
+        //OpenImgFile(FileName);
+        OpenImgFile("trans.heic");
       }
     }
 
@@ -149,14 +159,43 @@ namespace WpfApp1 {
       var dpi = GetDPI();
       var bitmap = HeifDecoder.WBitmapFromBytes(d, dpi);
       Pic.Source = bitmap;
+
+      var metaDirectories =ImageMetadataReader.ReadMetadata(FileName);
+      string data ="";
+      foreach (var directory in metaDirectories) { foreach (var tag in directory.Tags) { data+=tag.ToString()+'\n'; } }
+      textBox.Text = data;
+      //保存pic_info
+      /*
+      FileStream fs = new FileStream("pic_info.txt", FileMode.Create);
+      fs.Write(System.Text.Encoding.Default.GetBytes(data), 0, data.Length);
+      fs.Flush();
+      fs.Close();*/
     }
+    
 
     //图片拖拽相关
+    private bool bigOrSmall = true;//标记当前双击事件放大或缩小
+
     private bool isMouseLeftButtonDown = false;
     Point previousMousePoint = new Point(0, 0);
     private void img_MouseDown(object sender, MouseButtonEventArgs e) {
+      Point centerPoint = e.GetPosition(Pic);
       isMouseLeftButtonDown = true;
       previousMousePoint = e.GetPosition(Pic);
+      if (e.ClickCount >= 2) {
+        PicScaleTransform.CenterX = centerPoint.X;
+        PicScaleTransform.CenterY = centerPoint.Y;
+        if (bigOrSmall) {
+          PicScaleTransform.ScaleX += 1;
+          PicScaleTransform.ScaleY += 1;
+          bigOrSmall = false;
+        }
+        else {
+          PicScaleTransform.ScaleX -= 1;
+          PicScaleTransform.ScaleY -= 1;
+          bigOrSmall = true;
+        }
+      }
     }
 
     private void img_MouseUp(object sender, MouseButtonEventArgs e) {
@@ -169,9 +208,20 @@ namespace WpfApp1 {
 
     private void img_MouseMove(object sender, MouseEventArgs e) {
       if (isMouseLeftButtonDown == true) {
+        var maxPercentageDrag = 0.3;
         Point position = e.GetPosition(Pic);
-        PicTranslateTransform.X += position.X - this.previousMousePoint.X;
-        PicTranslateTransform.Y += position.Y - this.previousMousePoint.Y;
+        //限制最大拖动
+        if (PicTranslateTransform.X <=this.Width* maxPercentageDrag && PicTranslateTransform.X >=this.Width*(-maxPercentageDrag))
+          PicTranslateTransform.X += position.X - this.previousMousePoint.X;
+
+        if (PicTranslateTransform.Y <= this.Width * maxPercentageDrag && PicTranslateTransform.Y >= this.Width * (-maxPercentageDrag))
+          PicTranslateTransform.Y += position.Y - this.previousMousePoint.Y;
+
+        if (PicTranslateTransform.X > this.Width * maxPercentageDrag) PicTranslateTransform.X = this.Width * maxPercentageDrag;
+        else if (PicTranslateTransform.X < this.Width * (-maxPercentageDrag)) PicTranslateTransform.X = this.Width * (-maxPercentageDrag);
+
+        if (PicTranslateTransform.Y > this.Width * maxPercentageDrag) PicTranslateTransform.Y = this.Width * maxPercentageDrag;
+        else if (PicTranslateTransform.Y < this.Width * (-maxPercentageDrag)) PicTranslateTransform.Y = this.Width * (-maxPercentageDrag);
       }
     }
 
@@ -204,9 +254,16 @@ namespace WpfApp1 {
         xmlSerializer.Serialize(fs, setting);
       }
     }
+    private void Show(object sender,RoutedEventArgs e) {
+      textBox.Visibility = Visibility.Visible;
+    }
+    private void UnShow(object sender,RoutedEventArgs e) {
+      textBox.Visibility = Visibility.Hidden;
+    }
+
   }
 
- 
+
   // public class Bindable<T> : INotifyPropertyChanged {
   //   public event PropertyChangedEventHandler PropertyChanged;
   //   private T data;

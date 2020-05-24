@@ -283,6 +283,7 @@
                     <MenuItem Header="Open" Click="OpenFileButton_Click"/>
                     <MenuItem Header="Save"/>
                     <MenuItem Header="SaveAs"/>
+                    <MenuItem Header="ShowInfo" IsCheckable="True" Checked="Show" Unchecked="UnShow"/>
                     <MenuItem Header="Setting">
                         <MenuItem Header="Import Setting" Click="ImportSetting"/>
                         <MenuItem Header="Export Setting" Click="ExportSetting"/>          
@@ -290,5 +291,6 @@
                 </ContextMenu>
             </Rectangle.ContextMenu>
         </Rectangle>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="444" Margin="-3,-1,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="380" Visibility="Hidden"/>
     </Grid>
 </Window>
