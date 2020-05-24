@@ -38,7 +38,7 @@ namespace WpfApp1 {
     private void TopBarAnimation(bool show) {
       TopBar.BeginAnimation(MarginProperty, show ? TopBarShowAnimation : TopBarHideAnimation);
     }
-    
+
     //动画相关布尔量
     private bool showTopbar;
 
@@ -136,11 +136,11 @@ namespace WpfApp1 {
       op.RestoreDirectory = true;
       op.Filter = "heic图片(*.heic)|*.heic|所有文件(*.*)|*.*";//文件类型选项
       op.FilterIndex = 1;//默认为第一项
-      if (op.ShowDialog()==true)
-      {
+      if (op.ShowDialog() == true) {
         //获取文件名
         string FileName = op.FileName;
-        OpenImgFile(FileName);
+        //OpenImgFile(FileName);
+        OpenImgFile("trans.heic");
       }
     }
 
@@ -149,14 +149,32 @@ namespace WpfApp1 {
       var dpi = GetDPI();
       var bitmap = HeifDecoder.WBitmapFromBytes(d, dpi);
       Pic.Source = bitmap;
+      Pic.Stretch = Stretch.UniformToFill;
     }
 
     //图片拖拽相关
+    private bool bigOrSmall = true;//标记当前双击事件放大或缩小
+
     private bool isMouseLeftButtonDown = false;
     Point previousMousePoint = new Point(0, 0);
     private void img_MouseDown(object sender, MouseButtonEventArgs e) {
+      Point centerPoint = e.GetPosition(Pic);
       isMouseLeftButtonDown = true;
       previousMousePoint = e.GetPosition(Pic);
+      if (e.ClickCount >= 2) {
+        PicScaleTransform.CenterX = centerPoint.X;
+        PicScaleTransform.CenterY = centerPoint.Y;
+        if (bigOrSmall) {
+          PicScaleTransform.ScaleX += 1;
+          PicScaleTransform.ScaleY += 1;
+          bigOrSmall = false;
+        }
+        else {
+          PicScaleTransform.ScaleX -= 1;
+          PicScaleTransform.ScaleY -= 1;
+          bigOrSmall = true;
+        }
+      }
     }
 
     private void img_MouseUp(object sender, MouseButtonEventArgs e) {
@@ -206,7 +224,7 @@ namespace WpfApp1 {
     }
   }
 
- 
+
   // public class Bindable<T> : INotifyPropertyChanged {
   //   public event PropertyChangedEventHandler PropertyChanged;
   //   private T data;
