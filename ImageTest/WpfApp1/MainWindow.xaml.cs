@@ -189,9 +189,19 @@ namespace WpfApp1 {
 
     private void img_MouseMove(object sender, MouseEventArgs e) {
       if (isMouseLeftButtonDown == true) {
+        var maxPercentageDrag = 0.3;
         Point position = e.GetPosition(Pic);
-        if (previousMousePoint.X<this.Width && previousMousePoint.X>0)PicTranslateTransform.X += position.X - this.previousMousePoint.X;
-        if (previousMousePoint.Y < this.Width && previousMousePoint.Y > 0) PicTranslateTransform.Y += position.Y - this.previousMousePoint.Y;
+        if (PicTranslateTransform.X <=this.Width* maxPercentageDrag && PicTranslateTransform.X >=this.Width*(-maxPercentageDrag))
+          PicTranslateTransform.X += position.X - this.previousMousePoint.X;
+
+        if (PicTranslateTransform.Y <= this.Width * maxPercentageDrag && PicTranslateTransform.Y >= this.Width * (-maxPercentageDrag))
+          PicTranslateTransform.Y += position.Y - this.previousMousePoint.Y;
+
+        if (PicTranslateTransform.X > this.Width * maxPercentageDrag) PicTranslateTransform.X = this.Width * maxPercentageDrag;
+        else if (PicTranslateTransform.X < this.Width * (-maxPercentageDrag)) PicTranslateTransform.X = this.Width * (-maxPercentageDrag);
+
+        if (PicTranslateTransform.Y > this.Width * maxPercentageDrag) PicTranslateTransform.Y = this.Width * maxPercentageDrag;
+        else if (PicTranslateTransform.Y < this.Width * (-maxPercentageDrag)) PicTranslateTransform.Y = this.Width * (-maxPercentageDrag);
       }
     }
 
