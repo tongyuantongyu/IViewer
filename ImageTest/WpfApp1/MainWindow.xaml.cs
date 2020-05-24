@@ -150,6 +150,8 @@ namespace WpfApp1 {
       var bitmap = HeifDecoder.WBitmapFromBytes(d, dpi);
       Pic.Source = bitmap;
       Pic.Stretch = Stretch.UniformToFill;
+      TopRectangle.Width = SystemParameters.PrimaryScreenWidth;
+      TopRectangle.Height = SystemParameters.PrimaryScreenHeight;
     }
 
     //图片拖拽相关
@@ -188,8 +190,8 @@ namespace WpfApp1 {
     private void img_MouseMove(object sender, MouseEventArgs e) {
       if (isMouseLeftButtonDown == true) {
         Point position = e.GetPosition(Pic);
-        PicTranslateTransform.X += position.X - this.previousMousePoint.X;
-        PicTranslateTransform.Y += position.Y - this.previousMousePoint.Y;
+        if (previousMousePoint.X<this.Width && previousMousePoint.X>0)PicTranslateTransform.X += position.X - this.previousMousePoint.X;
+        if (previousMousePoint.Y < this.Width && previousMousePoint.Y > 0) PicTranslateTransform.Y += position.Y - this.previousMousePoint.Y;
       }
     }
 
