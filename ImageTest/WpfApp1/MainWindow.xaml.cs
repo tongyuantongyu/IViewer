@@ -11,6 +11,10 @@ using System.Xml.Serialization;
 using ImageDecoder.Heif;
 using WpfAppImageTest;
 
+using MetadataExtractor;
+using MetadataExtractor.Formats.Exif;
+using System.Linq;
+using System.Windows.Controls;
 
 namespace WpfApp1 {
   /// <summary>
@@ -46,6 +50,12 @@ namespace WpfApp1 {
       InitializeComponent();
       //初始化
       showTopbar = false;
+      //设置图片拉伸
+      Pic.Stretch = Stretch.UniformToFill;
+      //扩大顶层范围，避免全屏后鼠标判定范围过小
+      TopRectangle.Width = SystemParameters.PrimaryScreenWidth;
+      TopRectangle.Height = SystemParameters.PrimaryScreenHeight;
+
     }
 
     private void MainWindow1_MouseMove(object sender, MouseEventArgs e) {
@@ -149,10 +159,19 @@ namespace WpfApp1 {
       var dpi = GetDPI();
       var bitmap = HeifDecoder.WBitmapFromBytes(d, dpi);
       Pic.Source = bitmap;
-      Pic.Stretch = Stretch.UniformToFill;
-      TopRectangle.Width = SystemParameters.PrimaryScreenWidth;
-      TopRectangle.Height = SystemParameters.PrimaryScreenHeight;
+
+      var metaDirectories =ImageMetadataReader.ReadMetadata(FileName);
+      string data ="";
+      foreach (var directory in metaDirectories) { foreach (var tag in directory.Tags) { data+=tag.ToString()+'\n'; } }
+      textBox.Text = data;
+      //保存pic_info
+      /*
+      FileStream fs = new FileStream("pic_info.txt", FileMode.Create);
+      fs.Write(System.Text.Encoding.Default.GetBytes(data), 0, data.Length);
+      fs.Flush();
+      fs.Close();*/
     }
+    
 
     //图片拖拽相关
     private bool bigOrSmall = true;//标记当前双击事件放大或缩小
@@ -191,6 +210,7 @@ namespace WpfApp1 {
       if (isMouseLeftButtonDown == true) {
         var maxPercentageDrag = 0.3;
         Point position = e.GetPosition(Pic);
+        //限制最大拖动
         if (PicTranslateTransform.X <=this.Width* maxPercentageDrag && PicTranslateTransform.X >=this.Width*(-maxPercentageDrag))
           PicTranslateTransform.X += position.X - this.previousMousePoint.X;
 
@@ -234,6 +254,13 @@ namespace WpfApp1 {
         xmlSerializer.Serialize(fs, setting);
       }
     }
+    private void Show(object sender,RoutedEventArgs e) {
+      textBox.Visibility = Visibility.Visible;
+    }
+    private void UnShow(object sender,RoutedEventArgs e) {
+      textBox.Visibility = Visibility.Hidden;
+    }
+
   }
 
 
