@@ -451,5 +451,82 @@ namespace IViewer {
       IdenticalScale = image.DpiX / GetDPI();
       InitTransform();
     }
+
+    private void OpenImg_OnClick(object sender, RoutedEventArgs e) {
+      //Open Img
+      OpenFile(sender,e);
+    }
+
+    private void CloseImg_OnClick(object sender, RoutedEventArgs e) {
+      //Close Img
+    }
+
+    //排序选项函数 descent与其他选项的关系为可同时多选 其他选项直接为互斥单选
+    //demo演示，暂不考虑代码简洁性
+    private void SortByFileName_OnClick(object sender, RoutedEventArgs e) {//文件名排序
+      //Sort By File Name
+      (sender as MenuItem).IsChecked = true;//勾选当前选项
+      //将其他两个选项取消
+      SortByModifyDate.IsChecked = false;
+      SortByFileSize.IsChecked = false;
+    }
+
+    private void SortByModifyDate_OnClick(object sender, RoutedEventArgs e) {//修改时间排序
+      //Sort By Modify Date
+      (sender as MenuItem).IsChecked = true;//勾选当前选项
+      //将其他两个选项取消
+      SortByFileName.IsChecked = false;
+      SortByFileSize.IsChecked = false;
+    }
+
+    private void SortByFileSize_OnClick(object sender, RoutedEventArgs e) {//文件大小排序
+      //Sort By Modify Date
+      (sender as MenuItem).IsChecked = true;//勾选当前选项
+      //将其他两个选项取消
+      SortByFileName.IsChecked = false;
+      SortByModifyDate.IsChecked = false;
+    }
+
+    private void DescendingSort_OnClick(object sender, RoutedEventArgs e) {//升\降序
+      (sender as MenuItem).IsChecked = !(sender as MenuItem).IsChecked;//反转选项
+      //根据 ischecked 的值更新排序
+    }
+
+    //浏览模式，前两个为互斥选项，后两个可多选？
+
+    private void OriginalMode_OnClick(object sender, RoutedEventArgs e) {//原始大小（Radio）
+      //Original Mode Img
+      (sender as MenuItem).IsChecked = true;
+      FitWindowMode.IsChecked = false;
+    }
+
+    private void FitWindowMode_OnClick(object sender, RoutedEventArgs e) {//适合窗口
+      //Fit Window Img
+      (sender as MenuItem).IsChecked = true;
+      OriginalMode.IsChecked = false;
+    }
+
+    private void StretchingMode_OnClick(object sender, RoutedEventArgs e) {
+      //Stretching Img
+      (sender as MenuItem).IsChecked = !(sender as MenuItem).IsChecked;
+    }
+
+    private void CenterMode_OnClick(object sender, RoutedEventArgs e) {
+      (sender as MenuItem).IsChecked = !(sender as MenuItem).IsChecked;
+    }
+
+    //杂项 选项，关于和退出
+    private void ConfigItem_OnClick(object sender, RoutedEventArgs e) {
+      //选项
+    }
+
+    private void AboutItem_OnClick(object sender, RoutedEventArgs e) {//打开about窗口
+      Window aboutWindow = new About();
+      aboutWindow.Show();
+    }
+
+    private void ExitItem_OnClick(object sender, RoutedEventArgs e) {
+      Application.Current.Shutdown();
+    }
   }
 }

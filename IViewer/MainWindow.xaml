@@ -35,8 +35,28 @@
             <!--#region Context Menu -->
             <Canvas.ContextMenu>
                 <ContextMenu Name="RightClickMenu" StaysOpen="True">
-                    <MenuItem Header="{x:Static p:Resources.ContextMenu_Open}" Command="Open" InputGestureText="F2"/>
-                    <MenuItem Header="{x:Static p:Resources.ContextMenu_Exit}" Command="Close" InputGestureText="F4"/>
+                    <!--<MenuItem Header="{x:Static p:Resources.ContextMenu_Open}" Command="Open" InputGestureText="F2"/>
+                    <MenuItem Header="{x:Static p:Resources.ContextMenu_Exit}" Command="Close" InputGestureText="F4"/>-->
+                    <MenuItem Name="OpenImg" Header="打开图像" Click="OpenImg_OnClick"></MenuItem>
+                    <MenuItem Name="CloseImg" Header="关闭图像" Click="CloseImg_OnClick"></MenuItem>
+
+                    <MenuItem Name="SortImg" Header="图像排序">
+                        <MenuItem Name="SortByFileName" Header="文件名" Click="SortByFileName_OnClick"></MenuItem>
+                        <MenuItem Name="SortByModifyDate" Header="修改日期" Click="SortByModifyDate_OnClick"></MenuItem>
+                        <MenuItem Name="SortByFileSize" Header="文件大小" Click="SortByFileSize_OnClick"></MenuItem>
+                        <MenuItem Name="DescendingSort" Header="降序排序" Click="DescendingSort_OnClick"></MenuItem>
+                    </MenuItem>
+
+                    <MenuItem Name="BrowseMode" Header="浏览模式">
+                        <MenuItem Name="OriginalMode" Header="原始模式" Click="OriginalMode_OnClick"></MenuItem>
+                        <MenuItem Name="FitWindowMode" Header="适合窗口" Click="FitWindowMode_OnClick"></MenuItem>
+                        <MenuItem Name="StretchingMode" Header="拉伸小图" Click="StretchingMode_OnClick"></MenuItem>
+                        <MenuItem Name="CenterMode" Header="居中大图" Click="CenterMode_OnClick"></MenuItem>
+                    </MenuItem>
+
+                    <MenuItem Name="ConfigItem" Header="选项" Click="ConfigItem_OnClick"></MenuItem>
+                    <MenuItem Name="AboutItem" Header="关于" Click="AboutItem_OnClick"></MenuItem>
+                    <MenuItem Name="ExitItem" Header="退出" Click="ExitItem_OnClick"></MenuItem>
                 </ContextMenu>
             </Canvas.ContextMenu>
             <!--#endregion -->
