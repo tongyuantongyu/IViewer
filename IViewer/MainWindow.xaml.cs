@@ -31,6 +31,10 @@ namespace IViewer {
       InitializeComponent();
       Focus();
       IdenticalScale = 72 / GetDPI();
+
+      //初始化选项
+      OriginalMode.IsChecked = true;
+      SortByFileName.IsChecked = true;
     }
 
     #region TopBarAnimation
