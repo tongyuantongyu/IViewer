@@ -265,7 +265,8 @@ namespace IViewer {
       if (scale > IdenticalScale) {
         matrix.M11 = IdenticalScale;
         matrix.M22 = IdenticalScale;
-        displayBound = imgBound;
+        displayBound.X = imgBound.X * IdenticalScale;
+        displayBound.Y = imgBound.Y * IdenticalScale;
       }
       else {
         matrix.M11 = scale;
