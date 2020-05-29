@@ -30,7 +30,7 @@ namespace IViewer {
     public MainWindow() {
       InitializeComponent();
       Focus();
-      IdenticalScale = 72 / GetDPI();
+      identicalScale = 72 / GetDPI();
     }
 
     #region TopBarAnimation
@@ -72,7 +72,7 @@ namespace IViewer {
       return matrix.M11 * 96;
     }
 
-    private double IdenticalScale;
+    private double identicalScale;
 
     private void SwitchWindowState() {
       // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
@@ -89,7 +89,6 @@ namespace IViewer {
           MaxButton.Content = "\xE739";
           break;
       }
-      // AdjustTransform();
     }
 
     #endregion
@@ -224,7 +223,7 @@ namespace IViewer {
     }
 
     private void SizeChangeHandler(object sender, SizeChangedEventArgs e) {
-      IdenticalScale = (image?.DpiX ?? 72) / GetDPI();
+      identicalScale = (image?.DpiX ?? 72) / GetDPI();
       if (!imgLoad || !IsActive) {
         return;
       }
@@ -262,11 +261,11 @@ namespace IViewer {
 
       var matrix = Matrix.Identity;
 
-      if (scale > IdenticalScale) {
-        matrix.M11 = IdenticalScale;
-        matrix.M22 = IdenticalScale;
-        displayBound.X = imgBound.X * IdenticalScale;
-        displayBound.Y = imgBound.Y * IdenticalScale;
+      if (scale > identicalScale) {
+        matrix.M11 = identicalScale;
+        matrix.M22 = identicalScale;
+        displayBound.X = imgBound.X * identicalScale;
+        displayBound.Y = imgBound.Y * identicalScale;
       }
       else {
         matrix.M11 = scale;
@@ -331,10 +330,10 @@ namespace IViewer {
         return;
       }
 
-      displayBound.X = imgBound.X * IdenticalScale;
-      displayBound.Y = imgBound.Y * IdenticalScale;
+      displayBound.X = imgBound.X * identicalScale;
+      displayBound.Y = imgBound.Y * identicalScale;
 
-      Animation((ImageLayer.ActualWidth - displayBound.X) / 2, (ImageLayer.ActualHeight - displayBound.Y) / 2, IdenticalScale);
+      Animation((ImageLayer.ActualWidth - displayBound.X) / 2, (ImageLayer.ActualHeight - displayBound.Y) / 2, identicalScale);
     }
 
     private void CenterFit() {
@@ -360,13 +359,13 @@ namespace IViewer {
 
       double delta;
       if (Shift) {
-        delta = 0.01 * IdenticalScale;
+        delta = 0.01 * identicalScale;
       }
       else if (Ctrl) {
-        delta = IdenticalScale;
+        delta = identicalScale;
       }
       else {
-        delta = 0.1 * IdenticalScale;
+        delta = 0.1 * identicalScale;
       }
 
       if (!up) {
@@ -374,7 +373,7 @@ namespace IViewer {
       }
 
       var scale = ImgTransform.Matrix.M11 + delta;
-      if (scale < 0.01 * IdenticalScale) {
+      if (scale < 0.01 * identicalScale) {
         return;
       }
 
@@ -409,6 +408,8 @@ namespace IViewer {
 
     #endregion
 
+    #region MouseMove
+
     private void MouseMoveHandler(object sender, MouseEventArgs e) {
       var pos = e.GetPosition(this);
       ShowTopBar = pos.Y < 60;
@@ -417,6 +418,10 @@ namespace IViewer {
         CanvasMove(pos);
       }
     }
+
+    #endregion
+
+    #region File Handle
 
     private void OpenFile(object sender, EventArgs e) {
       var dialog = new OpenFileDialog {
@@ -435,9 +440,6 @@ namespace IViewer {
     private BitmapSource image;
 
     private void LoadImage(string dir) {
-      // var d = File.ReadAllBytes(dir);
-      // var bitmap = HeifDecoder.WBitmapFromBytes(d, GetDPI());
-      // Pic.Source = bitmap;
       var bitmap = new BitmapImage();
       bitmap.BeginInit();
       bitmap.UriSource = new Uri(dir);
@@ -448,8 +450,10 @@ namespace IViewer {
       Img.Source = image;
       imgLoad = true;
       imgBound = new Point(image.Width, image.Height);
-      IdenticalScale = image.DpiX / GetDPI();
+      identicalScale = image.DpiX / GetDPI();
       InitTransform();
     }
+
+    #endregion
   }
 }
