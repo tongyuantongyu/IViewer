@@ -9,7 +9,7 @@ using Tomlyn;
 using Tomlyn.Model;
 
 namespace IViewer {
-  class TomlConfig {
+  public class TomlConfig {
     //Test Values
     public long ConfigLong;
     public bool ConfigBool;
@@ -77,6 +77,22 @@ namespace IViewer {
           throw;
         }
       }
+    }
+
+    public override string ToString() {
+      string output = "";
+      Type t = typeof(TomlConfig);
+      FieldInfo[] infos = t.GetFields();
+      foreach (FieldInfo info in infos) {
+        if (info.FieldType == ConfigString.GetType()) //string类型需要添加单引号
+          output += info.Name + "=" + "'" + info.GetValue(this) + "'" + "\n";
+        else if (info.FieldType == ConfigBool.GetType()) //bool类型需要小写
+          output += info.Name + "=" + ((bool)info.GetValue(this) ? "true" : "false") + "\n";
+        else
+          output += info.Name + "=" + info.GetValue(this) + "\n";
+      }
+
+      return output;
     }
   }
 }

@@ -27,6 +27,7 @@ namespace IViewer {
   /// MainWindow.xaml Interaction Logic
   /// </summary>
   public partial class MainWindow : Window {
+    public TomlViewModel tomlViewModel;
     public MainWindow() {
       InitializeComponent();
       Focus();
@@ -35,6 +36,8 @@ namespace IViewer {
       //初始化选项
       OriginalMode.IsChecked = true;
       SortByFileName.IsChecked = true;
+
+      tomlViewModel = base.DataContext as TomlViewModel;
     }
 
     #region TopBarAnimation
@@ -531,6 +534,10 @@ namespace IViewer {
 
     private void ExitItem_OnClick(object sender, RoutedEventArgs e) {
       Application.Current.Shutdown();
+    }
+
+    private void MenuButton_Click(object sender, RoutedEventArgs e) {
+      tomlViewModel.Read();
     }
   }
 }
