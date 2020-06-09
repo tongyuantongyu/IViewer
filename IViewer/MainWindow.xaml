@@ -68,8 +68,6 @@
                     <MenuItem Name="ExitItem" Header="退出" Click="ExitItem_OnClick"></MenuItem>
                 </ContextMenu>
             </Canvas.ContextMenu>
-
-            <TextBox x:Name="TestTextBox" Height="96" Canvas.Left="10" TextWrapping="Wrap" Text="{Binding Result}" Canvas.Top="10" Width="189" FontSize="15"/>
             <!--#endregion -->
         </Canvas>
         <Grid x:Name="TopBar" HorizontalAlignment="Stretch" Height="30" Margin="0,-30,-0.4,0" VerticalAlignment="Top"

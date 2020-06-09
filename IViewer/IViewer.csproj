@@ -58,8 +58,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="TomlConfig.cs" />
-    <Compile Include="TomlViewModel.cs" />
+    <Compile Include="Model\TomlConfig.cs" />
+    <Compile Include="ViewModel\TomlViewModel.cs" />
     <Page Include="About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -108,5 +108,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Win32;
 
 namespace IViewer {
   public class TomlViewModel:INotifyPropertyChanged {
@@ -18,14 +20,22 @@ namespace IViewer {
     public event PropertyChangedEventHandler PropertyChanged;
 
     private void RaisePropertyChanged(string propertyName) {//属性更改方法
-      PropertyChangedEventHandler handler = PropertyChanged;
-      if (handler != null) {
-        handler(this, new PropertyChangedEventArgs(propertyName));
-      }
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
     public void Read() {//读文件
       tomlConfig.Read("test.toml");RaisePropertyChanged("Result");
     }
+    //文件进程
+    public Process OpenFileProcess;
+    public bool IsClosed {
+      get { return OpenFileProcess.HasExited; }
+      set {; }
+    }
+    public void Open() {
+      OpenFileProcess = System.Diagnostics.Process.Start("notepad.exe", @"test.toml"); RaisePropertyChanged("IsClosed");
+      while (!OpenFileProcess.HasExited) ; RaisePropertyChanged("IsClosed");
+    }
   }
+
 }
