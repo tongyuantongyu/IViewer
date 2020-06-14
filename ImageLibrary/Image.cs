@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -17,7 +18,7 @@ namespace ImageLibrary {
   public class Image {
     // TODO: use more concrete data container
     public object Metadata { get; private set; }
-    private IImageSource source;
+    private IBitmapSource source;
 
     public int Width => source.Width;
     public int Height => source.Height;
@@ -68,9 +69,8 @@ namespace ImageLibrary {
       }
     }
 
-    public BitmapSource GetPartial(Rect pos, double scale) {
-      var src = source.GetBitmap((int)pos.Left, (int)pos.Right, (int)pos.Bottom, (int)pos.Top);
-
+    public BitmapSource GetPartial(Int32Rect pos, double scale) {
+      var src = source.GetBitmap(pos);
       var result = Misc.AllocWriteableBitmap(
         (int)(pos.Width * scale), (int)(pos.Height * scale), src.Depth, src.Channel);
       result.Lock();
@@ -81,20 +81,22 @@ namespace ImageLibrary {
       result.AddDirtyRect(new Int32Rect(0, 0, result.PixelWidth, result.PixelHeight));
       result.Unlock();
 
+      result.Freeze();
       return result;
     }
 
-    private BitmapSource full;
-
-    public BitmapSource GetFull() {
-      if (full != null) {
-        return full;
+    public BitmapSource GetFull(double scale = 1) {
+      // need scale
+      if (Math.Abs(scale - 1) > 0.0001) {
+        return GetPartial(new Int32Rect(0, 0, Width, Height), scale);
       }
 
+      // no need scale
       var dst = Misc.AllocWriteableBitmap(source.Width, source.Height, source.Depth, source.Channel);
       Misc.CopyToWritableBitmap(dst, source.FullBitmap);
-      full = dst;
-      return full;
+      dst.Freeze();
+      return dst;
+
     }
   }
 }

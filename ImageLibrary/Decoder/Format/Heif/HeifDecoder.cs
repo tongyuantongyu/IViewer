@@ -24,18 +24,18 @@ namespace ImageLibrary.Decoder.Format.Heif {
       return DetectResult.NotSure;
     }
 
-    public static unsafe IImageSource FromBytes(byte[] data) {
+    public static unsafe IBitmapSource FromBytes(byte[] data) {
       fixed (byte* dataptr = data) {
         return FromPointer((IntPtr)dataptr, data.LongLength);
       }
     }
 
-    public static unsafe IImageSource FromPointer(IntPtr data, long length) {
+    public static unsafe IBitmapSource FromPointer(IntPtr data, long length) {
       var ctx = UIntPtr.Zero;
       var imageHandle = UIntPtr.Zero;
       var options = UIntPtr.Zero;
       var image = UIntPtr.Zero;
-      MemoryImageSource b;
+      MemoryBitmapSource b;
 
       try {
         ctx = LibHeifNative.HeifContextAlloc();
@@ -96,7 +96,7 @@ namespace ImageLibrary.Decoder.Format.Heif {
 
         var width = LibHeifNative.HeifImageGetWidth(image, HeifChannel.HeifChannelInterleaved);
         var height = LibHeifNative.HeifImageGetHeight(image, HeifChannel.HeifChannelInterleaved);
-        b = new MemoryImageSource(width, height, targetDepth, targetChannel);
+        b = new MemoryBitmapSource(width, height, targetDepth, targetChannel);
 
         var strideSource = 0;
         var strideDest = b.Stride;

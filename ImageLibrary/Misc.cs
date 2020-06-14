@@ -26,13 +26,21 @@ namespace ImageLibrary {
       var lineWidth = Math.Min(wb.BackBufferStride, b.Stride);
       var height = Math.Min(wb.PixelHeight, b.Height);
 
-      Parallel.For(0, height, i => {
+      // Parallel.For(0, height, i => {
+      //   unsafe {
+      //     Buffer.MemoryCopy((b.Scan0 + i * b.Stride).ToPointer(),
+      //       (wb.BackBuffer + i * wb.BackBufferStride).ToPointer(),
+      //       wb.BackBufferStride, lineWidth);
+      //   }
+      // });
+
+      for (var i = 0; i < height; i++) {
         unsafe {
           Buffer.MemoryCopy((b.Scan0 + i * b.Stride).ToPointer(),
             (wb.BackBuffer + i * wb.BackBufferStride).ToPointer(),
             wb.BackBufferStride, lineWidth);
         }
-      });
+      }
       
       wb.AddDirtyRect(new Int32Rect(0, 0, wb.PixelWidth, wb.PixelHeight));
 

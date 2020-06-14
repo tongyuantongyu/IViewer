@@ -21,13 +21,19 @@
     </Window.InputBindings>
     <Grid>
         <Canvas x:Name="ImageLayer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SizeChanged="SizeChangeHandler">
-            <Image x:Name="Img" Margin="0" Stretch="None">
+            <Image x:Name="Image1" Margin="0" Stretch="None" Visibility="Visible">
                 <Image.RenderTransform>
-                    <TransformGroup>
-                        <MatrixTransform x:Name="ImgTransform" />
-                    </TransformGroup>
+                    <MatrixTransform x:Name="Transform1" />
                 </Image.RenderTransform>
             </Image>
+            <Image x:Name="Image2" Margin="0" Stretch="None" Visibility="Hidden">
+                <Image.RenderTransform>
+                    <MatrixTransform x:Name="Transform2" />
+                </Image.RenderTransform>
+            </Image>
+            <Rectangle x:Name="LoadingIndicator"
+                       Canvas.Bottom="0" Canvas.Left="0" Height="20" Width="20" Fill="Red"
+                       Visibility="Hidden"></Rectangle>
         </Canvas>
         <Canvas x:Name="ActionLayer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                 Margin="0,30,0,0" Grid.Column="0" Background="Transparent"

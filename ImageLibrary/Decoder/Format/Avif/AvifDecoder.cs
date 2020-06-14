@@ -13,16 +13,16 @@ namespace ImageLibrary.Decoder.Format.Avif {
       return DetectResult.NotSure;
     }
 
-    public static unsafe IImageSource FromBytes(byte[] data) {
+    public static unsafe IBitmapSource FromBytes(byte[] data) {
       fixed (byte* dataptr = data) {
         return FromPointer((IntPtr)dataptr, data.LongLength);
       }
     }
     
-    public static IImageSource FromPointer(IntPtr data, long length) {
+    public static IBitmapSource FromPointer(IntPtr data, long length) {
       var file = new AvifRoData {data = data, size = (UIntPtr) length};
       var decoder = LibAvifNative.AvifDecoderCreate();
-      MemoryImageSource b;
+      MemoryBitmapSource b;
       try {
         var result = LibAvifNative.AvifDecoderParse(ref decoder, ref file);
         if (result != AvifResult.AvifResultOk) {
@@ -62,7 +62,7 @@ namespace ImageLibrary.Decoder.Format.Avif {
         var rgb = new AvifRGBImage();
         LibAvifNative.AvifRGBImageSetDefaults(ref rgb, ref image);
 
-        b = new MemoryImageSource(width, height, targetDepth, targetChannel);
+        b = new MemoryBitmapSource(width, height, targetDepth, targetChannel);
 
         rgb.format = chroma;
         rgb.depth = depth <= 8 ? 8 : 16;

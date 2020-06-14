@@ -4,11 +4,13 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
 namespace ImageLibrary {
-  class MemoryImageSource : IDisposable, IImageSource {
+  class MemoryBitmapSource : IDisposable, IBitmapSource {
 
     public IntPtr Scan0 { get; private set; }
     public int Width { get; private set; }
@@ -23,7 +25,7 @@ namespace ImageLibrary {
 
     private GCHandle memoryHandle;
 
-    public MemoryImageSource(int width, int height, int depth, int channel) {
+    public MemoryBitmapSource(int width, int height, int depth, int channel) {
       if (depth != 8 && depth != 16) {
         throw new ArgumentException($"Image depth can only be 8 or 16, got {depth}");
       }
@@ -51,17 +53,17 @@ namespace ImageLibrary {
       memoryHandle.Free();
     }
 
-    public Bitmap GetBitmap(int xmin, int xmax, int ymin, int ymax) {
-      if (xmin < 0 || ymin < 0 || xmax < xmin || ymax < ymin) {
-        throw new ArgumentException($"Bad area: x[{xmin}:{xmax}],y[{ymin}:{ymax}]");
+    public Bitmap GetBitmap(Int32Rect pos) {
+      if (pos.X < 0 || pos.Y < 0 || pos.Width < 0 || pos.Height < 0) {
+        throw new ArgumentException($"Bad area: {pos}");
       }
 
-      if (xmax > Width || ymax > Height) {
-        throw new ArgumentException($"Area overflow: Image: {Width}x{Height}, Area: x={xmax}, y={ymax}");
+      if (pos.Width > Width || pos.Height > Height) {
+        throw new ArgumentException($"Area overflow: Image: {Width}x{Height}, Area: x={pos.Width}, y={pos.Height}");
       }
 
-      var scan0 = Scan0 + ymin * Stride + xmin * PixelSize;
-      return new Bitmap(scan0, Stride, xmax - xmin, ymax - ymin, Depth, Channel);
+      var scan0 = Scan0 + pos.Y * Stride + pos.X * PixelSize;
+      return new Bitmap(scan0, Stride, pos.Width, pos.Height, Depth, Channel);
     }
   }
 }

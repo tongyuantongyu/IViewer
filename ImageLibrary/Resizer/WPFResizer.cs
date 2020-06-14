@@ -10,7 +10,7 @@ namespace ImageLibrary.Resizer {
     public void Resize(Bitmap src, Bitmap dst, object options = null) {
       var source = Misc.AllocWriteableBitmap(src.Width, src.Height, src.Depth, src.Channel);
       Misc.CopyToWritableBitmap(source, src);
-      var scaleTransform = new ScaleTransform((double)dst.Width / src.Width, (double)dst.Width / src.Height);
+      var scaleTransform = new ScaleTransform((double)dst.Width / src.Width, (double)dst.Height / src.Height);
       var transformed = new TransformedBitmap(source, scaleTransform);
       transformed.CopyPixels(Int32Rect.Empty, dst.Scan0, dst.Stride * dst.Height, dst.Stride);
     }

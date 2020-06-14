@@ -13,14 +13,14 @@ namespace ImageLibrary.Decoder.Format.Flif {
       return StringMagicDetect.Detect(magic, header);
     }
 
-    public static unsafe IImageSource FromBytes(byte[] data) {
+    public static unsafe IBitmapSource FromBytes(byte[] data) {
       fixed (byte* dataptr = data) {
         return FromPointer((IntPtr)dataptr, data.LongLength);
       }
     }
 
-    public static IImageSource FromPointer(IntPtr data, long length) {
-      MemoryImageSource b;
+    public static IBitmapSource FromPointer(IntPtr data, long length) {
+      MemoryBitmapSource b;
       var decoder = LibFlifNative.FlifCreateDecoder();
       try {
         if (LibFlifNative.FlifDecoderDecodeMemory(decoder, data, (UIntPtr) length) == 0) {
@@ -32,7 +32,7 @@ namespace ImageLibrary.Decoder.Format.Flif {
         var height = LibFlifNative.FlifImageGetHeight(image);
         var bitDepth = LibFlifNative.FlifImageGetDepth(image);
         if (bitDepth > 8) {
-          b = new MemoryImageSource(width, height, 16, 4);
+          b = new MemoryBitmapSource(width, height, 16, 4);
           for (var line = 0; line < height; line++) {
             var position = b.Scan0 + b.Stride * line;
             LibFlifNative.FlifImageReadRowRgba16(image, line, position, (UIntPtr) b.Stride);
@@ -40,7 +40,7 @@ namespace ImageLibrary.Decoder.Format.Flif {
 
         }
         else {
-          b = new MemoryImageSource(width, height, 8, 4);
+          b = new MemoryBitmapSource(width, height, 8, 4);
           for (var line = 0; line < height; line++) {
             var position = b.Scan0 + b.Stride * line;
             LibFlifNative.FlifImageReadRowRgba8(image, line, position, (UIntPtr) b.Stride);

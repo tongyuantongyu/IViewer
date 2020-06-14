@@ -13,22 +13,22 @@ namespace ImageLibrary.Decoder.Format.Bmp {
       return StringMagicDetect.Detect(magic, header);
     }
 
-    public static unsafe IImageSource FromBytes(byte[] data) {
+    public static unsafe IBitmapSource FromBytes(byte[] data) {
       fixed (byte* dataptr = data) {
         return FromPointer((IntPtr)dataptr, data.LongLength);
       }
     }
 
-    public static IImageSource FromPointer(IntPtr data, long length) {
+    public static IBitmapSource FromPointer(IntPtr data, long length) {
       var bmp = EasyBmpNative.DecodeFromBuffer(data, (UIntPtr) length);
-      MemoryImageSource b;
+      MemoryBitmapSource b;
 
       try {
         if (bmp.bmp == IntPtr.Zero) {
           return null;
         }
 
-        b = new MemoryImageSource(bmp.width, bmp.height, 8, 4);
+        b = new MemoryBitmapSource(bmp.width, bmp.height, 8, 4);
 
         if (!EasyBmpNative.WriteToMemory(ref bmp, b.Scan0, (UIntPtr) b.Stride)) {
           return null;

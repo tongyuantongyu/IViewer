@@ -12,13 +12,13 @@ namespace ImageLibrary.Decoder.Format.Webp {
       return StringMagicDetect.Detect(magic, header);
     }
 
-    public static unsafe IImageSource FromBytes(byte[] data) {
+    public static unsafe IBitmapSource FromBytes(byte[] data) {
       fixed (byte* dataptr = data) {
         return FromPointer((IntPtr)dataptr, data.LongLength);
       }
     }
 
-    public static IImageSource FromPointer(IntPtr data, long length) {
+    public static IBitmapSource FromPointer(IntPtr data, long length) {
       var features = new WebPBitstreamFeatures();
 
       if (LibWebpNative.WebPGetFeaturesInternal(data, (UIntPtr) length, ref features,
@@ -26,7 +26,7 @@ namespace ImageLibrary.Decoder.Format.Webp {
         throw new Exception("Failed.");
       }
 
-      var b = new MemoryImageSource(features.width, features.height, 8, 4);
+      var b = new MemoryBitmapSource(features.width, features.height, 8, 4);
       var config = new WebPDecoderConfig();
       if (LibWebpNative.WebPInitDecoderConfigInternal(ref config, LibWebpNative.WEBP_DECODER_ABI_VERSION) == 0) {
         throw new Exception("Failed.");

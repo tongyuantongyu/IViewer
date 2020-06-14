@@ -104,5 +104,14 @@ namespace IViewer.Properties {
                 return ResourceManager.GetString("Type_PNG", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 WEBP Image 的本地化字符串。
+        /// </summary>
+        public static string Type_WEBP {
+            get {
+                return ResourceManager.GetString("Type_WEBP", resourceCulture);
+            }
+        }
     }
 }

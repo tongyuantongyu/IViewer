@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +18,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using IViewer.Properties;
 using Microsoft.Win32;
 
@@ -30,7 +34,7 @@ namespace IViewer {
     public MainWindow() {
       InitializeComponent();
       Focus();
-      identicalScale = 72 / GetDPI();
+      identicalScale = 96 / GetDPI();
     }
 
     #region TopBarAnimation
@@ -117,6 +121,19 @@ namespace IViewer {
 
     #endregion
 
+    #region MouseMove
+
+    private void MouseMoveHandler(object sender, MouseEventArgs e) {
+      var pos = e.GetPosition(this);
+      ShowTopBar = pos.Y < 60;
+
+      if (mouseDown) {
+        CanvasMove(pos);
+      }
+    }
+
+    #endregion
+
     #region Keyboard Handle
 
     private bool Shift;
@@ -179,32 +196,115 @@ namespace IViewer {
 
     #endregion
 
-    #region ImgDrag
+    #region ImgTransform
+
+    #region Variables
 
     // indicates if an image is opened.
     private bool imgLoad;
+
+    // auto trace and get active image
+    private bool image1Active = true;
+    private Image ActiveImage => image1Active ? Image1 : Image2;
+    private MatrixTransform ActiveTransform => image1Active ? Transform1 : Transform2;
+
+    // translate
     // indicates if left mouse button is down
     private bool mouseDown;
-    // drag effectiveness to the image
+    // drag effectiveness to the image // TODO Configurable
     private double dragMultiplier = 2;
     // drag start point
     private Point mouseBegin;
-    // image translate offset
+    // image translate offset at drag start
     private Point translateBegin;
-    // unscaled image bound
-    private Point imgBound;
-    // displayed image bound
-    private Point displayBound;
+    // original image dimension
+    private Point realDimension;
+    // virtual displayed image dimension (not really have an image in this size, but we think there's one has such)
+    private Point displayDimension;
+    // offset of original image
+    private Vector realOffset;
+    // offset from original image to displayed image.
+    private Vector intrinsicOffset;
+    // offset of displayed image
+    private Vector displayOffset => realOffset - intrinsicOffset;
 
+    // scale
+    // pixel level scale rate to original image. This value always use 96DPI
+    private double realScale = 1;
+    // scale rate from original image to displayed image. This value always use 96DPI
+    private double intrinsicScale = 1;
+    // scale rate of displayed image. This value use platform DPI
+    private double displayScale => realScale / intrinsicScale;
+    // scale worker cancel token
+    private CancellationTokenSource scaleSource;
+    // if resizer is computing
+    private bool updating = false;
+
+    private bool Updating {
+      set {
+        Debug.WriteLine($"Updating status: {updating}=>{value}");
+        updating = value;
+        LoadingIndicator.Visibility = value ? Visibility.Visible : Visibility.Hidden;
+      }
+      get => updating;
+    }
+
+    #endregion
+
+    #region Transform Update Functions
+    // These function are unaware of relation between displayed image and original image.
+    // They focus on adjust the active display image (accessed via ActiveImage / ActiveTransform)
+
+    private Matrix oldMatrix;
+
+    private void AnimateTransform() {
+      // Somewhat confusing but use less variable.
+      // realOldMatrix: The old matrix in this animation
+      // oldMatrix: The old matrix in next animation (that means, new in this animation)
+      var realOldMatrix = oldMatrix;
+      oldMatrix = new Matrix(displayScale, 0, 0, displayScale, displayOffset.X, displayOffset.Y);
+
+      var animation = new MatrixAnimation(realOldMatrix, oldMatrix,
+        new Duration(TimeSpan.FromMilliseconds(100))) { // TODO make animation duartion configurable
+        EasingFunction = new CubicEase()
+      };
+
+      ActiveTransform.BeginAnimation(MatrixTransform.MatrixProperty, animation);
+
+      scaleSource = new CancellationTokenSource();
+      UpdateImage();
+    }
+
+    private void InternalUpdateTransform() {
+      ActiveTransform.BeginAnimation(MatrixTransform.MatrixProperty, null);
+      oldMatrix = new Matrix(displayScale, 0, 0, displayScale, displayOffset.X, displayOffset.Y);
+      ActiveTransform.Matrix = oldMatrix;
+    }
+
+    private void UpdateTransform() {
+      InternalUpdateTransform();
+
+      scaleSource = new CancellationTokenSource();
+      UpdateImage();
+    }
+
+    #endregion
+
+    #region Event Handlers
+
+    // Mouse down on canvas. Drag start.
     private void CanvasMouseDown(object sender, MouseEventArgs e) {
       if (!imgLoad || !IsActive) {
         return;
       }
       mouseDown = true;
       mouseBegin = e.GetPosition(this);
-      translateBegin = new Point(ImgTransform.Matrix.OffsetX, ImgTransform.Matrix.OffsetY);
+      translateBegin = new Point(ActiveTransform.Matrix.OffsetX, ActiveTransform.Matrix.OffsetY);
     }
 
+    // Mouse move on canvas. Use unified mouse move handler so absent here.
+
+    // Mouse up on canvas. Drag end.
     private void CanvasMouseUp(object sender, EventArgs e) {
       if (!imgLoad || !IsActive) {
         return;
@@ -212,8 +312,10 @@ namespace IViewer {
 
       Mouse.Capture(null);
       mouseDown = false;
+      UpdateTransform();
     }
 
+    // Mouse scroll on canvas. Do scale.
     private void CanvasScrollHandler(object sender, MouseWheelEventArgs e) {
       if (!imgLoad || !IsActive) {
         return;
@@ -222,14 +324,17 @@ namespace IViewer {
       CanvasScroll(e.Delta > 0);
     }
 
+    // Window size change. Adjust image position on resize.
     private void SizeChangeHandler(object sender, SizeChangedEventArgs e) {
-      identicalScale = (image?.DpiX ?? 72) / GetDPI();
+      identicalScale = 96 / GetDPI();
       if (!imgLoad || !IsActive) {
         return;
       }
 
       AdjustTransform();
     }
+
+    #endregion
 
     private void CanvasMove(Point pos) {
       Mouse.Capture(ActionLayer);
@@ -240,89 +345,156 @@ namespace IViewer {
 
       var offset = translateBegin + ((pos - mouseBegin) * dragMultiplier);
 
-      var newMat = ImgTransform.Matrix;
+      var newOffset = realOffset;
 
-      if (offset.X <= 0 && offset.X + displayBound.X >= ImageLayer.ActualWidth) {
-        newMat.OffsetX = offset.X;
+      if (offset.X <= 0 && offset.X + displayDimension.X >= ImageLayer.ActualWidth) {
+        newOffset.X = offset.X;
       }
 
-      if (offset.Y <= 0 && offset.Y + displayBound.Y >= ImageLayer.ActualHeight) {
-        newMat.OffsetY = offset.Y;
+      if (offset.Y <= 0 && offset.Y + displayDimension.Y >= ImageLayer.ActualHeight) {
+        newOffset.Y = offset.Y;
       }
 
-      UpdateTransform(newMat);
+      if (newOffset == realOffset) {
+        return;
+      }
+
+      realOffset = newOffset;
+      InternalUpdateTransform();
+    }
+
+    #region Transform control
+
+    private Int32Rect sourceArea;
+
+    private void InstantUpdateImage() {
+      // necessary image area (but don't go over original image bound)
+
+      // left up point: make sure one drag won't go out of rendered area.
+      var iOffset = new Vector(
+        Math.Max(-realOffset.X / realScale - 2 * ImageLayer.ActualWidth / realScale, 0),
+        Math.Max(-realOffset.Y / realScale - 2 * ImageLayer.ActualHeight / realScale, 0));
+
+      var targetArea = new Int32Rect(
+        (int)iOffset.X, (int)iOffset.Y,
+        Math.Min((int)(3 * ImageLayer.ActualWidth / realScale), image.Width),
+        Math.Min((int)(3 * ImageLayer.ActualHeight / realScale), image.Height));
+      // TODO 5: related to drag multiplier (n+1)
+
+      // necessary area not changed. no need to update.
+      if (sourceArea == targetArea) {
+        return;
+      }
+
+      sourceArea = targetArea;
+
+      Debug.WriteLine("Update image: begin");
+      Dispatcher.Invoke(() => Updating = true, DispatcherPriority.Normal);
+      Debug.WriteLine("Update image: scale: start");
+      var newImage = image.GetPartial(sourceArea, realScale);
+      Debug.WriteLine("Update image: scale: finish");
+
+      Debug.WriteLine("Update image: set: begin");
+      
+      Dispatcher.Invoke(() => {
+        var inactive = ActiveImage;
+        image1Active = !image1Active;
+        ActiveImage.Source = newImage;
+        intrinsicOffset = -iOffset;
+        intrinsicScale = realScale;
+        InternalUpdateTransform();
+
+        ActiveImage.Visibility = Visibility.Visible;
+        inactive.Visibility = Visibility.Hidden;
+        Debug.WriteLine($"Active: {ActiveImage.Name}, {ActiveImage.Visibility}; Hidden: {inactive.Name}, {inactive.Visibility}");
+      }, DispatcherPriority.Normal);
+      Debug.WriteLine("Update image: set: end");
+      Dispatcher.Invoke(() => Updating = false, DispatcherPriority.Normal);
+      Debug.WriteLine("Update image: end");
+    }
+
+    private void UpdateImage() {
+      // we only resize a partition of image so resize on move is always needed.
+      // if (Math.Abs(displayScale - currentScale) < 0.0001) {
+      //   InternalUpdateTransform();
+      //   return;
+      // }
+
+      Task.Run(async delegate {
+        // debounce user operation
+        try {
+          await Task.Delay(TimeSpan.FromSeconds(0.5), scaleSource.Token);
+        }
+        catch (TaskCanceledException) {
+          Debug.WriteLine("Update image: resize cancelled.");
+          return;
+        }
+
+        Debug.WriteLine("Update image: time up. Start.");
+        // if not cancelled, start scale compute. Transform is not allowed during computing
+        InstantUpdateImage();
+
+        Debug.WriteLine("Update image: Finished.");
+      });
     }
 
     private void InitTransform() {
       var viewportWidth = ImageLayer.ActualWidth;
       var viewportHeight = ImageLayer.ActualHeight;
 
-      var scale = Math.Min(viewportWidth / imgBound.X, viewportHeight / imgBound.Y);
+      var scale = Math.Min(viewportWidth / realDimension.X, viewportHeight / realDimension.Y);
 
-      var matrix = Matrix.Identity;
+      // TODO Configurable init scale rule
+      // Keep original size for small pictures but scale down for large ones
+      realScale = Math.Min(scale, identicalScale);
+      intrinsicScale = realScale;
 
-      if (scale > identicalScale) {
-        matrix.M11 = identicalScale;
-        matrix.M22 = identicalScale;
-        displayBound.X = imgBound.X * identicalScale;
-        displayBound.Y = imgBound.Y * identicalScale;
-      }
-      else {
-        matrix.M11 = scale;
-        matrix.M22 = scale;
-        displayBound.X = imgBound.X * scale;
-        displayBound.Y = imgBound.Y * scale;
-      }
-      matrix.OffsetX = (viewportWidth - displayBound.X) / 2;
-      matrix.OffsetY = (viewportHeight - displayBound.Y) / 2;
+      sourceArea = new Int32Rect(0, 0, image.Width, image.Height);
 
-      ImgTransform.Matrix = matrix;
-      oldMatrix = matrix;
+      displayDimension.X = realDimension.X * realScale;
+      displayDimension.Y = realDimension.Y * realScale;
+
+      realOffset = new Vector(viewportWidth - displayDimension.X, viewportHeight - displayDimension.Y) / 2;
+      intrinsicOffset = new Vector();
+
+      Debug.WriteLine($"Init image: real:{realScale} intrinsic:{intrinsicScale} offset:{realOffset}.");
+
+      ActiveImage.Source = image.GetFull(realScale);
+
+      InternalUpdateTransform();
     }
 
     private void AdjustTransform() {
       var viewportWidth = ImageLayer.ActualWidth;
       var viewportHeight = ImageLayer.ActualHeight;
 
-      var newMat = ImgTransform.Matrix;
+      var offset = realOffset;
 
-      if (viewportWidth > displayBound.X || viewportHeight > displayBound.Y) {
-        newMat.OffsetX = (viewportWidth - displayBound.X) / 2;
-        newMat.OffsetY = (viewportHeight - displayBound.Y) / 2;
+      if (viewportWidth > displayDimension.X || viewportHeight > displayDimension.Y) {
+        // center the image when image is smaller than view area
+        Debug.WriteLine("Adjust image: small image, center.");
+        offset.X = (viewportWidth - displayDimension.X) / 2;
+        offset.Y = (viewportHeight - displayDimension.Y) / 2;
       }
       else {
-        if (newMat.OffsetX + displayBound.X < viewportWidth) {
-          newMat.OffsetX = viewportWidth - displayBound.X;
+        // image shifted too much. We can cover whole viewport but background is visible
+        if (offset.X + displayDimension.X < viewportWidth) {
+          offset.X = viewportWidth - displayDimension.X;
         }
-        if (newMat.OffsetY + displayBound.Y < viewportHeight) {
-          newMat.OffsetY = viewportHeight - displayBound.Y;
+        else if (offset.X > 0) {
+          offset.X = 0;
+        }
+        if (offset.Y + displayDimension.Y < viewportHeight) {
+          offset.Y = viewportHeight - displayDimension.Y;
+        }
+        else if (offset.Y > 0) {
+          offset.Y = 0;
         }
       }
+      Debug.WriteLine($"Adjust image: old: {realOffset} new: {offset}.");
+      realOffset = offset;
 
-      UpdateTransform(newMat);
-    }
-
-    private Matrix oldMatrix;
-
-    private void Animation(double offsetX, double offsetY, double scale, bool instant = false) {
-      // Somewhat confusing but use less variable.
-      // oldMat: The old matrix in this animation
-      // oldMatrix: The old matrix in next animation (that means, new in this animation)
-      var oldMat = oldMatrix;
-      oldMatrix = new Matrix(scale, 0, 0, scale, offsetX, offsetY);
-
-      var animation = new MatrixAnimation(oldMat, oldMatrix,
-        new Duration(TimeSpan.FromMilliseconds(instant ? 0 : 100))) {
-        EasingFunction = new CubicEase()
-      };
-
-      ImgTransform.BeginAnimation(MatrixTransform.MatrixProperty, animation);
-    }
-
-    private void UpdateTransform(Matrix newMatrix) {
-      ImgTransform.BeginAnimation(MatrixTransform.MatrixProperty, null);
-      oldMatrix = newMatrix;
-      ImgTransform.Matrix = newMatrix;
+      UpdateTransform();
     }
 
     private void CenterUniform() {
@@ -330,11 +502,17 @@ namespace IViewer {
         return;
       }
 
-      displayBound.X = imgBound.X * identicalScale;
-      displayBound.Y = imgBound.Y * identicalScale;
+      displayDimension.X = realDimension.X * identicalScale;
+      displayDimension.Y = realDimension.Y * identicalScale;
 
-      Animation((ImageLayer.ActualWidth - displayBound.X) / 2, (ImageLayer.ActualHeight - displayBound.Y) / 2, identicalScale);
+      realOffset = new Vector(ImageLayer.ActualWidth - displayDimension.X, ImageLayer.ActualHeight - displayDimension.Y) / 2;
+
+      realScale = 1;
+
+      AnimateTransform();
     }
+
+    #endregion
 
     private void CenterFit() {
       if (!imgLoad || !IsActive) {
@@ -344,12 +522,16 @@ namespace IViewer {
       var viewportWidth = ImageLayer.ActualWidth;
       var viewportHeight = ImageLayer.ActualHeight;
 
-      var scale = Math.Min(viewportWidth / imgBound.X, viewportHeight / imgBound.Y);
+      var scale = Math.Min(viewportWidth / realDimension.X, viewportHeight / realDimension.Y);
 
-      displayBound.X = imgBound.X * scale;
-      displayBound.Y = imgBound.Y * scale;
+      displayDimension.X = realDimension.X * scale;
+      displayDimension.Y = realDimension.Y * scale;
 
-      Animation((ImageLayer.ActualWidth - displayBound.X) / 2, (ImageLayer.ActualHeight - displayBound.Y) / 2, scale);
+      realOffset = new Vector(ImageLayer.ActualWidth - displayDimension.X, ImageLayer.ActualHeight - displayDimension.Y) / 2;
+
+      realScale = scale / identicalScale;
+
+      AnimateTransform();
     }
 
     private void CanvasScroll(bool up) {
@@ -359,64 +541,74 @@ namespace IViewer {
 
       double delta;
       if (Shift) {
-        delta = 0.01 * identicalScale;
+        delta = 0.01;
       }
       else if (Ctrl) {
-        delta = identicalScale;
+        delta = 1;
       }
       else {
-        delta = 0.1 * identicalScale;
+        delta = 0.1;
       }
 
       if (!up) {
         delta = -delta;
       }
 
-      var scale = ImgTransform.Matrix.M11 + delta;
-      if (scale < 0.01 * identicalScale) {
+      ImageScale(delta);
+    }
+
+    private void ImageScale(double delta) {
+      // Cancel pending resize calculate, if any.
+      scaleSource?.Cancel();
+
+      if (!imgLoad || !IsActive) {
+        return;
+      }
+
+      var scale = realScale + delta;
+      if (scale < 0.01) {
         return;
       }
 
       var viewportWidth = ImageLayer.ActualWidth;
       var viewportHeight = ImageLayer.ActualHeight;
 
+      Debug.WriteLine($"Old offset: {realOffset}");
       var mouse = Mouse.GetPosition(this);
-      var offset = (new Point(ImgTransform.Matrix.OffsetX, ImgTransform.Matrix.OffsetY) - mouse) * scale / ImgTransform.Matrix.M11 + mouse;
-      displayBound.X = imgBound.X * scale;
-      displayBound.Y = imgBound.Y * scale;
+      var mouseVector = new Vector(mouse.X, mouse.Y);
+      Debug.WriteLine($"Mouse position: {mouseVector}");
+      var offset = (realOffset - mouseVector) * scale / realScale + mouseVector;
+      displayDimension.X = realDimension.X * scale;
+      displayDimension.Y = realDimension.Y * scale;
+      Debug.WriteLine($"New offset: {offset}");
 
-      if (offset.X > 0 || offset.X + displayBound.X < viewportWidth) {
-        if (displayBound.X <= viewportWidth) {
-          offset.X = (viewportWidth - displayBound.X) / 2;
+      // post-adjust image position
+      if (offset.X > 0 || offset.X + displayDimension.X < viewportWidth) {
+        Debug.WriteLine($"X need adjust. {offset.X}, {displayDimension.X} {viewportWidth}");
+        if (displayDimension.X <= viewportWidth) {
+          // small image. Force center.
+          offset.X = (viewportWidth - displayDimension.X) / 2;
         }
         else {
-          offset.X = offset.X > 0 ? 0 : viewportWidth - displayBound.X;
+          // big image. Scale at corner can't zoom at mouse point
+          offset.X = offset.X > 0 ? 0 : viewportWidth - displayDimension.X;
         }
       }
 
-      if (offset.Y > 0 || offset.Y + displayBound.Y < viewportHeight) {
-        if (displayBound.Y <= viewportHeight) {
-          offset.Y = (viewportHeight - displayBound.Y) / 2;
+      if (offset.Y > 0 || offset.Y + displayDimension.Y < viewportHeight) {
+        Debug.WriteLine($"Y need adjust. {offset.Y}, {displayDimension.Y} {viewportHeight}");
+        if (displayDimension.Y <= viewportHeight) {
+          offset.Y = (viewportHeight - displayDimension.Y) / 2;
         }
         else {
-          offset.Y = offset.Y > 0 ? 0 : viewportHeight - displayBound.Y;
+          offset.Y = offset.Y > 0 ? 0 : viewportHeight - displayDimension.Y;
         }
       }
 
-      Animation(offset.X, offset.Y, scale);
-    }
+      realScale = scale;
+      realOffset = offset;
 
-    #endregion
-
-    #region MouseMove
-
-    private void MouseMoveHandler(object sender, MouseEventArgs e) {
-      var pos = e.GetPosition(this);
-      ShowTopBar = pos.Y < 60;
-
-      if (mouseDown) {
-        CanvasMove(pos);
-      }
+      AnimateTransform();
     }
 
     #endregion
@@ -426,7 +618,8 @@ namespace IViewer {
     private void OpenFile(object sender, EventArgs e) {
       var dialog = new OpenFileDialog {
         RestoreDirectory = true,
-        Filter = $"{Properties.Resources.Type_PNG} (*.png)|*.png|" +
+        Filter = $"{Properties.Resources.Type_WEBP} (*.webp)|*.webp|" +
+                 $"{Properties.Resources.Type_PNG} (*.png)|*.png|" +
                  $"{Properties.Resources.Type_HEIF} (*.heic)|*.heic|" +
                  $"{Properties.Resources.Type_Any} (*.*)|*.*", FilterIndex = 1
       };
@@ -437,20 +630,15 @@ namespace IViewer {
       LoadImage(dialog.FileName);
     }
 
-    private BitmapSource image;
+    private ImageLibrary.Image image;
 
     private void LoadImage(string dir) {
-      var bitmap = new BitmapImage();
-      bitmap.BeginInit();
-      bitmap.UriSource = new Uri(dir);
-      bitmap.EndInit();
+      image = ImageLibrary.Image.FromFile(dir);
 
-      image = bitmap;
-
-      Img.Source = image;
+      ActiveImage.Source = image.GetFull();
       imgLoad = true;
-      imgBound = new Point(image.Width, image.Height);
-      identicalScale = image.DpiX / GetDPI();
+      realDimension = new Point(image.Width, image.Height);
+      identicalScale = 96 / GetDPI();
       InitTransform();
     }
 

@@ -27,8 +27,8 @@ namespace ImageLibrary {
     // valid area height
     public readonly int Height;
     // 8 or 16. Also the bit width.
-    // When value is 8, pixel order is bgr(a), and every channel value is in range [0, 255] and type byte(uint8)
-    // When value is 16 pixel order is rgb(a),  and every channel value is in range [0, 65535] and type ushort(uint16)
+    // When value is 8, pixel order is bgr(a), every channel value is in range [0, 255] and type byte(uint8)
+    // When value is 16, pixel order is rgb(a), every channel value is in range [0, 65535] and type ushort(uint16)
     public readonly int Depth;
     // 3 or 4. 4 means alpha present, 3 means absent.
     public readonly int Channel;

@@ -134,4 +134,7 @@
   <data name="Type_PNG" xml:space="preserve">
     <value>PNG Image</value>
   </data>
+  <data name="Type_WEBP" xml:space="preserve">
+    <value>WEBP Image</value>
+  </data>
 </root>
