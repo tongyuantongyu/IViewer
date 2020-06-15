@@ -26,16 +26,7 @@ namespace IViewer {
     public void Read() {//读文件
       tomlConfig.Read("test.toml");RaisePropertyChanged("Result");
     }
-    //文件进程
-    public Process OpenFileProcess;
-    public bool IsClosed {
-      get { return OpenFileProcess.HasExited; }
-      set {; }
-    }
-    public void Open() {
-      OpenFileProcess = System.Diagnostics.Process.Start("notepad.exe", @"test.toml"); RaisePropertyChanged("IsClosed");
-      while (!OpenFileProcess.HasExited) ; RaisePropertyChanged("IsClosed");
-    }
+
   }
 
 }

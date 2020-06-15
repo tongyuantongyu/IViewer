@@ -8,11 +8,9 @@
         xmlns:p="clr-namespace:IViewer.Properties"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="Black" WindowStyle="None" MouseMove="MouseMoveHandler" KeyDown="KeyDownHandler" KeyUp="KeyUpHandler">
-
     <Window.DataContext>
-        <local:TomlViewModel></local:TomlViewModel>
+        <local:TomlWatcher></local:TomlWatcher>
     </Window.DataContext>
-
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" />
     </WindowChrome.WindowChrome>
@@ -68,6 +66,7 @@
                     <MenuItem Name="ExitItem" Header="退出" Click="ExitItem_OnClick"></MenuItem>
                 </ContextMenu>
             </Canvas.ContextMenu>
+            <TextBox x:Name="TomlTextBox" Height="255" Canvas.Left="55" TextWrapping="Wrap" Text="{Binding TomlResult}" Canvas.Top="43" Width="343" FontSize="16"/>
             <!--#endregion -->
         </Canvas>
         <Grid x:Name="TopBar" HorizontalAlignment="Stretch" Height="30" Margin="0,-30,-0.4,0" VerticalAlignment="Top"

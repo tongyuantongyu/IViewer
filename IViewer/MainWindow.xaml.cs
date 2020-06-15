@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,7 +29,8 @@ namespace IViewer {
   /// </summary>
   public partial class MainWindow : Window {
     public TomlViewModel tomlViewModel;
-
+    public Thread t;
+    private TomlWatcher tomlWatcher;
     public MainWindow() {
       InitializeComponent();
       Focus();
@@ -38,7 +40,11 @@ namespace IViewer {
       OriginalMode.IsChecked = true;
       SortByFileName.IsChecked = true;
 
-      tomlViewModel = base.DataContext as TomlViewModel;
+      //启动Watcher线程
+      //tomlViewModel = base.DataContext as TomlViewModel;
+      tomlWatcher = base.DataContext as TomlWatcher;
+      t = new Thread(tomlWatcher.Run);
+      t.Start();
     }
 
     #region TopBarAnimation
@@ -109,6 +115,7 @@ namespace IViewer {
     #region Window Frame Control
 
     private void CloseWindow(object sender, RoutedEventArgs e) {
+      t.Abort();
       Close();
     }
 
@@ -546,7 +553,7 @@ namespace IViewer {
     //杂项 选项，关于和退出
     private void ConfigItem_OnClick(object sender, RoutedEventArgs e) {
       //选项
-      tomlViewModel.Open();
+      //tomlViewModel.Open();
     }
 
   private void AboutItem_OnClick(object sender, RoutedEventArgs e) {//打开about窗口

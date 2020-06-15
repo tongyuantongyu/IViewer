@@ -59,6 +59,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\TomlConfig.cs" />
+    <Compile Include="ViewModel\TomlWatcher.cs" />
     <Compile Include="ViewModel\TomlViewModel.cs" />
     <Page Include="About.xaml">
       <SubType>Designer</SubType>
