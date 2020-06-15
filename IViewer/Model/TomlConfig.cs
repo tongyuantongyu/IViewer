@@ -91,12 +91,13 @@ namespace IViewer
 
           //使用Toml库解析
           var table = doc.ToModel();
+          var tomlTable = (TomlTable)table[TableName];
 
           //反射自动导入所有属性
           Type t = typeof(TomlConfig);
           FieldInfo[] infos = t.GetFields();
           foreach (FieldInfo info in infos) {
-            if (table.ContainsKey(info.Name)) {
+            if (tomlTable.ContainsKey(info.Name)) {
               info.SetValue(this, Convert.ChangeType(((TomlTable)table[TableName])[info.Name], info.FieldType));
             }
             else {

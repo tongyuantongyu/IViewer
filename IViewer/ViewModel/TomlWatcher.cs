@@ -43,28 +43,27 @@ namespace IViewer
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public void Run()
         {
-            using (FileSystemWatcher watcher = new FileSystemWatcher())
-            {
-                watcher.Path = @"E:\C sharp\IViewer\IViewer\bin\Debug";
+          using (FileSystemWatcher watcher = new FileSystemWatcher()) {
 
-                watcher.Filter = FileName;
+            string dir = AppDomain.CurrentDomain.BaseDirectory;
+            watcher.Path = dir;
+            watcher.Filter = FileName;
 
-                watcher.NotifyFilter = NotifyFilters.LastAccess
-                                       | NotifyFilters.LastWrite
-                                       | NotifyFilters.FileName
-                                       | NotifyFilters.DirectoryName;
+            watcher.NotifyFilter = NotifyFilters.LastAccess
+                                   | NotifyFilters.LastWrite
+                                   | NotifyFilters.FileName
+                                   | NotifyFilters.DirectoryName;
 
-                watcher.Changed += OnChanged;
-                watcher.Created += OnChanged;
-                watcher.Deleted += OnDeleted;
-                watcher.Renamed += OnRenamed;
+            watcher.Changed += OnChanged;
+            watcher.Created += OnChanged;
+            watcher.Deleted += OnDeleted;
+            watcher.Renamed += OnRenamed;
 
-                watcher.EnableRaisingEvents = true;
-                while (true)
-                {
-                    System.Threading.Thread.Sleep(500);
-                }
+            watcher.EnableRaisingEvents = true;
+            while (true) {
+              System.Threading.Thread.Sleep(500);
             }
+          }
         }
 
         private void OnChanged(object source, FileSystemEventArgs e)//修改时读取信息
