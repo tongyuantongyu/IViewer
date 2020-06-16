@@ -85,7 +85,7 @@
             <Button x:Name="MinButton" Style="{StaticResource CommonButtonStyle}" Content="&#xE949;" Grid.Column="2"
                     Click="MinWindow" />
             <Button x:Name="MenuButton" Style="{StaticResource CommonButtonStyle}" Content="&#xE700;" Grid.Column="0"
-                    FontSize="12" Click="MenuButton_Click" />
+                    FontSize="12" />
             <Button x:Name="Grip" Style="{StaticResource GripButtonStyle}" Grid.Column="1" PreviewMouseDoubleClick="MaxWindow" PreviewMouseLeftButtonDown="DragMoveWindow" />
         </Grid>
     </Grid>

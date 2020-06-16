@@ -34,13 +34,36 @@ namespace IViewer
         private void RaisePropertyChanged(string propertyName) {//属性更改方法
           PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
+        //字段
         public string TomlResult {
           get { return tomlConfig.ToString(); }
           set { ; }
         }
 
-        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+        public string BoolResult {
+          get { return tomlConfig.ConfigBool.ToString(); }
+          set { tomlConfig.ConfigBool = Convert.ToBoolean(value); }
+        }
+
+        public string LongResult {
+          get { return tomlConfig.ConfigLong.ToString(); }
+          set { tomlConfig.ConfigLong = long.Parse(value); }
+        }
+
+        public string StringResult {
+          get { return tomlConfig.ConfigString; }
+          set { tomlConfig.ConfigString=value; }
+        }
+        public string DoubleResult {
+          get { return tomlConfig.ConfigDouble.ToString(); }
+          set { tomlConfig.ConfigDouble = double.Parse(value); }
+        }
+
+        public void W() {
+            tomlConfig.Write(FileName);
+        }
+
+    [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public void Run()
         {
           using (FileSystemWatcher watcher = new FileSystemWatcher()) {
@@ -70,7 +93,11 @@ namespace IViewer
         { 
             tomlConfig.Read(FileName);
             RaisePropertyChanged("TomlResult");
-        }
+            RaisePropertyChanged("BoolResult");
+            RaisePropertyChanged("LongResult");
+            RaisePropertyChanged("StringResult");
+            RaisePropertyChanged("DoubleResult");
+    }
 
         private void OnRenamed(object source, RenamedEventArgs e)//重命名时重新创建一个
         {

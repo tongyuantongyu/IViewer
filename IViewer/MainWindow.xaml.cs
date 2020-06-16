@@ -16,6 +16,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using IViewer.OtherWindow;
 using IViewer.Properties;
 using Microsoft.Win32;
 
@@ -554,6 +555,8 @@ namespace IViewer {
     private void ConfigItem_OnClick(object sender, RoutedEventArgs e) {
       //选项
       //tomlViewModel.Open();
+      var x = new ConfigWindow(ref tomlWatcher);
+      x.Show();
     }
 
   private void AboutItem_OnClick(object sender, RoutedEventArgs e) {//打开about窗口
@@ -565,8 +568,5 @@ namespace IViewer {
       Application.Current.Shutdown();
     }
 
-    private void MenuButton_Click(object sender, RoutedEventArgs e) {
-      tomlViewModel.Read();
-    }
   }
 }
