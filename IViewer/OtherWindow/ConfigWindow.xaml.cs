@@ -24,15 +24,16 @@ namespace IViewer.OtherWindow {
     }
 
     private void Window_Closed(object sender, EventArgs e) {
-      TomlWatcher tomlWatcher = base.DataContext as TomlWatcher;
-      tomlWatcher.W();
-
-      this.Dispatcher.Invoke((ThreadStart)delegate ()
-        {
-          Application.Current.Shutdown();
-        }
-      );
-      System.Diagnostics.Process.Start(System.Reflection.Assembly.GetExecutingAssembly().Location);
+      //写入配置
+      //TomlWatcher tomlWatcher = base.DataContext as TomlWatcher;
+      //tomlWatcher.W();
+      //重启应用
+      //this.Dispatcher.Invoke((ThreadStart)delegate ()
+      //  {
+      //    Application.Current.Shutdown();
+      //  }
+      //);
+      //System.Diagnostics.Process.Start(System.Reflection.Assembly.GetExecutingAssembly().Location);
     }
   }
 }

@@ -117,7 +117,6 @@ namespace IViewer {
 
     private void CloseWindow(object sender, RoutedEventArgs e) {
       t.Abort();
-      Close();
       Application.Current.Shutdown();
     }
 

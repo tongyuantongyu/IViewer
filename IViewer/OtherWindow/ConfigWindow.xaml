@@ -6,31 +6,71 @@
         xmlns:local="clr-namespace:IViewer.OtherWindow"
         xmlns:iViewer="clr-namespace:IViewer"
         mc:Ignorable="d"
-        Title="ConfigWindow" Height="300" Width="400" Background="#FF121212" Closed="Window_Closed">
+        Title="ConfigWindow" Height="450" Width="800" Background="#FF42405C" Closed="Window_Closed">
     <Window.DataContext>
         <iViewer:TomlWatcher></iViewer:TomlWatcher>
     </Window.DataContext>
     <Grid>
-        <Grid x:Name="TextBoxGrid" HorizontalAlignment="Left" Height="196" Margin="68,44,0,0" VerticalAlignment="Top" Width="264">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="200"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="28" />
-                <RowDefinition Height="28" />
-                <RowDefinition Height="28" />
-                <RowDefinition Height="28" />
-                <RowDefinition Height="28" />
-                <RowDefinition Height="28" />
-                <RowDefinition Height="28" />
-            </Grid.RowDefinitions>
-            <TextBox x:Name="LongBox" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="{Binding LongResult}" VerticalAlignment="Top" Width="264" Grid.Row="0" Grid.Column="2" Height="28" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="BoolBox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding BoolResult}" VerticalAlignment="Top" Width="264" Grid.Row="2" Grid.Column="2" Height="28" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="StringBox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding StringResult}" VerticalAlignment="Top" Width="264" Grid.Row="4" Grid.Column="2" Height="28" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="DoubleBox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding DoubleResult}" VerticalAlignment="Top" Width="264" Grid.Row="6" Grid.Column="2" Height="28" VerticalContentAlignment="Center"/>
-        </Grid>
+
+        <TabControl HorizontalAlignment="Left" Height="401" Margin="10,10,0,0" VerticalAlignment="Top" Width="773" BorderBrush="{x:Null}" Background="{x:Null}">
+            <TabItem Header="Behavior1" Width="189" Height="50" FontSize="20">
+                <Grid x:Name="TextBoxGrid" HorizontalAlignment="Left" Height="350" Margin="0,0,0,-7.333" Width="765" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="350"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Label Name="LabelAllowMultipleInstanceRunning" Grid.Column="1" Grid.Row="0" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Allow Multiple Instance Running" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelConfirmBeforeDeleteFile" Grid.Column="1" Grid.Row="1" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Confirm Before Delete File" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelDefaultWindowMode" Grid.Column="1" Grid.Row="2" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Default Window Mode" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelDefaultImageDisplayMode" Grid.Column="1" Grid.Row="3" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Default image display mode" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelCenterBigImageByDefault" Grid.Column="1" Grid.Row="4" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Center big image by default" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelEnlargeSmallImageByDefault" Grid.Column="1" Grid.Row="5" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Enlarge small image by default" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelSortFileBy" Grid.Column="1" Grid.Row="6" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Sort file by" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <TextBox x:Name="TextBoxAllowMultipleInstanceRunning" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="{Binding LongResult}" VerticalAlignment="Center" Width="250" Grid.Row="0" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxConfirmBeforeDeleteFile" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding BoolResult}" VerticalAlignment="Center" Width="250" Grid.Row="1" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxDefaultWindowMode" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding StringResult}" VerticalAlignment="Center" Width="250" Grid.Row="2" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxDefaultImageDisplayMode" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleResult}" VerticalAlignment="Center" Width="250" Grid.Row="3" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxCenterBigImageByDefault" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleResult}" VerticalAlignment="Center" Width="250" Grid.Row="4" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxEnlargeSmallImageByDefault" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleResult}" VerticalAlignment="Center" Width="250" Grid.Row="5" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxSortFileBy" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleResult}" VerticalAlignment="Center" Width="250" Grid.Row="6" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Behavior2" Width="189" Height="50" FontSize="20">
+
+            </TabItem>
+            <TabItem Header="View" Width="189" Height="50" FontSize="20">
+
+            </TabItem>
+            <TabItem Header="Other" Width="189" Height="50" FontSize="20">
+
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>
