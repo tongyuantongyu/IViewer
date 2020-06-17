@@ -51,9 +51,9 @@ namespace IViewer
       set { tomlConfig.IsConfirmBeforeDeleteFile = bool.Parse(value); }
     }
 
-    public string LongDefaultWindowMode {
-      get { return tomlConfig.LongDefaultWindowMode.ToString(); }
-      set { tomlConfig.LongDefaultWindowMode = long.Parse(value); }
+    public long LongDefaultWindowMode {
+      get { return tomlConfig.LongDefaultWindowMode; }
+      set { tomlConfig.LongDefaultWindowMode = (long)(value); }
     }
 
     public string LongDefaultImageDisplayMode {

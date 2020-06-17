@@ -19,7 +19,17 @@ namespace IViewer.OtherWindow {
   /// </summary>
   public partial class ConfigWindow : Window {
     public ConfigWindow(ref TomlWatcher tw) {
+
       InitializeComponent();
+      //Initial ComboBox with Enum
+      for (int i = 0; i < Enum.GetValues(typeof(EnumDefaultWindowMode)).Length; i++)
+        ComboBoxDefaultWindowMode.Items.Add(Enum.GetName(typeof(EnumDefaultWindowMode), i));
+      for (int i = 0; i < Enum.GetValues(typeof(EnumDefaultImageDisplayMode)).Length; i++)
+        ComboBoxDefaultImageDisplayMode.Items.Add(Enum.GetName(typeof(EnumDefaultImageDisplayMode), i));
+      for (int i = 0; i < Enum.GetValues(typeof(EnumSortFileBy)).Length; i++)
+        ComboBoxSortFileBy.Items.Add(Enum.GetName(typeof(EnumSortFileBy), i));
+      for (int i = 0; i < Enum.GetValues(typeof(EnumBehaviorOnReachingFirstLastFile)).Length; i++)
+        ComboBoxBehaviorOnReachingFirstLastFile.Items.Add(Enum.GetName(typeof(EnumBehaviorOnReachingFirstLastFile), i));
       base.DataContext = tw;
     }
 
