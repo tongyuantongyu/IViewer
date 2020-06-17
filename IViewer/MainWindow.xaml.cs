@@ -29,9 +29,8 @@ namespace IViewer {
   /// MainWindow.xaml Interaction Logic
   /// </summary>
   public partial class MainWindow : Window {
-    public TomlViewModel tomlViewModel;
     public Thread t;
-    private TomlWatcher tomlWatcher;
+    public static TomlWatcher tomlWatcher;
     public MainWindow() {
       InitializeComponent();
       Focus();
@@ -42,7 +41,6 @@ namespace IViewer {
       SortByFileName.IsChecked = true;
 
       //启动Watcher线程
-      //tomlViewModel = base.DataContext as TomlViewModel;
       tomlWatcher = base.DataContext as TomlWatcher;
       t = new Thread(tomlWatcher.Run);
       t.Start();

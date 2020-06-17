@@ -31,7 +31,7 @@ namespace IViewer
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void RaisePropertyChanged(string propertyName) {//属性更改方法
+        public void RaisePropertyChanged(string propertyName) {//属性更改方法
           PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         //字段
@@ -40,26 +40,71 @@ namespace IViewer
           set { ; }
         }
 
-        public string BoolResult {
-          get { return tomlConfig.ConfigBool.ToString(); }
-          set { tomlConfig.ConfigBool = Convert.ToBoolean(value); }
-        }
+    //behavior
+    public string IsAllowMultipleInstanceRunning {
+      get { return tomlConfig.IsAllowMultipleInstanceRunning.ToString(); }
+      set { tomlConfig.IsAllowMultipleInstanceRunning = bool.Parse(value); }
+    }
 
-        public string LongResult {
-          get { return tomlConfig.ConfigLong.ToString(); }
-          set { tomlConfig.ConfigLong = long.Parse(value); }
-        }
+    public string IsConfirmBeforeDeleteFile {
+      get { return tomlConfig.IsConfirmBeforeDeleteFile.ToString(); }
+      set { tomlConfig.IsConfirmBeforeDeleteFile = bool.Parse(value); }
+    }
 
-        public string StringResult {
-          get { return tomlConfig.ConfigString; }
-          set { tomlConfig.ConfigString=value; }
-        }
-        public string DoubleResult {
-          get { return tomlConfig.ConfigDouble.ToString(); }
-          set { tomlConfig.ConfigDouble = double.Parse(value); }
-        }
+    public string LongDefaultWindowMode {
+      get { return tomlConfig.LongDefaultWindowMode.ToString(); }
+      set { tomlConfig.LongDefaultWindowMode = long.Parse(value); }
+    }
 
-        public void W() {
+    public string LongDefaultImageDisplayMode {
+      get { return tomlConfig.LongDefaultImageDisplayMode.ToString(); }
+      set { tomlConfig.LongDefaultImageDisplayMode = long.Parse(value); }
+    }
+
+    public string IsCenterBigImageByDefault {
+      get { return tomlConfig.IsCenterBigImageByDefault.ToString(); }
+      set { tomlConfig.IsCenterBigImageByDefault = bool.Parse(value); }
+    }
+
+    public string IsEnlargeSmallImageByDefault {
+      get { return tomlConfig.IsEnlargeSmallImageByDefault.ToString(); }
+      set { tomlConfig.IsEnlargeSmallImageByDefault = bool.Parse(value); }
+    }
+
+    public string LongSortFileBy {
+      get { return tomlConfig.LongSortFileBy.ToString(); }
+      set { tomlConfig.LongSortFileBy = long.Parse(value); }
+    }
+
+    public string IsDescendingSort {
+      get { return tomlConfig.IsDescendingSort.ToString(); }
+      set { tomlConfig.IsDescendingSort = bool.Parse(value); }
+    }
+
+    public string LongBehaviorOnReachingFirstLastFile {
+      get { return tomlConfig.LongBehaviorOnReachingFirstLastFile.ToString(); }
+      set { tomlConfig.LongBehaviorOnReachingFirstLastFile = long.Parse(value); }
+    }
+
+    public string DoubleDragMultiplier {
+      get { return tomlConfig.DoubleDragMultiplier.ToString(); }
+      set { tomlConfig.DoubleDragMultiplier = double.Parse(value); }
+    }
+
+    public string DoubleAnimationSpan {
+      get { return tomlConfig.DoubleAnimationSpan.ToString(); }
+      set { tomlConfig.DoubleAnimationSpan = double.Parse(value); }
+    }
+    public string DoubleExtendRenderRatio {
+      get { return tomlConfig.DoubleExtendRenderRatio.ToString(); }
+      set { tomlConfig.DoubleExtendRenderRatio = double.Parse(value); }
+    }
+    public string DoubleReRenderWaitTime {
+      get { return tomlConfig.DoubleReRenderWaitTime.ToString(); }
+      set { tomlConfig.DoubleReRenderWaitTime = double.Parse(value); }
+    }
+
+    public void W() {
             tomlConfig.Write(FileName);
         }
 

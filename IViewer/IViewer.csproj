@@ -63,7 +63,6 @@
       <DependentUpon>ConfigWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\TomlWatcher.cs" />
-    <Compile Include="ViewModel\TomlViewModel.cs" />
     <Page Include="OtherWindow\About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

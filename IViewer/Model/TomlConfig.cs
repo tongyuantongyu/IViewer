@@ -11,20 +11,65 @@ using Tomlyn.Model;
 
 namespace IViewer
 {
+  //ConfigEnum
+  public enum EnumDefaultWindowMode {
+    Normal = 0,
+    Maximized = 1,
+    LastTime = 2
+  }
+
+  public enum EnumDefaultImageDisplayMode {
+    OriginalSize = 0,
+    FitWindow = 1
+  }
+
+  public enum EnumSortFileBy {
+    FileName = 0,
+    ModifiedDate = 1,
+    Size = 2
+  }
+
+  public enum EnumBehaviorOnReachingFirstLastFile {
+    Ask = 0,
+    LoopInFolder = 1,
+    Stop = 2,
+    GotoPreviousNextFolder = 3
+  }
   public class TomlConfig
     {
-        //Test Values
-        public long ConfigLong;
-        public bool ConfigBool;
-        public string ConfigString;
-        public double ConfigDouble;
+        //Config Values
 
-        public TomlConfig()
+        //Behavior 
+        public bool IsAllowMultipleInstanceRunning;
+        public bool IsConfirmBeforeDeleteFile;
+        public long LongDefaultWindowMode;
+        public long LongDefaultImageDisplayMode;
+        public bool IsCenterBigImageByDefault;
+        public bool IsEnlargeSmallImageByDefault;
+        public long LongSortFileBy;
+        public bool IsDescendingSort;
+        public long LongBehaviorOnReachingFirstLastFile;
+        public double DoubleDragMultiplier;
+        public double DoubleAnimationSpan;
+        public double DoubleExtendRenderRatio;
+        public double DoubleReRenderWaitTime;
+
+        public TomlConfig()//初始化
         {
-            ConfigLong = 15;
-            ConfigBool = true;
-            ConfigString = "dzyTest2";
-            ConfigDouble = 3.14159265;
+            //behavior
+            IsAllowMultipleInstanceRunning = true;
+            IsConfirmBeforeDeleteFile = false;
+            LongDefaultWindowMode = (long)EnumDefaultWindowMode.Maximized;
+            LongDefaultImageDisplayMode = (long)EnumDefaultImageDisplayMode.FitWindow;
+            IsCenterBigImageByDefault = true;
+            IsEnlargeSmallImageByDefault = false;
+            LongSortFileBy = (long)EnumSortFileBy.Size;
+            IsDescendingSort = false;
+            LongBehaviorOnReachingFirstLastFile = (long)EnumBehaviorOnReachingFirstLastFile.Ask;
+            DoubleDragMultiplier = 0.57;
+            DoubleAnimationSpan = 0.98;
+            DoubleExtendRenderRatio = 0.66;
+            DoubleReRenderWaitTime = 1.67;
         }
 
         public override string ToString() {
@@ -32,6 +77,7 @@ namespace IViewer
         }
         public string GenerateTomlString()//生成toml字符串
         {
+            bool BoolType = false;
             string TableName = "TestTable";
             //动态添加所有属性
             string output = "[" + TableName + "]\n";
@@ -39,9 +85,9 @@ namespace IViewer
             FieldInfo[] infos = t.GetFields();
             foreach (FieldInfo info in infos)
             {
-                if (info.FieldType == ConfigString.GetType())//string类型需要添加单引号
+                if (info.FieldType == output.GetType())//string类型需要添加单引号
                     output += info.Name + "=" + "'" + info.GetValue(this) + "'" + "\n";
-                else if (info.FieldType == ConfigBool.GetType())//bool类型需要小写
+                else if (info.FieldType == BoolType.GetType())//bool类型需要小写
                     output += info.Name + "=" + ((bool)info.GetValue(this) ? "true" : "false") + "\n";
                 else
                     output += info.Name + "=" + info.GetValue(this) + "\n";
