@@ -14,7 +14,7 @@
 
         <TabControl HorizontalAlignment="Left" Height="401" Margin="10,10,0,0" VerticalAlignment="Top" Width="773" BorderBrush="{x:Null}" Background="{x:Null}">
             <TabItem Header="Behavior1" Width="189" Height="50" FontSize="20">
-                <Grid x:Name="TextBoxGrid" HorizontalAlignment="Left" Height="350" Margin="0,0,0,-7.333" Width="765" VerticalAlignment="Top">
+                <Grid x:Name="GridBehavior1" HorizontalAlignment="Left" Height="350" Margin="0,0,0,-7.333" Width="765" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"></ColumnDefinition>
                         <ColumnDefinition Width="350"></ColumnDefinition>
@@ -62,6 +62,48 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Behavior2" Width="189" Height="50" FontSize="20">
+                <Grid x:Name="GridBehavior2" HorizontalAlignment="Left" Height="350" Margin="0,0,0,-7.333" Width="765" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="350"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Label Name="LabelDescendingSort" Grid.Column="1" Grid.Row="0" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Descending sort" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelBehaviorOnReachingFirstLastFile" Grid.Column="1" Grid.Row="1" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Behavior on reaching first / last file" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelDragMultiplier" Grid.Column="1" Grid.Row="2" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Drag multiplier" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelAnimationSpan" Grid.Column="1" Grid.Row="3" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Animation span(ms)" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelExtendRenderRatio" Grid.Column="1" Grid.Row="4" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Extend render ratio" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelReRenderWaitTime" Grid.Column="1" Grid.Row="5" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Re-render wait time(ms)" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <TextBox x:Name="TextBoxDescendingSort" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="{Binding LongResult}" VerticalAlignment="Center" Width="250" Grid.Row="0" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxBehaviorOnReachingFirstLastFile" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding BoolResult}" VerticalAlignment="Center" Width="250" Grid.Row="1" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxDragMultiplier" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding StringResult}" VerticalAlignment="Center" Width="250" Grid.Row="2" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxAnimationSpan" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleResult}" VerticalAlignment="Center" Width="250" Grid.Row="3" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxExtendRenderRatio" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleResult}" VerticalAlignment="Center" Width="250" Grid.Row="4" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxReRenderWaitTime" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleResult}" VerticalAlignment="Center" Width="250" Grid.Row="5" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                </Grid>
 
             </TabItem>
             <TabItem Header="View" Width="189" Height="50" FontSize="20">
