@@ -118,6 +118,7 @@ namespace IViewer {
     private void CloseWindow(object sender, RoutedEventArgs e) {
       t.Abort();
       Close();
+      Application.Current.Shutdown();
     }
 
     private void MaxWindow(object sender, EventArgs e) {

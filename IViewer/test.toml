@@ -1,0 +1,5 @@
+[TestTable]
+ConfigLong=15
+ConfigBool=true
+ConfigString='dzyTest2'
+ConfigDouble=3.14159265

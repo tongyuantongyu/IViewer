@@ -97,7 +97,7 @@ namespace IViewer
             RaisePropertyChanged("LongResult");
             RaisePropertyChanged("StringResult");
             RaisePropertyChanged("DoubleResult");
-    }
+        }
 
         private void OnRenamed(object source, RenamedEventArgs e)//重命名时重新创建一个
         {

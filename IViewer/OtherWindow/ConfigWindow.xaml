@@ -11,10 +11,26 @@
         <iViewer:TomlWatcher></iViewer:TomlWatcher>
     </Window.DataContext>
     <Grid>
-        <TextBox x:Name="LongBox" HorizontalAlignment="Left" Height="22" Margin="68,44,0,0" TextWrapping="Wrap" Text="{Binding LongResult}" VerticalAlignment="Top" Width="264"/>
-        <TextBox x:Name="BoolBox" HorizontalAlignment="Left" Height="22" Margin="68,96,0,0" TextWrapping="Wrap" Text="{Binding BoolResult}" VerticalAlignment="Top" Width="264"/>
-        <TextBox x:Name="StringBox" HorizontalAlignment="Left" Height="22" Margin="68,148,0,0" TextWrapping="Wrap" Text="{Binding StringResult}" VerticalAlignment="Top" Width="264"/>
-        <TextBox x:Name="DoubleBox" HorizontalAlignment="Left" Height="22" Margin="68,200,0,0" TextWrapping="Wrap" Text="{Binding DoubleResult}" VerticalAlignment="Top" Width="264"/>
+        <Grid x:Name="TextBoxGrid" HorizontalAlignment="Left" Height="196" Margin="68,44,0,0" VerticalAlignment="Top" Width="264">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="28" />
+                <RowDefinition Height="28" />
+                <RowDefinition Height="28" />
+                <RowDefinition Height="28" />
+                <RowDefinition Height="28" />
+                <RowDefinition Height="28" />
+                <RowDefinition Height="28" />
+            </Grid.RowDefinitions>
+            <TextBox x:Name="LongBox" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="{Binding LongResult}" VerticalAlignment="Top" Width="264" Grid.Row="0" Grid.Column="2" Height="28" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="BoolBox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding BoolResult}" VerticalAlignment="Top" Width="264" Grid.Row="2" Grid.Column="2" Height="28" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="StringBox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding StringResult}" VerticalAlignment="Top" Width="264" Grid.Row="4" Grid.Column="2" Height="28" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="DoubleBox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding DoubleResult}" VerticalAlignment="Top" Width="264" Grid.Row="6" Grid.Column="2" Height="28" VerticalContentAlignment="Center"/>
+        </Grid>
 
     </Grid>
 </Window>
