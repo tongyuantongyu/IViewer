@@ -104,10 +104,54 @@
                     <TextBox x:Name="TextBoxExtendRenderRatio" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleResult}" VerticalAlignment="Center" Width="250" Grid.Row="4" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                     <TextBox x:Name="TextBoxReRenderWaitTime" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleResult}" VerticalAlignment="Center" Width="250" Grid.Row="5" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                 </Grid>
-
             </TabItem>
             <TabItem Header="View" Width="189" Height="50" FontSize="20">
-
+                <Grid x:Name="GridView" HorizontalAlignment="Left" Height="350" Margin="0,0,0,-7.333" Width="765" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="350"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Label Name="LabelFileInfo" Grid.Column="1" Grid.Row="0" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="File info" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelEXIFInfo" Grid.Column="1" Grid.Row="1" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="EXIF info" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelWindowBackgroundColor" Grid.Column="1" Grid.Row="2" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Window background color" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelImageBackgroundColor" Grid.Column="1" Grid.Row="3" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Image background color" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelImageEnlargingAlgorithm" Grid.Column="1" Grid.Row="4" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Image enlarging algorithmo" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelImageShrinkingAlgorithm" Grid.Column="1" Grid.Row="5" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Image shrinking algorithm" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelImageDoublingAlgorithm" Grid.Column="1" Grid.Row="6" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Image doubling algorithm" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <TextBox x:Name="TextBoxFileInfo" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="{Binding LongResult}" VerticalAlignment="Center" Width="250" Grid.Row="0" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxEXIFInfo" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding BoolResult}" VerticalAlignment="Center" Width="250" Grid.Row="1" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxWindowBackgroundColor" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding StringResult}" VerticalAlignment="Center" Width="250" Grid.Row="2" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxImageBackgroundColor" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleResult}" VerticalAlignment="Center" Width="250" Grid.Row="3" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxImageEnlargingAlgorithm" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleResult}" VerticalAlignment="Center" Width="250" Grid.Row="4" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxImageShrinkingAlgorithm" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleResult}" VerticalAlignment="Center" Width="250" Grid.Row="5" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxImageDoublingAlgorithm" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleResult}" VerticalAlignment="Center" Width="250" Grid.Row="6" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                </Grid>
             </TabItem>
             <TabItem Header="Other" Width="189" Height="50" FontSize="20">
 
