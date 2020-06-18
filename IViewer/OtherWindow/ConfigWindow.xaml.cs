@@ -80,7 +80,7 @@ namespace IViewer.OtherWindow {
       LabelReRenderWaitTimeNum.Content = num.ToString();
     }
 
-    private void TextBoxImageEditorPath_OnMouseDoubleClick(object sender, MouseButtonEventArgs e) {
+    private void SelectFileButton_OnClick(object sender, RoutedEventArgs e) {
       var dialog = new OpenFileDialog {
         RestoreDirectory = true,
         Filter = $"{Properties.Resources.Type_PNG} (*.png)|*.png|" +
