@@ -62,6 +62,7 @@
     <Compile Include="OtherWindow\ConfigWindow.xaml.cs">
       <DependentUpon>ConfigWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\TomlViewModel.cs" />
     <Compile Include="ViewModel\TomlWatcher.cs" />
     <Page Include="OtherWindow\About.xaml">
       <SubType>Designer</SubType>

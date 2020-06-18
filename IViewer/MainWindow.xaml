@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:IViewer"
         xmlns:c="clr-namespace:System;assembly=mscorlib"
         xmlns:p="clr-namespace:IViewer.Properties"
+        xmlns:viewModel="clr-namespace:IViewer.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="Black" WindowStyle="None" MouseMove="MouseMoveHandler" KeyDown="KeyDownHandler" KeyUp="KeyUpHandler">
     <Window.DataContext>
-        <local:TomlWatcher></local:TomlWatcher>
+        <viewModel:TomlViewModel></viewModel:TomlViewModel>
     </Window.DataContext>
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" />

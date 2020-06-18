@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IViewer.OtherWindow"
         xmlns:iViewer="clr-namespace:IViewer"
+        xmlns:viewModel="clr-namespace:IViewer.ViewModel"
         mc:Ignorable="d"
         Title="ConfigWindow" Height="450" Width="800" Background="#FF42405C" Closed="Window_Closed">
     <Window.DataContext>
-        <iViewer:TomlWatcher></iViewer:TomlWatcher>
+        <viewModel:TomlViewModel></viewModel:TomlViewModel>
     </Window.DataContext>
     <Grid>
 

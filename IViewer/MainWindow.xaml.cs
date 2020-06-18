@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using IViewer.OtherWindow;
 using IViewer.Properties;
+using IViewer.ViewModel;
 using Microsoft.Win32;
 
 //////////////////////////////
@@ -30,7 +31,7 @@ namespace IViewer {
   /// </summary>
   public partial class MainWindow : Window {
     public Thread t;
-    public static TomlWatcher tomlWatcher;
+    public static TomlViewModel tomlViewModel;
     public MainWindow() {
       InitializeComponent();
       Focus();
@@ -40,10 +41,11 @@ namespace IViewer {
       OriginalMode.IsChecked = true;
       SortByFileName.IsChecked = true;
 
+      tomlViewModel = base.DataContext as TomlViewModel;
       //启动Watcher线程
-      tomlWatcher = base.DataContext as TomlWatcher;
-      t = new Thread(tomlWatcher.Run);
-      t.Start();
+      //tomlWatcher = base.DataContext as TomlWatcher;
+      //t = new Thread(tomlWatcher.Run);
+      //t.Start();
     }
 
     #region TopBarAnimation
@@ -114,7 +116,7 @@ namespace IViewer {
     #region Window Frame Control
 
     private void CloseWindow(object sender, RoutedEventArgs e) {
-      t.Abort();
+      //t.Abort();
       Application.Current.Shutdown();
     }
 
@@ -553,7 +555,7 @@ namespace IViewer {
     private void ConfigItem_OnClick(object sender, RoutedEventArgs e) {
       //选项
       //tomlViewModel.Open();
-      var x = new ConfigWindow(ref tomlWatcher);
+      var x = new ConfigWindow(ref tomlViewModel);
       x.Show();
     }
 
