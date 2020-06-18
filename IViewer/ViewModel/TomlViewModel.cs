@@ -29,9 +29,9 @@ namespace IViewer.ViewModel {
     }
 
     //behavior
-    public string IsAllowMultipleInstanceRunning {
-      get { return tomlConfig.IsAllowMultipleInstanceRunning.ToString(); }
-      set { tomlConfig.IsAllowMultipleInstanceRunning = bool.Parse(value); }
+    public bool IsAllowMultipleInstanceRunning {
+      get { return tomlConfig.IsAllowMultipleInstanceRunning; }
+      set { tomlConfig.IsAllowMultipleInstanceRunning = value; }
     }
 
     public string IsConfirmBeforeDeleteFile {

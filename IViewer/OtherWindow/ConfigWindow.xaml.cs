@@ -59,35 +59,11 @@ namespace IViewer.OtherWindow {
       //System.Diagnostics.Process.Start(System.Reflection.Assembly.GetExecutingAssembly().Location);
     }
 
-    public void RevertBoolContent(object sender) {//将文本置换
-      Button button = sender as Button;
-      bool now = bool.Parse(button.Content.ToString());
-      button.Content = (!now).ToString();
-    }
-    private void ButtonAllowMultipleInstanceRunning_OnClick(object sender, RoutedEventArgs e) {
-      RevertBoolContent(sender);
-      MainWindow.tomlViewModel.IsAllowMultipleInstanceRunning = ButtonAllowMultipleInstanceRunning.Content.ToString();
-    }
-
-    private void ButtonConfirmBeforeDeleteFile_OnClick(object sender, RoutedEventArgs e) {
-      RevertBoolContent(sender);
-      MainWindow.tomlViewModel.IsConfirmBeforeDeleteFile = ButtonConfirmBeforeDeleteFile.Content.ToString();
-    }
-
-    private void ButtonBoxCenterBigImageByDefault_OnClick(object sender, RoutedEventArgs e) {
-      RevertBoolContent(sender);
-      MainWindow.tomlViewModel.IsCenterBigImageByDefault = ButtonCenterBigImageByDefault.Content.ToString();
-    }
-
-    private void ButtonEnlargeSmallImageByDefault_OnClick(object sender, RoutedEventArgs e) {
-      RevertBoolContent(sender);
-      MainWindow.tomlViewModel.IsEnlargeSmallImageByDefault = ButtonEnlargeSmallImageByDefault.Content.ToString();
-    }
-
-    private void ButtonDescendingSort_OnClick(object sender, RoutedEventArgs e) {
-      RevertBoolContent(sender);
-      MainWindow.tomlViewModel.IsDescendingSort = ButtonDescendingSort.Content.ToString();
-    }
+    //public void RevertBoolContent(object sender) {//将文本置换
+    //  Button button = sender as Button;
+    //  bool now = bool.Parse(button.Content.ToString());
+    //  button.Content = (!now).ToString();
+    //}
   }
 }
 

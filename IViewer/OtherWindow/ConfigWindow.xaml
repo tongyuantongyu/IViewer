@@ -53,14 +53,13 @@
                     <Label Name="LabelSortFileBy" Grid.Column="1" Grid.Row="6" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Sort file by" VerticalAlignment="Top" FontSize="20"/>
                     </Label>
-                    <Button Name="ButtonAllowMultipleInstanceRunning" Content="{Binding IsAllowMultipleInstanceRunning}" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="ButtonAllowMultipleInstanceRunning_OnClick" Height="40"/>
-                    <Button Name="ButtonConfirmBeforeDeleteFile" Content="{Binding IsConfirmBeforeDeleteFile}" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="ButtonConfirmBeforeDeleteFile_OnClick" Height="40"/>
+                    <CheckBox x:Name="CheckBoxAllowMultipleInstanceRunning" Content="Yes" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsAllowMultipleInstanceRunning}"/>
+                    <CheckBox x:Name="CheckBoxConfirmBeforeDeleteFile" Content="Yes" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsConfirmBeforeDeleteFile}"/>
                     <ComboBox x:Name="ComboBoxDefaultWindowMode" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongDefaultWindowMode}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                     <ComboBox x:Name="ComboBoxDefaultImageDisplayMode" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongDefaultImageDisplayMode}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <Button Name="ButtonCenterBigImageByDefault" Content="{Binding IsCenterBigImageByDefault}" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="ButtonBoxCenterBigImageByDefault_OnClick" Height="40"/>
-                    <Button Name="ButtonEnlargeSmallImageByDefault" Content="{Binding IsEnlargeSmallImageByDefault}" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="ButtonEnlargeSmallImageByDefault_OnClick" Height="40"/>
+                    <CheckBox x:Name="CheckBoxCenterBigImageByDefault" Content="Yes" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsCenterBigImageByDefault}"/>
+                    <CheckBox x:Name="CheckBoxEnlargeSmallImageByDefault" Content="Yes" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsEnlargeSmallImageByDefault}"/>
                     <ComboBox x:Name="ComboBoxSortFileBy" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="6" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongSortFileBy}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-
                 </Grid>
             </TabItem>
             <TabItem Header="Behavior2" Width="189" Height="50" FontSize="20">
@@ -99,7 +98,7 @@
                     <Label Name="LabelReRenderWaitTime" Grid.Column="1" Grid.Row="5" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Re-render wait time(ms)" VerticalAlignment="Top" FontSize="20"/>
                     </Label>
-                    <Button Name="ButtonDescendingSort" Content="{Binding IsDescendingSort}" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="ButtonDescendingSort_OnClick" Height="40"/>
+                    <CheckBox x:Name="CheckBoxDescendingSort" Content="Yes" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsDescendingSort}"/>
                     <ComboBox x:Name="ComboBoxBehaviorOnReachingFirstLastFile" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongBehaviorOnReachingFirstLastFile}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                     <TextBox x:Name="TextBoxDragMultiplier" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleDragMultiplier}" VerticalAlignment="Center" Width="250" Grid.Row="2" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                     <TextBox x:Name="TextBoxAnimationSpan" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleAnimationSpan}" VerticalAlignment="Center" Width="250" Grid.Row="3" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
