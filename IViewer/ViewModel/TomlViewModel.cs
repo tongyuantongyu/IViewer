@@ -9,7 +9,6 @@ using System.Windows.Controls;
 namespace IViewer.ViewModel {
   public class TomlViewModel : INotifyPropertyChanged {
     public static TomlConfig tomlConfig;
-    public string fileName = "test.toml";
     public event PropertyChangedEventHandler PropertyChanged;
 
     public void RaisePropertyChanged(string propertyName) {//属性更改方法
@@ -18,10 +17,11 @@ namespace IViewer.ViewModel {
 
     public TomlViewModel() {
       tomlConfig = new TomlConfig();
-      tomlConfig.Read(fileName);
+      tomlConfig.Read(MainWindow.TomlFileName);
     }
-    public void WB() { tomlConfig.Write(fileName);}
+    public void WB(string fileName) { tomlConfig.Write(fileName);}
 
+    public void R(string fileName) { tomlConfig.Read(fileName);}
     //字段
     public string TomlResult {
       get { return tomlConfig.ToString(); }

@@ -51,7 +51,7 @@ namespace IViewer.OtherWindow {
     private void Window_Closed(object sender, EventArgs e) {
       //写入配置
       TomlViewModel tomlViewModel = base.DataContext as TomlViewModel;
-      tomlViewModel.WB();
+      tomlViewModel.WB(MainWindow.TomlFileName);
       tomlViewModel.RaisePropertyChanged("TomlResult");
       //重启应用
       //this.Dispatcher.Invoke((ThreadStart)delegate ()

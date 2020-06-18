@@ -32,6 +32,7 @@ namespace IViewer {
   public partial class MainWindow : Window {
     public Thread t;
     public static TomlViewModel tomlViewModel;
+    public static string TomlFileName = "test.toml";
     public MainWindow() {
       InitializeComponent();
       Focus();
@@ -42,6 +43,7 @@ namespace IViewer {
       SortByFileName.IsChecked = true;
 
       tomlViewModel = base.DataContext as TomlViewModel;
+
       //启动Watcher线程
       //tomlWatcher = base.DataContext as TomlWatcher;
       //t = new Thread(tomlWatcher.Run);
