@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,56 +24,59 @@ namespace DemoAndTests {
   public partial class MainWindow : Window {
     public MainWindow() {
       InitializeComponent();
-      var scale = GetScale();
-      Scale.ScaleX = scale;
-      Scale.ScaleY = scale;
+      DataContext = SettingTest.GetInstance();
     }
 
-    private double GetScale() {
-      Matrix matrix;
-
-      var source = PresentationSource.FromVisual(this);
-      if (source?.CompositionTarget != null) {
-        matrix = source.CompositionTarget.TransformToDevice;
-      }
-      else {
-        using (var s = new HwndSource(new HwndSourceParameters())) {
-          if (s.CompositionTarget != null) {
-            matrix = s.CompositionTarget.TransformToDevice;
-          }
-          else {
-            return 1;
-          }
-        }
-      }
-
-      return 1.0 / matrix.M11;
-    }
-
-    private WriteableBitmap src;
-    private WriteableBitmap dst;
 
     private void Window_Loaded(object sender, RoutedEventArgs e) {
-      src = new WriteableBitmap(new BitmapImage(new Uri("background.png", UriKind.Relative)));
-
-      // Maybe you need to change dst infos
-      dst = Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
-        8, src.BackBufferStride / src.PixelWidth);
-
-      dst.Lock();
-
-      ApplyFilter(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst));
-
-      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
-
-      dst.Unlock();
-
-      Img.Source = dst;
     }
 
     private static void ApplyFilter(Bitmap srcBp, Bitmap dstBp) {
       // TODO: Change to your filter logic
       Misc.CopyBitmap(srcBp, dstBp);
+    }
+
+    private void Button_Click(object sender, RoutedEventArgs e) {
+      SettingTest.GetInstance().TestData = "TESTTESTUPDATE";
+      SettingTest.GetInstance().Status = true;
+    }
+
+    private void Button_Click_1(object sender, RoutedEventArgs e) {
+      var w = new SettingWindow {DataContext = SettingTest.GetInstance()};
+      w.Show();
+    }
+  }
+
+  public class SettingTest : INotifyPropertyChanged {
+    private static SettingTest instance;
+
+    public static SettingTest GetInstance() {
+      return instance ?? (instance = new SettingTest());
+    }
+    private string data = "TESTTEST";
+    private bool status = false;
+
+    public string TestData {
+      get => data;
+      set {
+        data = value;
+        OnPropertyChanged(nameof(TestData));
+      }
+    }
+
+    public bool Status {
+      get => status;
+      set {
+        Debug.WriteLine("Changed.");
+        status = value;
+        OnPropertyChanged(nameof(Status));
+      }
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
   }
 }

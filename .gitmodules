@@ -1,0 +1,3 @@
+[submodule "image-resampler"]
+	path = image-resampler
+	url = https://github.com/tongyuantongyu/image-resampler.git

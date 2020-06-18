@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:DemoAndTests"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
-    <Grid>
-    <Canvas HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch">
-      <Image x:Name="Img" Canvas.Left="0" Canvas.Top="0">
-        <Image.RenderTransform>
-          <ScaleTransform x:Name="Scale"></ScaleTransform>
-        </Image.RenderTransform>
-      </Image>
-    </Canvas>
-    </Grid>
+  <Grid>
+    <Button Content="OpenWindow" HorizontalAlignment="Left" Margin="149,73,0,0" VerticalAlignment="Top" Width="111" Click="Button_Click_1"/>
+    <Button Content="UpdateText" HorizontalAlignment="Left" Margin="273,229,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+    <Label Content="{Binding TestData}" HorizontalAlignment="Left" Margin="403,132,0,0" VerticalAlignment="Top" Width="295"/>
+    <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="433,94,0,0" VerticalAlignment="Top" IsChecked="{Binding Status, Mode=TwoWay}"/>
+    <ComboBox HorizontalAlignment="Left" Margin="433,132,0,0" VerticalAlignment="Top" Width="120"/>
+    <TextBox HorizontalAlignment="Left" Height="24" Margin="433,180,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+
+  </Grid>
 </Window>

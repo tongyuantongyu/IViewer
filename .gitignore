@@ -39,3 +39,6 @@ packages/
 
 # Visual Studio 2015
 .vs/
+
+# Obsolete project
+InterpolateResizer/

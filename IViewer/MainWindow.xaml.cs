@@ -331,7 +331,6 @@ namespace IViewer {
       Debug.WriteLine("Update image: begin");
       Dispatcher.Invoke(() => Updating = true);
       Debug.WriteLine($"Update image: scale: area: {sourceArea}, scale: {realScale}");
-      // TODO: pass resize algorithm here
       var newImage = image.GetPartial(sourceArea, realScale);
       Debug.WriteLine("Update image: scale: finish");
 
