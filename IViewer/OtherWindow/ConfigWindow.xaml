@@ -223,7 +223,7 @@
                     <Label Name="LabelLanguage" Grid.Column="1" Grid.Row="1" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Language" VerticalAlignment="Top" FontSize="20"/>
                     </Label>
-                    <TextBox x:Name="TextBoxImageEditorPath" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="{Binding StringImageEditorPath}" VerticalAlignment="Center" Width="250" Grid.Row="0" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxImageEditorPath" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="{Binding StringImageEditorPath}" VerticalAlignment="Center" Width="250" Grid.Row="0" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsReadOnly="True" MouseDoubleClick="TextBoxImageEditorPath_OnMouseDoubleClick"/>
                     <ComboBox x:Name="ComboBoxLanguage" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongLanguage}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                 </Grid>
             </TabItem>

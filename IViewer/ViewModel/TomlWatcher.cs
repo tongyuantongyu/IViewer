@@ -7,30 +7,15 @@ using System.Security.Permissions;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using IViewer.ViewModel;
 
 namespace IViewer
 {
     public class TomlWatcher
     {
-        public string FileName;
-        public TomlConfig tomlConfig;
-
-        public TomlWatcher()//初始化文件和配置类
+      public TomlWatcher()//初始化文件和配置类
         {
-            //FileName = "test.toml";
-            //tomlConfig = new TomlConfig();
-            //if (File.Exists(FileName))
-            //{
-            //    tomlConfig.Read(FileName);
-            //}
-            //else
-            //{
-            //    tomlConfig.Write(FileName);
-            //}
-        }
-
-        public void W() {
-            tomlConfig.Write(FileName);
+            
         }
 
     [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
@@ -40,7 +25,7 @@ namespace IViewer
 
             string dir = AppDomain.CurrentDomain.BaseDirectory;
             watcher.Path = dir;
-            watcher.Filter = FileName;
+            watcher.Filter = MainWindow.TomlFileName;
 
             watcher.NotifyFilter = NotifyFilters.LastAccess
                                    | NotifyFilters.LastWrite
@@ -60,15 +45,14 @@ namespace IViewer
         }
 
         private void OnChanged(object source, FileSystemEventArgs e)//修改时读取信息
-        { 
-            tomlConfig.Read(FileName);
-
+        {
+          TomlViewModel.tomlConfig.Read(MainWindow.TomlFileName);
         }
 
-        private void OnRenamed(object source, RenamedEventArgs e)//重命名时重新创建一个
+        private void OnRenamed(object source, RenamedEventArgs e) //重命名时重新创建一个
         {
-            ShowFileStatus(source, e);
-            tomlConfig.Write(FileName);
+          ShowFileStatus(source, e);
+          TomlViewModel.tomlConfig.Write(MainWindow.TomlFileName);
         }
 
         private void OnCreated(object source, FileSystemEventArgs e)
@@ -76,10 +60,10 @@ namespace IViewer
             
         }
 
-        private void OnDeleted(object source, FileSystemEventArgs e)//删除时重新创建
+        private void OnDeleted(object source, FileSystemEventArgs e) //删除时重新创建
         {
-            ShowFileStatus(source, e);
-            tomlConfig.Write(FileName);
+          ShowFileStatus(source, e);
+          TomlViewModel.tomlConfig.Write(MainWindow.TomlFileName);
         }
 
         private void ShowFileStatus(object source, FileSystemEventArgs e)

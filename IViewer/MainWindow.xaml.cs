@@ -33,6 +33,7 @@ namespace IViewer {
     public Thread t;
     public static TomlViewModel tomlViewModel;
     public static string TomlFileName = "test.toml";
+    public static TomlWatcher tomlWatcher;
     public MainWindow() {
       InitializeComponent();
       Focus();
@@ -45,7 +46,7 @@ namespace IViewer {
       tomlViewModel = base.DataContext as TomlViewModel;
 
       //启动Watcher线程
-      //tomlWatcher = base.DataContext as TomlWatcher;
+      //tomlWatcher = new TomlWatcher(); 
       //t = new Thread(tomlWatcher.Run);
       //t.Start();
     }
@@ -556,9 +557,9 @@ namespace IViewer {
     //杂项 选项，关于和退出
     private void ConfigItem_OnClick(object sender, RoutedEventArgs e) {
       //选项
-      //tomlViewModel.Open();
-      var x = new ConfigWindow(ref tomlViewModel);
-      x.Show();
+      Window configWindow = new ConfigWindow(tomlViewModel);
+      configWindow.ShowDialog();
+      
     }
 
   private void AboutItem_OnClick(object sender, RoutedEventArgs e) {//打开about窗口

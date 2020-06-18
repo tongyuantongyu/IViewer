@@ -14,13 +14,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using IViewer.ViewModel;
+using Microsoft.Win32;
 
 namespace IViewer.OtherWindow {
   /// <summary>
   /// ConfigWindow.xaml 的交互逻辑
   /// </summary>
   public partial class ConfigWindow : Window {
-    public ConfigWindow(ref TomlViewModel tomlViewModel) {
+    public ConfigWindow(TomlViewModel tomlViewModel) {
 
       InitializeComponent();
       //Initial ComboBox with Enum name
@@ -44,8 +45,8 @@ namespace IViewer.OtherWindow {
         ComboBoxDoublingAlgorithm.Items.Add(Enum.GetName(typeof(EnumImageDoublingAlgorithm), i));
       for (int i = 0; i < Enum.GetValues(typeof(EnumLanguage)).Length; i++)
         ComboBoxLanguage.Items.Add(Enum.GetName(typeof(EnumLanguage), i));
-      base.DataContext = tomlViewModel;
 
+      base.DataContext = tomlViewModel;
     }
 
     private void Window_Closed(object sender, EventArgs e) {
@@ -53,13 +54,6 @@ namespace IViewer.OtherWindow {
       TomlViewModel tomlViewModel = base.DataContext as TomlViewModel;
       tomlViewModel.WB(MainWindow.TomlFileName);
       tomlViewModel.RaisePropertyChanged("TomlResult");
-      //重启应用
-      //this.Dispatcher.Invoke((ThreadStart)delegate ()
-      //  {
-      //    Application.Current.Shutdown();
-      //  }
-      //);
-      //System.Diagnostics.Process.Start(System.Reflection.Assembly.GetExecutingAssembly().Location);
     }
 
     private void ScrollBarDragMultiplier_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
@@ -84,6 +78,20 @@ namespace IViewer.OtherWindow {
       ScrollBar scrollBar = sender as ScrollBar;
       double num = scrollBar.Value;
       LabelReRenderWaitTimeNum.Content = num.ToString();
+    }
+
+    private void TextBoxImageEditorPath_OnMouseDoubleClick(object sender, MouseButtonEventArgs e) {
+      var dialog = new OpenFileDialog {
+        RestoreDirectory = true,
+        Filter = $"{Properties.Resources.Type_PNG} (*.png)|*.png|" +
+                 $"{Properties.Resources.Type_HEIF} (*.heic)|*.heic|" +
+                 $"{Properties.Resources.Type_Any} (*.*)|*.*",
+        FilterIndex = 0
+      };
+      if (dialog.ShowDialog() != true) {
+        return;
+      }
+      TextBoxImageEditorPath.Text = dialog.FileName;
     }
   }
 }
