@@ -67,7 +67,8 @@
                     <MenuItem Name="ExitItem" Header="退出" Click="ExitItem_OnClick"></MenuItem>
                 </ContextMenu>
             </Canvas.ContextMenu>
-            <TextBox x:Name="TomlTextBox" Height="360" Canvas.Left="55" TextWrapping="Wrap" Text="{Binding TomlResult}" Canvas.Top="43" Width="669" FontSize="16" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
+            <TextBox x:Name="TomlTextBox" Height="360" Canvas.Left="211" TextWrapping="Wrap" Text="{Binding TomlResult}" Canvas.Top="43" Width="572" FontSize="16" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
+            <TextBlock x:Name="TextBlockImageInfo" Canvas.Left="10" TextWrapping="Wrap" Canvas.Top="10" Height="393" Width="196" Foreground="White"/>
             <!--#endregion -->
         </Canvas>
         <Grid x:Name="TopBar" HorizontalAlignment="Stretch" Height="30" Margin="0,-30,-0.4,0" VerticalAlignment="Top"

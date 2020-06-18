@@ -34,6 +34,7 @@ namespace IViewer {
     public static TomlViewModel tomlViewModel;
     public static string TomlFileName = "test.toml";
     public static TomlWatcher tomlWatcher;
+    public static MyMetaDataExtractor myMetaDataExtractor;
     public MainWindow() {
       InitializeComponent();
       Focus();
@@ -44,7 +45,7 @@ namespace IViewer {
       SortByFileName.IsChecked = true;
 
       tomlViewModel = base.DataContext as TomlViewModel;
-
+      myMetaDataExtractor = new MyMetaDataExtractor();
       //启动Watcher线程
       //tomlWatcher = new TomlWatcher(); 
       //t = new Thread(tomlWatcher.Run);
@@ -463,6 +464,13 @@ namespace IViewer {
       }
 
       LoadImage(dialog.FileName);
+
+      myMetaDataExtractor.ReadPic(dialog.FileName);
+      TextBlockImageInfo.Text = myMetaDataExtractor.SourseOutput() + "----------------\n" +
+                                myMetaDataExtractor.ImageOutput() + "----------------\n" +
+                                myMetaDataExtractor.CameraOutput() + "----------------\n" +
+                                myMetaDataExtractor.FileOutput();
+
     }
 
     private BitmapSource image;
