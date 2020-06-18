@@ -17,11 +17,11 @@
             <TabItem Header="Behavior1" Width="189" Height="50" FontSize="20">
                 <Grid x:Name="GridBehavior1" HorizontalAlignment="Left" Height="350" Margin="0,0,0,-7.333" Width="765" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="40"></ColumnDefinition>
                         <ColumnDefinition Width="350"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="250"></ColumnDefinition>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="40"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
@@ -100,10 +100,55 @@
                     </Label>
                     <CheckBox x:Name="CheckBoxDescendingSort" Content="Yes" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsDescendingSort}"/>
                     <ComboBox x:Name="ComboBoxBehaviorOnReachingFirstLastFile" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongBehaviorOnReachingFirstLastFile}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBox x:Name="TextBoxDragMultiplier" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleDragMultiplier}" VerticalAlignment="Center" Width="250" Grid.Row="2" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBox x:Name="TextBoxAnimationSpan" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleAnimationSpan}" VerticalAlignment="Center" Width="250" Grid.Row="3" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBox x:Name="TextBoxExtendRenderRatio" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleExtendRenderRatio}" VerticalAlignment="Center" Width="250" Grid.Row="4" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBox x:Name="TextBoxReRenderWaitTime" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DoubleReRenderWaitTime}" VerticalAlignment="Center" Width="250" Grid.Row="5" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+
+                    <Label x:Name="LabelDragMultiplierNum" Content="" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ScrollBar x:Name="ScrollBarDragMultiplier" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="250" Width="30" RenderTransformOrigin="0.5,0.5" Minimum="0" Maximum="2" Value="{Binding DoubleDragMultiplier}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="109.667,0,0,0" Grid.RowSpan="5" ValueChanged="ScrollBarDragMultiplier_ValueChanged">
+                        <ScrollBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ScrollBar.RenderTransform>
+                    </ScrollBar>
+
+                    <Label x:Name="LabelAnimationSpanNum" Content="" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ScrollBar x:Name="ScrollBarAnimationSpan" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="250" Width="30" RenderTransformOrigin="0.5,0.5" Minimum="0.4" Maximum="3" Value="{Binding DoubleAnimationSpan}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="109.667,0,0,0" Grid.RowSpan="5" ValueChanged="ScrollBarAnimationSpan_OnValueChanged">
+                        <ScrollBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ScrollBar.RenderTransform>
+                    </ScrollBar>
+
+                    <Label x:Name="LabelExtendRenderRatioNum" Content="" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ScrollBar x:Name="ScrollBarExtendRenderRatio" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="250" Width="30" RenderTransformOrigin="0.5,0.5" Minimum="0" Maximum="1" Value="{Binding DoubleExtendRenderRatio}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="109.667,0,0,0" Grid.RowSpan="5" ValueChanged="ScrollBarExtendRenderRatio_OnValueChanged">
+                        <ScrollBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ScrollBar.RenderTransform>
+                    </ScrollBar>
+
+                    <Label x:Name="LabelReRenderWaitTimeNum" Content="" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ScrollBar x:Name="ScrollBarReRenderWaitTime" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Height="250" Width="30" RenderTransformOrigin="0.5,0.5" Minimum="0.5" Maximum="2" Value="{Binding DoubleReRenderWaitTime}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="110.667,2,0,-52" Grid.RowSpan="4" ValueChanged="ScrollBarReRenderWaitTime_OnValueChanged">
+                        <ScrollBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ScrollBar.RenderTransform>
+                    </ScrollBar>
+
                 </Grid>
             </TabItem>
             <TabItem Header="View" Width="189" Height="50" FontSize="20">
@@ -179,7 +224,7 @@
                         <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Language" VerticalAlignment="Top" FontSize="20"/>
                     </Label>
                     <TextBox x:Name="TextBoxImageEditorPath" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="{Binding StringImageEditorPath}" VerticalAlignment="Center" Width="250" Grid.Row="0" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBox x:Name="TextBoxLanguage" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding StringLanguage}" VerticalAlignment="Center" Width="250" Grid.Row="1" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ComboBoxLanguage" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongLanguage}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                 </Grid>
             </TabItem>
         </TabControl>

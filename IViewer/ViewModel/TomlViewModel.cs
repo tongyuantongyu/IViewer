@@ -34,9 +34,9 @@ namespace IViewer.ViewModel {
       set { tomlConfig.IsAllowMultipleInstanceRunning = value; }
     }
 
-    public string IsConfirmBeforeDeleteFile {
-      get { return tomlConfig.IsConfirmBeforeDeleteFile.ToString(); }
-      set { tomlConfig.IsConfirmBeforeDeleteFile = bool.Parse(value); }
+    public bool IsConfirmBeforeDeleteFile {
+      get { return tomlConfig.IsConfirmBeforeDeleteFile; }
+      set { tomlConfig.IsConfirmBeforeDeleteFile = value; }
     }
 
     public long LongDefaultWindowMode {
@@ -49,14 +49,14 @@ namespace IViewer.ViewModel {
       set { tomlConfig.LongDefaultImageDisplayMode = value; }
     }
 
-    public string IsCenterBigImageByDefault {
-      get { return tomlConfig.IsCenterBigImageByDefault.ToString(); }
-      set { tomlConfig.IsCenterBigImageByDefault = bool.Parse(value); }
+    public bool IsCenterBigImageByDefault {
+      get { return tomlConfig.IsCenterBigImageByDefault; }
+      set { tomlConfig.IsCenterBigImageByDefault = value; }
     }
 
-    public string IsEnlargeSmallImageByDefault {
-      get { return tomlConfig.IsEnlargeSmallImageByDefault.ToString(); }
-      set { tomlConfig.IsEnlargeSmallImageByDefault = bool.Parse(value); }
+    public bool IsEnlargeSmallImageByDefault {
+      get { return tomlConfig.IsEnlargeSmallImageByDefault; }
+      set { tomlConfig.IsEnlargeSmallImageByDefault = value; }
     }
 
     public long LongSortFileBy {
@@ -64,9 +64,9 @@ namespace IViewer.ViewModel {
       set { tomlConfig.LongSortFileBy = value; }
     }
 
-    public string IsDescendingSort {
-      get { return tomlConfig.IsDescendingSort.ToString(); }
-      set { tomlConfig.IsDescendingSort = bool.Parse(value); }
+    public bool IsDescendingSort {
+      get { return tomlConfig.IsDescendingSort; }
+      set { tomlConfig.IsDescendingSort = value; }
     }
 
     public long LongBehaviorOnReachingFirstLastFile {
@@ -133,9 +133,9 @@ namespace IViewer.ViewModel {
       set { tomlConfig.StringImageEditorPath = value; }
     }
 
-    public string StringLanguage {
-      get { return tomlConfig.StringLanguage; }
-      set { tomlConfig.StringLanguage = value; }
+    public long LongLanguage {
+      get { return tomlConfig.LongLanguage; }
+      set { tomlConfig.LongLanguage = value; }
     }
 
   }

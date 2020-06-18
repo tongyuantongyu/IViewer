@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -41,8 +42,10 @@ namespace IViewer.OtherWindow {
         ComboBoxShrinkingAlgorithm.Items.Add(Enum.GetName(typeof(EnumImageShrinkingAlgorithm), i));
       for (int i = 0; i < Enum.GetValues(typeof(EnumImageDoublingAlgorithm)).Length; i++)
         ComboBoxDoublingAlgorithm.Items.Add(Enum.GetName(typeof(EnumImageDoublingAlgorithm), i));
-
+      for (int i = 0; i < Enum.GetValues(typeof(EnumLanguage)).Length; i++)
+        ComboBoxLanguage.Items.Add(Enum.GetName(typeof(EnumLanguage), i));
       base.DataContext = tomlViewModel;
+
     }
 
     private void Window_Closed(object sender, EventArgs e) {
@@ -59,11 +62,29 @@ namespace IViewer.OtherWindow {
       //System.Diagnostics.Process.Start(System.Reflection.Assembly.GetExecutingAssembly().Location);
     }
 
-    //public void RevertBoolContent(object sender) {//将文本置换
-    //  Button button = sender as Button;
-    //  bool now = bool.Parse(button.Content.ToString());
-    //  button.Content = (!now).ToString();
-    //}
+    private void ScrollBarDragMultiplier_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+      ScrollBar scrollBar = sender as ScrollBar;
+      double num = scrollBar.Value;
+      LabelDragMultiplierNum.Content = num.ToString();
+    }
+
+    private void ScrollBarAnimationSpan_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+      ScrollBar scrollBar = sender as ScrollBar;
+      double num = scrollBar.Value;
+      LabelAnimationSpanNum.Content = num.ToString();
+    }
+
+    private void ScrollBarExtendRenderRatio_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+      ScrollBar scrollBar = sender as ScrollBar;
+      double num = scrollBar.Value;
+      LabelExtendRenderRatioNum.Content = num.ToString();
+    }
+
+    private void ScrollBarReRenderWaitTime_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+      ScrollBar scrollBar = sender as ScrollBar;
+      double num = scrollBar.Value;
+      LabelReRenderWaitTimeNum.Content = num.ToString();
+    }
   }
 }
 

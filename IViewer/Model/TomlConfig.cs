@@ -66,6 +66,10 @@ namespace IViewer
     C = 2
   }
 
+  public enum EnumLanguage {
+    Chinese = 0,
+    English = 1
+  }
   public class TomlConfig
     {
         //Config Values
@@ -94,7 +98,7 @@ namespace IViewer
         public long LongImageDoublingAlgorithm;
         //other
         public string StringImageEditorPath;
-        public string StringLanguage;
+        public long LongLanguage;
 
         public TomlConfig() //初始化
         {
@@ -122,7 +126,7 @@ namespace IViewer
           LongImageDoublingAlgorithm = (long)EnumImageDoublingAlgorithm.A;
           //other
           StringImageEditorPath = @".\";
-          StringLanguage = "chinese";
+          LongLanguage = (long)EnumLanguage.Chinese;
         }
 
         public override string ToString() {
