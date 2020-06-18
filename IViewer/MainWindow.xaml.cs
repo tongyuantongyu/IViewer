@@ -579,5 +579,10 @@ namespace IViewer {
       Application.Current.Shutdown();
     }
 
+    private void TextBlockImageInfo_OnPreviewMouseDown(object sender, MouseButtonEventArgs e) {
+      if (myMetaDataExtractor.IsReaded()) return;
+      Window moreImageInfoWindow = new MoreImageInfoWindow();
+      moreImageInfoWindow.ShowDialog();
+    }
   }
 }

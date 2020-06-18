@@ -69,6 +69,9 @@
     <Compile Include="OtherWindow\ConfigWindow.xaml.cs">
       <DependentUpon>ConfigWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OtherWindow\MoreImageInfoWindow.xaml.cs">
+      <DependentUpon>MoreImageInfoWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\TomlViewModel.cs" />
     <Compile Include="ViewModel\TomlWatcher.cs" />
     <Page Include="OtherWindow\About.xaml">
@@ -92,6 +95,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="OtherWindow\ConfigWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OtherWindow\MoreImageInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -20,6 +20,10 @@ namespace IViewer {
           
         }
 
+        public bool IsReaded() {
+          return directories == null;
+        }
+        
         public void ReadPic(string imagePath) {
           if(File.Exists(imagePath))
             directories = ImageMetadataReader.ReadMetadata(imagePath);
