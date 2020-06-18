@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IViewer"
         mc:Ignorable="d"
-        Title="About" Height="200" Width="200">
-    <Grid Background="#FF00D1D1">
-        <TextBox HorizontalAlignment="Left" Height="39" Margin="31,66,0,0" TextWrapping="Wrap" Text="IViewer" VerticalAlignment="Top" Width="133" FontSize="32" Background="{x:Null}" BorderBrush="{x:Null}"/>
-
+        Title="About" Height="300" Width="400">
+    <Grid Background="Black">
+        <TextBlock x:Name="TextBlockAbout" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="White" Height="251" Width="373" FontSize="30" TextAlignment="Center" />
     </Grid>
 </Window>

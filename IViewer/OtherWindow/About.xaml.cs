@@ -19,6 +19,11 @@ namespace IViewer {
   public partial class About : Window {
     public About() {
       InitializeComponent();
+      TextBlockAbout.Text = "Ivewer" + "\n" +
+                            "感谢：" + "\n" +
+                            "metadata-extractor" + "\n" +
+                            "Tomlyn" + "\n"
+        ;
     }
   }
 }

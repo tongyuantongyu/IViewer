@@ -121,6 +121,7 @@ namespace IViewer {
 
     private void CloseWindow(object sender, RoutedEventArgs e) {
       //t.Abort();
+      tomlViewModel.WB(TomlFileName);
       Application.Current.Shutdown();
     }
 
@@ -556,10 +557,12 @@ namespace IViewer {
     private void StretchingMode_OnClick(object sender, RoutedEventArgs e) {
       //Stretching Img
       (sender as MenuItem).IsChecked = !(sender as MenuItem).IsChecked;
+      CenterMode.IsChecked = false;
     }
 
     private void CenterMode_OnClick(object sender, RoutedEventArgs e) {
       (sender as MenuItem).IsChecked = !(sender as MenuItem).IsChecked;
+      StretchingMode.IsChecked = false;
     }
 
     //杂项 选项，关于和退出

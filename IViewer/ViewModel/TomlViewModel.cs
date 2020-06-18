@@ -66,7 +66,8 @@ namespace IViewer.ViewModel {
 
     public bool IsDescendingSort {
       get { return tomlConfig.IsDescendingSort; }
-      set { tomlConfig.IsDescendingSort = value; }
+      set { tomlConfig.IsDescendingSort = value;RaisePropertyChanged("IsDescendingSort");
+        RaisePropertyChanged("TomlResult"); }
     }
 
     public long LongBehaviorOnReachingFirstLastFile {
@@ -137,6 +138,59 @@ namespace IViewer.ViewModel {
       get { return tomlConfig.LongLanguage; }
       set { tomlConfig.LongLanguage = value; }
     }
+
+    //ContexMenu
+    public bool SortByFileName {
+      get { return tomlConfig.LongSortFileBy == (long)EnumSortFileBy.FileName; }
+      set {
+        if (value == true) {
+          tomlConfig.LongSortFileBy = (long)EnumSortFileBy.FileName;RaisePropertyChanged("LongSortFileBy");
+          RaisePropertyChanged("TomlResult");
+        }
+      }
+    }
+
+    public bool SortByModifyDate {
+      get { return tomlConfig.LongSortFileBy == (long)EnumSortFileBy.ModifiedDate; }
+      set {
+        if (value == true) {
+          tomlConfig.LongSortFileBy = (long)EnumSortFileBy.ModifiedDate;RaisePropertyChanged("LongSortFileBy");
+          RaisePropertyChanged("TomlResult");
+        }
+      }
+    }
+
+    public bool SortBySize {
+      get { return tomlConfig.LongSortFileBy == (long)EnumSortFileBy.Size; }
+      set {
+        if (value == true) {
+          tomlConfig.LongSortFileBy = (long)EnumSortFileBy.Size; RaisePropertyChanged("LongSortFileBy");
+          RaisePropertyChanged("TomlResult");
+        }
+      }
+    }
+
+    public bool OriginalMode {
+      get { return tomlConfig.LongDefaultImageDisplayMode == (long)EnumDefaultImageDisplayMode.OriginalSize; }
+      set {
+        if (value == true) {
+          tomlConfig.LongDefaultImageDisplayMode = (long)EnumDefaultImageDisplayMode.OriginalSize; RaisePropertyChanged("LongDefaultImageDisplayMode");
+          RaisePropertyChanged("TomlResult");
+        }
+      }
+    }
+
+    public bool FitWindowMode {
+      get { return tomlConfig.LongDefaultImageDisplayMode == (long)EnumDefaultImageDisplayMode.FitWindow; }
+      set {
+        if (value == true) {
+          tomlConfig.LongDefaultImageDisplayMode = (long)EnumDefaultImageDisplayMode.FitWindow; RaisePropertyChanged("LongDefaultImageDisplayMode");
+          RaisePropertyChanged("TomlResult");
+        }
+      }
+    }
+
+
 
   }
 }
