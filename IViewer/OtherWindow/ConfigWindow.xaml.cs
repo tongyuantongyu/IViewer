@@ -21,7 +21,7 @@ namespace IViewer.OtherWindow {
     public ConfigWindow(ref TomlWatcher tw) {
 
       InitializeComponent();
-      //Initial ComboBox with Enum
+      //Initial ComboBox with Enum name
       for (int i = 0; i < Enum.GetValues(typeof(EnumDefaultWindowMode)).Length; i++)
         ComboBoxDefaultWindowMode.Items.Add(Enum.GetName(typeof(EnumDefaultWindowMode), i));
       for (int i = 0; i < Enum.GetValues(typeof(EnumDefaultImageDisplayMode)).Length; i++)
@@ -30,7 +30,18 @@ namespace IViewer.OtherWindow {
         ComboBoxSortFileBy.Items.Add(Enum.GetName(typeof(EnumSortFileBy), i));
       for (int i = 0; i < Enum.GetValues(typeof(EnumBehaviorOnReachingFirstLastFile)).Length; i++)
         ComboBoxBehaviorOnReachingFirstLastFile.Items.Add(Enum.GetName(typeof(EnumBehaviorOnReachingFirstLastFile), i));
+      for (int i = 0; i < Enum.GetValues(typeof(EnumFileInfo)).Length; i++)
+        ComboBoxFileInfo.Items.Add(Enum.GetName(typeof(EnumFileInfo), i));
+      for (int i = 0; i < Enum.GetValues(typeof(EnumEXIFInfo)).Length; i++)
+        ComboBoxEXIFInfo.Items.Add(Enum.GetName(typeof(EnumEXIFInfo), i));
+      for (int i = 0; i < Enum.GetValues(typeof(EnumImageEnlargingAlgorithm)).Length; i++)
+        ComboBoxImageEnlargingAlgorithm.Items.Add(Enum.GetName(typeof(EnumImageEnlargingAlgorithm), i));
+      for (int i = 0; i < Enum.GetValues(typeof(EnumImageShrinkingAlgorithm)).Length; i++)
+        ComboBoxShrinkingAlgorithm.Items.Add(Enum.GetName(typeof(EnumImageShrinkingAlgorithm), i));
+      for (int i = 0; i < Enum.GetValues(typeof(EnumImageDoublingAlgorithm)).Length; i++)
+        ComboBoxDoublingAlgorithm.Items.Add(Enum.GetName(typeof(EnumImageDoublingAlgorithm), i));
       base.DataContext = tw;
+
     }
 
     private void Window_Closed(object sender, EventArgs e) {

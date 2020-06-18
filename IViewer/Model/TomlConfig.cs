@@ -35,6 +35,37 @@ namespace IViewer
     Stop = 2,
     GotoPreviousNextFolder = 3
   }
+
+  public enum EnumFileInfo {
+    Hide = 0,
+    Show = 1,
+    ShowOnHover = 2
+  }
+
+  public enum EnumEXIFInfo {
+    Hide = 0,
+    Show = 1,
+    ShowOnHover = 2
+  }
+
+  public enum EnumImageEnlargingAlgorithm {
+    A = 0,
+    B = 1,
+    C = 2
+  }
+
+  public enum EnumImageShrinkingAlgorithm {
+    A = 0,
+    B = 1,
+    C = 2
+  }
+
+  public enum EnumImageDoublingAlgorithm {
+    A = 0,
+    B = 1,
+    C = 2
+  }
+
   public class TomlConfig
     {
         //Config Values
@@ -53,23 +84,45 @@ namespace IViewer
         public double DoubleAnimationSpan;
         public double DoubleExtendRenderRatio;
         public double DoubleReRenderWaitTime;
+        //view
+        public long LongFileInfo;
+        public long LongEXIFInfo;
+        public string StringWindowBackgroundColor;
+        public string StringImageBackgroundColor;
+        public long LongImageEnlargingAlgorithm;
+        public long LongImageShrinkingAlgorithm;
+        public long LongImageDoublingAlgorithm;
+        //other
+        public string StringImageEditorPath;
+        public string StringLanguage;
 
-        public TomlConfig()//初始化
+        public TomlConfig() //初始化
         {
-            //behavior
-            IsAllowMultipleInstanceRunning = true;
-            IsConfirmBeforeDeleteFile = false;
-            LongDefaultWindowMode = (long)EnumDefaultWindowMode.Maximized;
-            LongDefaultImageDisplayMode = (long)EnumDefaultImageDisplayMode.FitWindow;
-            IsCenterBigImageByDefault = true;
-            IsEnlargeSmallImageByDefault = false;
-            LongSortFileBy = (long)EnumSortFileBy.Size;
-            IsDescendingSort = false;
-            LongBehaviorOnReachingFirstLastFile = (long)EnumBehaviorOnReachingFirstLastFile.Ask;
-            DoubleDragMultiplier = 0.57;
-            DoubleAnimationSpan = 0.98;
-            DoubleExtendRenderRatio = 0.66;
-            DoubleReRenderWaitTime = 1.67;
+          //behavior
+          IsAllowMultipleInstanceRunning = true;
+          IsConfirmBeforeDeleteFile = false;
+          LongDefaultWindowMode = (long)EnumDefaultWindowMode.Maximized;
+          LongDefaultImageDisplayMode = (long)EnumDefaultImageDisplayMode.FitWindow;
+          IsCenterBigImageByDefault = true;
+          IsEnlargeSmallImageByDefault = false;
+          LongSortFileBy = (long)EnumSortFileBy.Size;
+          IsDescendingSort = false;
+          LongBehaviorOnReachingFirstLastFile = (long)EnumBehaviorOnReachingFirstLastFile.Ask;
+          DoubleDragMultiplier = 0.57;
+          DoubleAnimationSpan = 0.98;
+          DoubleExtendRenderRatio = 0.66;
+          DoubleReRenderWaitTime = 1.67;
+          //view
+          LongFileInfo = (long)EnumFileInfo.Hide;
+          LongEXIFInfo = (long)EnumEXIFInfo.ShowOnHover;
+          StringWindowBackgroundColor = "(255,255,255)";
+          StringImageBackgroundColor = "(0,0,0)";
+          LongImageEnlargingAlgorithm = (long)EnumImageEnlargingAlgorithm.B;
+          LongImageShrinkingAlgorithm = (long)EnumImageShrinkingAlgorithm.C;
+          LongImageDoublingAlgorithm = (long)EnumImageDoublingAlgorithm.A;
+          //other
+          StringImageEditorPath = @".\";
+          StringLanguage = "chinese";
         }
 
         public override string ToString() {

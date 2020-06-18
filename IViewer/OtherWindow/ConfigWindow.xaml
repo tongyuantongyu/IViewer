@@ -145,13 +145,13 @@
                     <Label Name="LabelImageDoublingAlgorithm" Grid.Column="1" Grid.Row="6" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Image doubling algorithm" VerticalAlignment="Top" FontSize="20"/>
                     </Label>
-                    <TextBox x:Name="TextBoxFileInfo" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="250" Grid.Row="0" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBox x:Name="TextBoxEXIFInfo" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="250" Grid.Row="1" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBox x:Name="TextBoxWindowBackgroundColor" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="250" Grid.Row="2" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBox x:Name="TextBoxImageBackgroundColor" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="250" Grid.Row="3" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBox x:Name="TextBoxImageEnlargingAlgorithm" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="250" Grid.Row="4" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBox x:Name="TextBoxImageShrinkingAlgorithm" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="250" Grid.Row="5" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBox x:Name="TextBoxImageDoublingAlgorithm" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="250" Grid.Row="6" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ComboBoxFileInfo" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongFileInfo}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ComboBoxEXIFInfo" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongEXIFInfo}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxWindowBackgroundColor" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding StringWindowBackgroundColor}" VerticalAlignment="Center" Width="250" Grid.Row="2" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxImageBackgroundColor" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding StringImageBackgroundColor}" VerticalAlignment="Center" Width="250" Grid.Row="3" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ComboBoxImageEnlargingAlgorithm" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongImageEnlargingAlgorithm}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ComboBoxShrinkingAlgorithm" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongImageShrinkingAlgorithm}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ComboBoxDoublingAlgorithm" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="6" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongImageDoublingAlgorithm}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Other" Width="189" Height="50" FontSize="20">
@@ -178,8 +178,8 @@
                     <Label Name="LabelLanguage" Grid.Column="1" Grid.Row="1" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Language" VerticalAlignment="Top" FontSize="20"/>
                     </Label>
-                    <TextBox x:Name="TextBoxImageEditorPath" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="250" Grid.Row="0" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBox x:Name="TextBoxLanguage" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="250" Grid.Row="1" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxImageEditorPath" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="{Binding StringImageEditorPath}" VerticalAlignment="Center" Width="250" Grid.Row="0" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxLanguage" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding StringLanguage}" VerticalAlignment="Center" Width="250" Grid.Row="1" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                 </Grid>
             </TabItem>
         </TabControl>

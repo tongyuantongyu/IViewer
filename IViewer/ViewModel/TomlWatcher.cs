@@ -56,9 +56,9 @@ namespace IViewer
       set { tomlConfig.LongDefaultWindowMode = (long)(value); }
     }
 
-    public string LongDefaultImageDisplayMode {
-      get { return tomlConfig.LongDefaultImageDisplayMode.ToString(); }
-      set { tomlConfig.LongDefaultImageDisplayMode = long.Parse(value); }
+    public long LongDefaultImageDisplayMode {
+      get { return tomlConfig.LongDefaultImageDisplayMode; }
+      set { tomlConfig.LongDefaultImageDisplayMode = value; }
     }
 
     public string IsCenterBigImageByDefault {
@@ -71,9 +71,9 @@ namespace IViewer
       set { tomlConfig.IsEnlargeSmallImageByDefault = bool.Parse(value); }
     }
 
-    public string LongSortFileBy {
-      get { return tomlConfig.LongSortFileBy.ToString(); }
-      set { tomlConfig.LongSortFileBy = long.Parse(value); }
+    public long LongSortFileBy {
+      get { return tomlConfig.LongSortFileBy; }
+      set { tomlConfig.LongSortFileBy = value; }
     }
 
     public string IsDescendingSort {
@@ -81,9 +81,9 @@ namespace IViewer
       set { tomlConfig.IsDescendingSort = bool.Parse(value); }
     }
 
-    public string LongBehaviorOnReachingFirstLastFile {
-      get { return tomlConfig.LongBehaviorOnReachingFirstLastFile.ToString(); }
-      set { tomlConfig.LongBehaviorOnReachingFirstLastFile = long.Parse(value); }
+    public long LongBehaviorOnReachingFirstLastFile {
+      get { return tomlConfig.LongBehaviorOnReachingFirstLastFile; }
+      set { tomlConfig.LongBehaviorOnReachingFirstLastFile = value; }
     }
 
     public string DoubleDragMultiplier {
@@ -104,6 +104,51 @@ namespace IViewer
       set { tomlConfig.DoubleReRenderWaitTime = double.Parse(value); }
     }
 
+    //view
+    public long LongFileInfo {
+      get { return tomlConfig.LongFileInfo;}
+      set { tomlConfig.LongFileInfo = value; }
+    }
+
+    public long LongEXIFInfo {
+      get { return tomlConfig.LongEXIFInfo;}
+      set { tomlConfig.LongEXIFInfo = value; }
+    }
+
+    public string StringWindowBackgroundColor {
+      get { return tomlConfig.StringWindowBackgroundColor;}
+      set { tomlConfig.StringWindowBackgroundColor = value; }
+    }
+
+    public string StringImageBackgroundColor {
+      get { return tomlConfig.StringImageBackgroundColor;}
+      set { tomlConfig.StringImageBackgroundColor = value; }
+    }
+
+    public long LongImageEnlargingAlgorithm {
+      get { return tomlConfig.LongImageEnlargingAlgorithm;}
+      set { tomlConfig.LongImageEnlargingAlgorithm = value; }
+    }
+
+    public long LongImageShrinkingAlgorithm {
+      get { return tomlConfig.LongImageShrinkingAlgorithm;}
+      set { tomlConfig.LongImageShrinkingAlgorithm = value; }
+    }
+
+    public long LongImageDoublingAlgorithm {
+      get { return tomlConfig.LongImageDoublingAlgorithm;}
+      set { tomlConfig.LongImageDoublingAlgorithm = value; }
+    }
+    //other
+    public string StringImageEditorPath {
+      get { return tomlConfig.StringImageEditorPath;}
+      set { tomlConfig.StringImageEditorPath = value; }
+    }
+
+    public string StringLanguage {
+      get { return tomlConfig.StringLanguage;}
+      set { tomlConfig.StringLanguage = value; }
+    }
     public void W() {
             tomlConfig.Write(FileName);
         }
