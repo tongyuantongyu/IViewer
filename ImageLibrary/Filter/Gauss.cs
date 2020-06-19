@@ -61,8 +61,10 @@ namespace ImageLibrary.Filter {
 
         }
       }
+      byte[,] pixBytes2 = FilterMISC.intTobytes(pixInts, src);
+      FilterMISC.writeBitmap(dst, pixBytes2);
     }
+    
   }
-  byte[,] pixBytes2 = FilterMISC.intTobytes(pixInts, src);
-  FilterMISC.writeBitmap(dst, pixBytes2);
+  
 }
