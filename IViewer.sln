@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IViewer", "IViewer.csproj", "{57AA9E43-36BE-4518-AC6D-BABCAB3228F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IViewer", ".\IViewer\IViewer.csproj", "{57AA9E43-36BE-4518-AC6D-BABCAB3228F8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F19E0AC7-41E6-4E97-9AAF-2EA982AB5DB9}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,20 +12,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Config.md = Config.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageLibrary", "..\ImageLibrary\ImageLibrary.csproj", "{B4746AC6-F1FF-4120-94E7-74BCB8AE7FA4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageLibrary", ".\ImageLibrary\ImageLibrary.csproj", "{B4746AC6-F1FF-4120-94E7-74BCB8AE7FA4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4D05EC0D-3497-4161-B300-BC580AC51E85} = {4D05EC0D-3497-4161-B300-BC580AC51E85}
 		{65DAEF27-DAB8-41D7-A910-3CCAD3C2E1A9} = {65DAEF27-DAB8-41D7-A910-3CCAD3C2E1A9}
 		{4CCD5434-3038-418C-868B-F432E0A7FB8D} = {4CCD5434-3038-418C-868B-F432E0A7FB8D}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PixelOp", "..\PixelOp\PixelOp.vcxproj", "{65DAEF27-DAB8-41D7-A910-3CCAD3C2E1A9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PixelOp", ".\PixelOp\PixelOp.vcxproj", "{65DAEF27-DAB8-41D7-A910-3CCAD3C2E1A9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "easybmp", "..\easybmp\easybmp.vcxproj", "{4D05EC0D-3497-4161-B300-BC580AC51E85}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "easybmp", ".\easybmp\easybmp.vcxproj", "{4D05EC0D-3497-4161-B300-BC580AC51E85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoAndTests", "..\DemoAndTests\DemoAndTests.csproj", "{58AECC0F-4E21-4D67-A6C2-4890C2877BFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoAndTests", ".\DemoAndTests\DemoAndTests.csproj", "{58AECC0F-4E21-4D67-A6C2-4890C2877BFC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Imagine", "..\image-resampler\Build\Imagine.vcxproj", "{4CCD5434-3038-418C-868B-F432E0A7FB8D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Imagine", ".\image-resampler\Build\Imagine.vcxproj", "{4CCD5434-3038-418C-868B-F432E0A7FB8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

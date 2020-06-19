@@ -1,12 +1,12 @@
-﻿<Window x:Class="IViewer.About"
+﻿<Window x:Class="IViewer.SubWindow.About"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:IViewer"
+        xmlns:local="clr-namespace:IViewer.SubWindow"
         mc:Ignorable="d"
         Title="About" Height="300" Width="400">
-    <Grid Background="Black">
-        <TextBlock x:Name="TextBlockAbout" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="White" Height="251" Width="373" FontSize="30" TextAlignment="Center" />
+    <Grid>
+        <TextBlock x:Name="TextBlockAbout" HorizontalAlignment="Stretch" Margin="10,10,10,10" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch" Foreground="White" FontSize="30" TextAlignment="Center" />
     </Grid>
 </Window>

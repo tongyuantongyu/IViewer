@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 using System.Windows.Ink;
 
 namespace ImageLibrary.Resizer {
-  internal class GDIResizer : IResizer {
+  public class GDIResizer : IResizer {
     public static IResizer Resizer => new GDIResizer();
     public void Resize(Bitmap src, Bitmap dst, object options = null) {
       var mode = InterpolationMode.HighQualityBicubic;

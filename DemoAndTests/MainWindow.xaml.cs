@@ -70,7 +70,9 @@ namespace DemoAndTests {
       // Img.Source = o;
       // Scale.ScaleX = o.DpiX / 120;
       // Scale.ScaleY = o.DpiY / 120;
-      Topmost = true;
+      // Topmost = true;
+      var m = MetadataExtractor.ImageMetadataReader.ReadMetadata("background.png");
+      Console.WriteLine(m);
     }
   }
 

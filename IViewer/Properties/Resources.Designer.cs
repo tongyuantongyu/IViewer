@@ -61,6 +61,42 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Filename 的本地化字符串。
+        /// </summary>
+        public static string Basic_Info_Filename {
+            get {
+                return ResourceManager.GetString("Basic_Info_Filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 File size 的本地化字符串。
+        /// </summary>
+        public static string Basic_Info_Filesize {
+            get {
+                return ResourceManager.GetString("Basic_Info_Filesize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Image Info 的本地化字符串。
+        /// </summary>
+        public static string Basic_Info_Image_Info {
+            get {
+                return ResourceManager.GetString("Basic_Info_Image_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Modified Date 的本地化字符串。
+        /// </summary>
+        public static string Basic_Info_Modified_Date {
+            get {
+                return ResourceManager.GetString("Basic_Info_Modified_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Exit 的本地化字符串。
         /// </summary>
         public static string ContextMenu_Exit {
@@ -75,6 +111,87 @@ namespace IViewer.Properties {
         public static string ContextMenu_Open {
             get {
                 return ResourceManager.GetString("ContextMenu_Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Apeture Value 的本地化字符串。
+        /// </summary>
+        public static string Exif_Info_Apeture_Value {
+            get {
+                return ResourceManager.GetString("Exif_Info_Apeture_Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Exposure Bias Value 的本地化字符串。
+        /// </summary>
+        public static string Exif_Info_Exposure_Bias_Value {
+            get {
+                return ResourceManager.GetString("Exif_Info_Exposure_Bias_Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ExposureTime 的本地化字符串。
+        /// </summary>
+        public static string Exif_Info_Exposure_Time {
+            get {
+                return ResourceManager.GetString("Exif_Info_Exposure_Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Flash 的本地化字符串。
+        /// </summary>
+        public static string Exif_Info_Flash {
+            get {
+                return ResourceManager.GetString("Exif_Info_Flash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  Focal Length 的本地化字符串。
+        /// </summary>
+        public static string Exif_Info_Focal_Length {
+            get {
+                return ResourceManager.GetString("Exif_Info_Focal_Length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ISO Speed Ratings 的本地化字符串。
+        /// </summary>
+        public static string Exif_Info_ISO_Speed_Ratings {
+            get {
+                return ResourceManager.GetString("Exif_Info_ISO_Speed_Ratings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Maker 的本地化字符串。
+        /// </summary>
+        public static string Exif_Info_Maker {
+            get {
+                return ResourceManager.GetString("Exif_Info_Maker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Metering Mode 的本地化字符串。
+        /// </summary>
+        public static string Exif_Info_Metering_Mode {
+            get {
+                return ResourceManager.GetString("Exif_Info_Metering_Mode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Model 的本地化字符串。
+        /// </summary>
+        public static string Exif_Info_Model {
+            get {
+                return ResourceManager.GetString("Exif_Info_Model", resourceCulture);
             }
         }
         

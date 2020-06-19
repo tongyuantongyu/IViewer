@@ -23,7 +23,7 @@ namespace ImageLibrary.Resizer {
     VnImageKernelCoverage = -2147483631
   }
 
-  internal class InterpolateResizer : IResizer {
+  public class InterpolateResizer : IResizer {
     public static IResizer Resizer => new InterpolateResizer();
     public void Resize(Bitmap src, Bitmap dst, object options = null) {
       Debug.WriteLine("Call resize start.");

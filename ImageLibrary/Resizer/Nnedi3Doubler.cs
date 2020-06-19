@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ImageLibrary.Resizer {
-  class Nnedi3Doubler : IDoubler {
+  public class Nnedi3Doubler : IDoubler {
 
     public static IDoubler Doubler => new Nnedi3Doubler();
 

@@ -86,10 +86,14 @@
     <Compile Include="Decoder\Format\Webp\Extern\Extern.cs" />
     <Compile Include="Decoder\Format\Webp\WebpDecoder.cs" />
     <Compile Include="Decoder\DecoderTools.cs" />
+    <Compile Include="Decoder\Format\Wpf\WpfDecoder.cs" />
+    <Compile Include="Filter\IFilter.cs" />
+    <Compile Include="Filter\TestFilter.cs" />
     <Compile Include="IBitmapSource.cs" />
     <Compile Include="Bitmap.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="MemoryBitmapSource.cs" />
+    <Compile Include="Metadata.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resizer\Nnedi3Resizer.cs" />
@@ -100,9 +104,11 @@
     <Compile Include="Resizer\Nnedi3Doubler.cs" />
     <Compile Include="Resizer\WPFResizer.cs" />
     <Compile Include="Tools\PixelTool.cs" />
+    <Compile Include="WPFBitmapSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

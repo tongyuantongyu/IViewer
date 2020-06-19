@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Basic_Info_Filename" xml:space="preserve">
+    <value>Filename</value>
+  </data>
+  <data name="Basic_Info_Filesize" xml:space="preserve">
+    <value>File size</value>
+  </data>
+  <data name="Basic_Info_Image_Info" xml:space="preserve">
+    <value>Image Info</value>
+  </data>
+  <data name="Basic_Info_Modified_Date" xml:space="preserve">
+    <value>Modified Date</value>
+  </data>
   <data name="ContextMenu_Exit" xml:space="preserve">
     <value>Exit</value>
     <comment>Exit program</comment>
@@ -124,6 +136,33 @@
   <data name="ContextMenu_Open" xml:space="preserve">
     <value>Open</value>
     <comment>Open file</comment>
+  </data>
+  <data name="Exif_Info_Apeture_Value" xml:space="preserve">
+    <value>Apeture Value</value>
+  </data>
+  <data name="Exif_Info_Exposure_Bias_Value" xml:space="preserve">
+    <value>Exposure Bias Value</value>
+  </data>
+  <data name="Exif_Info_Exposure_Time" xml:space="preserve">
+    <value>ExposureTime</value>
+  </data>
+  <data name="Exif_Info_Flash" xml:space="preserve">
+    <value>Flash</value>
+  </data>
+  <data name="Exif_Info_Focal_Length" xml:space="preserve">
+    <value> Focal Length</value>
+  </data>
+  <data name="Exif_Info_ISO_Speed_Ratings" xml:space="preserve">
+    <value>ISO Speed Ratings</value>
+  </data>
+  <data name="Exif_Info_Maker" xml:space="preserve">
+    <value>Maker</value>
+  </data>
+  <data name="Exif_Info_Metering_Mode" xml:space="preserve">
+    <value>Metering Mode</value>
+  </data>
+  <data name="Exif_Info_Model" xml:space="preserve">
+    <value>Model</value>
   </data>
   <data name="Type_Any" xml:space="preserve">
     <value>Any File</value>

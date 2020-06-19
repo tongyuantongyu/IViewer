@@ -1,30 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using ImageLibrary.Decoder;
 using ImageLibrary.Decoder.Format.Avif;
 using ImageLibrary.Decoder.Format.Bmp;
+using ImageLibrary.Decoder.Format.Flif;
 using ImageLibrary.Decoder.Format.Heif;
 using ImageLibrary.Decoder.Format.Webp;
+using ImageLibrary.Decoder.Format.Wpf;
 using ImageLibrary.Resizer;
-using MetadataExtractor;
 using MetadataExtractor.Util;
-using Directory = MetadataExtractor.Directory;
 
 namespace ImageLibrary {
   public class Image {
-    // TODO: use more concrete data container
-    public object Metadata { get; private set; }
     private IBitmapSource source;
+
+    private Image() { }
+
+    // TODO: use more concrete data container
+    public Metadata Metadata { get; private set; }
 
     public int Width => source.Width;
     public int Height => source.Height;
-
-    private Image() {}
 
     public static Image FromFile(string path) {
       var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -33,20 +32,23 @@ namespace ImageLibrary {
       try {
         var format = FileTypeDetector.DetectFileType(stream);
         stream.Seek(0, SeekOrigin.Begin);
-        image.Metadata = ImageMetadataReader.ReadMetadata(stream);
+        image.Metadata.ReadPic(path);
         stream.Seek(0, SeekOrigin.Begin);
-        var data = new byte[stream.Length];
-        stream.Read(data, 0, data.Length);
+        byte[] data;
 
         switch (format) {
           case FileType.Bmp:
+            data = new byte[stream.Length];
+            stream.Read(data, 0, data.Length);
             image.source = BmpDecoder.FromBytes(data);
             break;
           case FileType.WebP:
+            data = new byte[stream.Length];
+            stream.Read(data, 0, data.Length);
             image.source = WebpDecoder.FromBytes(data);
             break;
           case FileType.QuickTime:
-            var qtFt = ((IReadOnlyList<Directory>) image.Metadata)
+            var qtFt = image.Metadata.Directories
               .First(dir => dir.Name == "QuickTime File Type")
               .Tags
               .First(tag => tag.Name == "QuickTime File Type")
@@ -54,10 +56,37 @@ namespace ImageLibrary {
             if (qtFt != "avif" && qtFt != "avis" && qtFt != "av01") {
               return null;
             }
+
+            data = new byte[stream.Length];
+            stream.Read(data, 0, data.Length);
             image.source = AvifDecoder.FromBytes(data);
             break;
           case FileType.Heif:
+            data = new byte[stream.Length];
+            stream.Read(data, 0, data.Length);
             image.source = HeifDecoder.FromBytes(data);
+            break;
+          case FileType.Jpeg:
+          case FileType.Tiff:
+          case FileType.Png:
+          case FileType.Gif:
+          case FileType.Ico:
+            image.source = WpfDecoder.FromStream(stream);
+            break;
+          case FileType.Unknown:
+            if (stream.Length < 4) {
+              return null;
+            }
+
+            var header = new byte[4];
+            stream.Read(header, 0, 4);
+            if (FlifDecoder.MagicDetect(header) == DetectResult.Yes) {
+              data = new byte[stream.Length];
+              stream.Seek(0, SeekOrigin.Begin);
+              stream.Read(data, 0, data.Length);
+              image.source = FlifDecoder.FromBytes(data);
+            }
+
             break;
           default:
             return null;
@@ -70,14 +99,14 @@ namespace ImageLibrary {
       }
     }
 
-    public BitmapSource GetPartial(Int32Rect pos, double scale) {
+    public BitmapSource GetPartial(IResizer resizer, Int32Rect pos, double scale) {
       var src = source.GetBitmap(pos);
       var result = Misc.AllocWriteableBitmap(
         (int)(pos.Width * scale), (int)(pos.Height * scale), src.Depth, src.Channel);
       result.Lock();
 
       var dst = Misc.BitmapOfWritableBitmap(result);
-      Nnedi3Resizer.Resizer.Resize(src, dst);
+      resizer.Resize(src, dst);
 
       result.AddDirtyRect(new Int32Rect(0, 0, result.PixelWidth, result.PixelHeight));
       result.Unlock();
@@ -86,10 +115,10 @@ namespace ImageLibrary {
       return result;
     }
 
-    public BitmapSource GetFull(double scale = 1) {
+    public BitmapSource GetFull(IResizer resizer, double scale = 1) {
       // need scale
       if (Math.Abs(scale - 1) > 0.0001) {
-        return GetPartial(new Int32Rect(0, 0, Width, Height), scale);
+        return GetPartial(resizer, new Int32Rect(0, 0, Width, Height), scale);
       }
 
       // no need scale
@@ -97,7 +126,6 @@ namespace ImageLibrary {
       Misc.CopyToWritableBitmap(dst, source.FullBitmap);
       dst.Freeze();
       return dst;
-
     }
   }
 }

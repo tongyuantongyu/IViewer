@@ -26,6 +26,8 @@ namespace IViewer {
       identicalScale = 96 / GetDPI();
     }
 
+    private Settings settings = new Settings();
+
     #region MouseMove
 
     private void MouseMoveHandler(object sender, MouseEventArgs e) {
@@ -632,7 +634,7 @@ namespace IViewer {
     private void LoadImage(string dir) {
       image = ImageLibrary.Image.FromFile(dir);
 
-      ActiveImage.Source = image.GetFull();
+      ActiveImage.Source = image.GetFull(ImageLibrary.Resizer.WPFResizer.Resizer);
       imgLoad = true;
       realDimension = new Vector(image.Width, image.Height);
       identicalScale = 96 / GetDPI();
