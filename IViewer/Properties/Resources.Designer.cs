@@ -115,6 +115,33 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Same as last time 的本地化字符串。
+        /// </summary>
+        public static string DefaultWindowMode_LastTime {
+            get {
+                return ResourceManager.GetString("DefaultWindowMode_LastTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Maximized 的本地化字符串。
+        /// </summary>
+        public static string DefaultWindowMode_Maximized {
+            get {
+                return ResourceManager.GetString("DefaultWindowMode_Maximized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Normal 的本地化字符串。
+        /// </summary>
+        public static string DefaultWindowMode_Normal {
+            get {
+                return ResourceManager.GetString("DefaultWindowMode_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Apeture Value 的本地化字符串。
         /// </summary>
         public static string Exif_Info_Apeture_Value {

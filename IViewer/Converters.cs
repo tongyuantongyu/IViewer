@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows.Data;
 using System.Windows.Markup;
 
-namespace IViewer.Model {
+namespace IViewer {
   public class MatchingIntToBooleanConverter : IValueConverter {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
       return value != null && parameter as string == ((int)value).ToString();
@@ -14,12 +14,32 @@ namespace IViewer.Model {
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
       if (!(value is bool b)) {
-        return 0; // Returning a zero provides a case where none of the menuitems appear checked
+        return -1;
       }
 
       var i = System.Convert.ToInt32((parameter ?? "0") as string);
 
       return b ? System.Convert.ChangeType(i, targetType) : 0;
+    }
+  }
+
+  public class StringLongConverter : IValueConverter {
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+      return System.Convert.ToInt64((value ?? "0") as string);
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+      return value is string s && long.TryParse(s, out var l) ? l : 0;
+    }
+  }
+
+  public class StringDoubleConverter : IValueConverter {
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+      return System.Convert.ToDouble((value ?? "0") as string);
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+      return value is string s && double.TryParse(s, out var l) ? l : 0;
     }
   }
 

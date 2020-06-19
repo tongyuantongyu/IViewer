@@ -137,6 +137,15 @@
     <value>Open</value>
     <comment>Open file</comment>
   </data>
+  <data name="DefaultWindowMode_LastTime" xml:space="preserve">
+    <value>Same as last time</value>
+  </data>
+  <data name="DefaultWindowMode_Maximized" xml:space="preserve">
+    <value>Maximized</value>
+  </data>
+  <data name="DefaultWindowMode_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
   <data name="Exif_Info_Apeture_Value" xml:space="preserve">
     <value>Apeture Value</value>
   </data>

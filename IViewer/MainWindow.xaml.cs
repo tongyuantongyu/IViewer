@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using ImageLibrary.Resizer;
 using Microsoft.Win32;
 
 //////////////////////////////
@@ -350,7 +351,7 @@ namespace IViewer {
       Debug.WriteLine("Update image: begin");
       Dispatcher.Invoke(() => Updating = true);
       Debug.WriteLine($"Update image: scale: area: {sourceArea}, scale: {realScale}");
-      var newImage = image.GetPartial(sourceArea, realScale);
+      var newImage = image.GetPartial(WPFResizer.Resizer, sourceArea, realScale);
       Debug.WriteLine("Update image: scale: finish");
 
       Debug.WriteLine("Update image: set: begin");
@@ -459,7 +460,7 @@ namespace IViewer {
 
       Debug.WriteLine($"Init image: real:{realScale} intrinsic:{intrinsicScale} offset:{realOffset}.");
 
-      ActiveImage.Source = image.GetFull(realScale);
+      ActiveImage.Source = image.GetFull(WPFResizer.Resizer, realScale);
 
       InternalUpdateTransform();
     }

@@ -90,7 +90,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\Converters.cs" />
+    <Compile Include="Converters.cs" />
     <Compile Include="Model\TomlConfig.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Watcher\FileWatcher.cs" />

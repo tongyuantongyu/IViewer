@@ -55,6 +55,8 @@ namespace IViewer.SubWindow {
       DataContext = settings;
     }
 
+
+
     private void Window_Closed(object sender, EventArgs e) {
       //写入配置
       Settings settings = DataContext as Settings;
@@ -99,6 +101,14 @@ namespace IViewer.SubWindow {
       }
 
       TextBoxImageEditorPath.Text = dialog.FileName;
+    }
+
+    private void VerifyLong(object sender, System.Windows.Input.TextCompositionEventArgs e) {
+      e.Handled = !long.TryParse(e.Text, out var value);
+    }
+
+    private void VerifyDouble(object sender, System.Windows.Input.TextCompositionEventArgs e) {
+      e.Handled = !long.TryParse(e.Text, out var value);
     }
   }
 }
