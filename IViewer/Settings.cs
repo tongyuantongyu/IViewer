@@ -78,7 +78,7 @@ namespace IViewer {
       set { TomlConfig.DoubleDragMultiplier = value; }
     }
 
-    public long DoubleAnimationSpan {
+    public long LongAnimationSpan {
       get { return TomlConfig.LongAnimationSpan; }
       set { TomlConfig.LongAnimationSpan = value; }
     }

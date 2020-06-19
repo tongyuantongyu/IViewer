@@ -104,11 +104,11 @@ namespace IViewer.SubWindow {
     }
 
     private void VerifyLong(object sender, System.Windows.Input.TextCompositionEventArgs e) {
-      e.Handled = !long.TryParse(e.Text, out var value);
+      e.Handled = !long.TryParse(e.Text, out _);
     }
 
     private void VerifyDouble(object sender, System.Windows.Input.TextCompositionEventArgs e) {
-      e.Handled = !long.TryParse(e.Text, out var value);
+      e.Handled = !long.TryParse(e.Text, out _);
     }
   }
 }

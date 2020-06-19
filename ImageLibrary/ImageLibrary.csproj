@@ -96,12 +96,14 @@
     <Compile Include="Metadata.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resizer\AutoSwitchResizer.cs" />
     <Compile Include="Resizer\Nnedi3Resizer.cs" />
     <Compile Include="Resizer\GDIResizer.cs" />
     <Compile Include="Resizer\IDoubler.cs" />
     <Compile Include="Resizer\InterpolateResizer.cs" />
     <Compile Include="Resizer\IResizer.cs" />
     <Compile Include="Resizer\Nnedi3Doubler.cs" />
+    <Compile Include="Resizer\OptionFixedResizer.cs" />
     <Compile Include="Resizer\WPFResizer.cs" />
     <Compile Include="Tools\PixelTool.cs" />
     <Compile Include="WPFBitmapSource.cs" />

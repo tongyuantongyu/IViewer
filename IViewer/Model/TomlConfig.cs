@@ -10,61 +10,61 @@ namespace IViewer.Model {
   //ConfigEnum
   public enum EnumDefaultWindowMode {
     [Description("DefaultWindowMode_Normal")]
-    Normal = 0,
+    Normal = 1,
     [Description("DefaultWindowMode_Maximized")]
-    Maximized = 1,
+    Maximized,
     [Description("DefaultWindowMode_LastTime")]
-    LastTime = 2
+    LastTime
   }
 
   public enum EnumDefaultImageDisplayMode {
     [Description("DefaultImageDisplayMode_FitWindow")]
-    FitWindow = 0,
+    FitWindow = 1,
     [Description("DefaultImageDisplayMode_OriginalSize")]
-    OriginalSize = 1
+    OriginalSize
   }
 
   public enum EnumSortFileBy {
     [Description("SortFileBy_FileName")]
-    FileName = 0,
+    FileName = 1,
     [Description("SortFileBy_ModifiedDate")]
-    ModifiedDate = 1,
+    ModifiedDate,
     [Description("SortFileBy_Size")]
-    Size = 2
+    Size
   }
 
   public enum EnumBehaviorOnReachingFirstLastFile {
     [Description("BehaviorOnReachingFirstLastFile_Ask")]
-    Ask = 0,
+    Ask = 1,
     [Description("BehaviorOnReachingFirstLastFile_LoopInFolder")]
-    LoopInFolder = 1,
+    LoopInFolder,
     [Description("BehaviorOnReachingFirstLastFile_Stop")]
-    Stop = 2,
+    Stop,
     [Description("BehaviorOnReachingFirstLastFile_GotoPreviousNextFolder")]
-    GotoPreviousNextFolder = 3
+    GotoPreviousNextFolder
   }
 
   public enum EnumFileInfo {
     [Description("FileInfo_Hide")]
-    Hide = 0,
+    Hide = 1,
     [Description("FileInfo_Show")]
-    Show = 1,
+    Show,
     [Description("FileInfo_ShowOnHover")]
-    ShowOnHover = 2
+    ShowOnHover
   }
 
   public enum EnumEXIFInfo {
     [Description("EXIFInfo_Hide")]
-    Hide = 0,
+    Hide = 1,
     [Description("EXIFInfo_Show")]
-    Show = 1,
+    Show,
     [Description("EXIFInfo_ShowOnHover")]
-    ShowOnHover = 2
+    ShowOnHover
   }
 
   public enum EnumImageEnlargingAlgorithm {
     [Description("ImageEnlargingAlgorithm_System")]
-    System,
+    System = 1,
     [Description("ImageEnlargingAlgorithm_NearestNeighbor")]
     NearestNeighbor,
     [Description("ImageEnlargingAlgorithm_Bilinear")]
@@ -79,7 +79,7 @@ namespace IViewer.Model {
 
   public enum EnumImageShrinkingAlgorithm {
     [Description("ImageShrinkingAlgorithm_System")]
-    System,
+    System = 1,
     [Description("ImageShrinkingAlgorithm_NearestNeighbor")]
     NearestNeighbor,
     [Description("ImageShrinkingAlgorithm_Bilinear")]
@@ -94,7 +94,7 @@ namespace IViewer.Model {
 
   public enum EnumImageDoublingAlgorithm {
     [Description("ImageDoublingAlgorithm_None")]
-    None,
+    None = 1,
     [Description("ImageDoublingAlgorithm_Nnedi3")]
     Nnedi3
   }

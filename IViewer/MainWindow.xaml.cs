@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,7 +11,9 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using ImageLibrary.Resizer;
+using IViewer.Model;
 using Microsoft.Win32;
+using Matrix = System.Windows.Media.Matrix;
 
 //////////////////////////////
 // USE ONLY ENGLISH COMMENT //
@@ -27,7 +30,7 @@ namespace IViewer {
       identicalScale = 96 / GetDPI();
     }
 
-    private Settings settings = Settings.Instance;
+    private readonly Settings settings = Settings.Instance;
 
     #region MouseMove
 
@@ -114,6 +117,68 @@ namespace IViewer {
 
     private static Vector point2Vector(Point p) {
       return new Vector(p.X, p.Y);
+    }
+
+    private IResizer getResizer() {
+      var modeEnlarge = (EnumImageEnlargingAlgorithm)settings.LongImageEnlargingAlgorithm;
+      var modeShrink = (EnumImageShrinkingAlgorithm)settings.LongImageShrinkingAlgorithm;
+      var modeDoubling = (EnumImageDoublingAlgorithm)settings.LongImageDoublingAlgorithm;
+
+      IResizer resizerEnlarge;
+      IResizer resizerShrink;
+      IDoubler doubler;
+      switch ((EnumImageEnlargingAlgorithm)settings.LongImageEnlargingAlgorithm) {
+        case EnumImageEnlargingAlgorithm.NearestNeighbor:
+          resizerEnlarge = new OptionFixedResizer(GDIResizer.Resizer, InterpolationMode.NearestNeighbor);
+          break;
+        case EnumImageEnlargingAlgorithm.Bilinear:
+          resizerEnlarge = new OptionFixedResizer(GDIResizer.Resizer, InterpolationMode.Bilinear);
+          break;
+        case EnumImageEnlargingAlgorithm.Bicubic:
+          resizerEnlarge = new OptionFixedResizer(GDIResizer.Resizer, InterpolationMode.Bicubic);
+          break;
+        case EnumImageEnlargingAlgorithm.HighQualityBilinear:
+          resizerEnlarge = new OptionFixedResizer(GDIResizer.Resizer, InterpolationMode.HighQualityBilinear);
+          break;
+        case EnumImageEnlargingAlgorithm.HighQualityBicubic:
+          resizerEnlarge = new OptionFixedResizer(GDIResizer.Resizer, InterpolationMode.HighQualityBicubic);
+          break;
+        default:
+          resizerEnlarge = new WPFResizer();
+          break;
+      }
+
+      switch ((EnumImageShrinkingAlgorithm)settings.LongImageShrinkingAlgorithm) {
+        case EnumImageShrinkingAlgorithm.NearestNeighbor:
+          resizerShrink = new OptionFixedResizer(GDIResizer.Resizer, InterpolationMode.NearestNeighbor);
+          break;
+        case EnumImageShrinkingAlgorithm.Bilinear:
+          resizerShrink = new OptionFixedResizer(GDIResizer.Resizer, InterpolationMode.Bilinear);
+          break;
+        case EnumImageShrinkingAlgorithm.Bicubic:
+          resizerShrink = new OptionFixedResizer(GDIResizer.Resizer, InterpolationMode.Bicubic);
+          break;
+        case EnumImageShrinkingAlgorithm.HighQualityBilinear:
+          resizerShrink = new OptionFixedResizer(GDIResizer.Resizer, InterpolationMode.HighQualityBilinear);
+          break;
+        case EnumImageShrinkingAlgorithm.HighQualityBicubic:
+          resizerShrink = new OptionFixedResizer(GDIResizer.Resizer, InterpolationMode.HighQualityBicubic);
+          break;
+        default:
+          resizerShrink = WPFResizer.Resizer;
+          break;
+      }
+
+      switch ((EnumImageDoublingAlgorithm)settings.LongImageDoublingAlgorithm) {
+        case EnumImageDoublingAlgorithm.Nnedi3:
+          doubler = Nnedi3Doubler.Doubler;
+          break;
+        default:
+          doubler = null;
+          break;
+      }
+
+      return new AutoSwitchResizer(resizerEnlarge, resizerShrink, doubler);
     }
 
     #endregion
@@ -230,8 +295,8 @@ namespace IViewer {
     // indicates if left mouse button is down
     private bool mouseDown;
 
-    // drag effectiveness to the image // TODO Configurable
-    private readonly double dragMultiplier = 2;
+    // drag effectiveness to the image
+    private double dragMultiplier => settings.DoubleDragMultiplier;
 
     // drag start point
     private Vector mouseBegin;
@@ -292,12 +357,16 @@ namespace IViewer {
       // Somewhat confusing but use less variable.
       // realOldMatrix: The old matrix in this animation
       // oldMatrix: The old matrix in next animation (that means, new in this animation)
+      if (settings.LongAnimationSpan == 0) {
+        UpdateTransform();
+        return;
+      }
+
       var realOldMatrix = oldMatrix;
       oldMatrix = new Matrix(displayScale, 0, 0, displayScale, displayOffset.X, displayOffset.Y);
 
       var animation = new MatrixAnimation(realOldMatrix, oldMatrix,
-        new Duration(TimeSpan.FromMilliseconds(100))) {
-        // TODO make animation duartion configurable
+        new Duration(TimeSpan.FromMilliseconds(settings.LongAnimationSpan))) {
         EasingFunction = new CubicEase()
       };
 
@@ -329,8 +398,7 @@ namespace IViewer {
     private void InstantUpdateImage() {
       // image area required to be computed (but don't go over original image bound)
 
-      // TODO customizable
-      const double outband = 1;
+      var outband = settings.DoubleExtendRenderRatio;
 
       var iOffset = new Vector(
         Math.Max(-realOffset.X / realScale - outband * viewportWidth / realScale, 0),
@@ -351,7 +419,7 @@ namespace IViewer {
       Debug.WriteLine("Update image: begin");
       Dispatcher.Invoke(() => Updating = true);
       Debug.WriteLine($"Update image: scale: area: {sourceArea}, scale: {realScale}");
-      var newImage = image.GetPartial(WPFResizer.Resizer, sourceArea, realScale);
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
       Debug.WriteLine("Update image: scale: finish");
 
       Debug.WriteLine("Update image: set: begin");
@@ -378,8 +446,7 @@ namespace IViewer {
       Task.Run(async delegate {
         // debounce user operation
         try {
-          // TODO: changable
-          await Task.Delay(TimeSpan.FromSeconds(0.5), imageUpdateCancellationTokenSource.Token);
+          await Task.Delay(TimeSpan.FromSeconds(((double)settings.LongReRenderWaitTime) / 1000), imageUpdateCancellationTokenSource.Token);
         }
         catch (TaskCanceledException) {
           Debug.WriteLine("Update image: resize cancelled.");
@@ -631,11 +698,13 @@ namespace IViewer {
     }
 
     private ImageLibrary.Image image;
+    private IResizer resizer;
 
     private void LoadImage(string dir) {
       image = ImageLibrary.Image.FromFile(dir);
+      resizer = getResizer();
 
-      ActiveImage.Source = image.GetFull(ImageLibrary.Resizer.WPFResizer.Resizer);
+      ActiveImage.Source = image.GetFull(resizer);
       imgLoad = true;
       realDimension = new Vector(image.Width, image.Height);
       identicalScale = 96 / GetDPI();
