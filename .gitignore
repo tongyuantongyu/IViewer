@@ -42,3 +42,8 @@ packages/
 
 # Obsolete project
 InterpolateResizer/
+
+# Binaries
+*.jpg
+*.png
+*.bin

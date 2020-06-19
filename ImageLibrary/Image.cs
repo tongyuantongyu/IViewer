@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -76,7 +77,7 @@ namespace ImageLibrary {
       result.Lock();
 
       var dst = Misc.BitmapOfWritableBitmap(result);
-      WPFResizer.Resizer.Resize(src, dst);
+      Nnedi3Resizer.Resizer.Resize(src, dst);
 
       result.AddDirtyRect(new Int32Rect(0, 0, result.PixelWidth, result.PixelHeight));
       result.Unlock();

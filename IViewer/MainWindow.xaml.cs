@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -80,6 +81,15 @@ namespace IViewer {
       return matrix.M11 * 96;
     }
 
+    [DllImport("user32.dll")]
+    static extern IntPtr GetForegroundWindow();
+
+    public bool IsForeground() {
+      IntPtr windowHandle = new WindowInteropHelper(this).Handle;
+      IntPtr foregroundWindow = GetForegroundWindow();
+      return windowHandle == foregroundWindow;
+    }
+
     private double identicalScale;
 
     private void SwitchWindowState() {
@@ -125,6 +135,11 @@ namespace IViewer {
       }
 
       DragMove();
+    }
+
+    private void SwitchPin(object _, EventArgs e) {
+      Topmost = !Topmost;
+      PinButton.Content = Topmost ? "\xe840" : "\xe718";
     }
 
     #endregion
@@ -175,7 +190,9 @@ namespace IViewer {
           Alt = false;
           break;
         case Key.Escape:
-          Close();
+          if (IsForeground()) {
+            Close();
+          }
           break;
         case Key.Space:
           SwitchWindowState();
@@ -304,7 +321,7 @@ namespace IViewer {
 
     #region Image Update Functions
 
-        private Int32Rect sourceArea;
+    private Int32Rect sourceArea;
 
     private void InstantUpdateImage() {
       // image area required to be computed (but don't go over original image bound)
@@ -322,7 +339,7 @@ namespace IViewer {
         Math.Min((int)((1 + 2 * outband) * viewportHeight / realScale), image.Height));
 
       // required area not changed. no need to update.
-      if (sourceArea == targetArea) {
+      if (sourceArea == targetArea && Math.Abs(intrinsicScale - realScale) < 0.0001) {
         return;
       }
 

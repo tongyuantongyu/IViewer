@@ -20,6 +20,10 @@ namespace ImageLibrary {
       return new WriteableBitmap(width, height, 96, 96, format, null);
     }
 
+    public static WriteableBitmap AllocWriteableBitmap(int width, int height, PixelFormat format) {
+      return new WriteableBitmap(width, height, 96, 96, format, null);
+    }
+
     public static void CopyToWritableBitmap(WriteableBitmap wb, Bitmap b) {
       wb.Lock();
       

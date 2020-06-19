@@ -26,11 +26,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\x64\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -61,6 +62,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -90,7 +92,12 @@
     <Compile Include="MemoryBitmapSource.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resizer\Nnedi3Resizer.cs" />
+    <Compile Include="Resizer\GDIResizer.cs" />
+    <Compile Include="Resizer\IDoubler.cs" />
+    <Compile Include="Resizer\InterpolateResizer.cs" />
     <Compile Include="Resizer\IResizer.cs" />
+    <Compile Include="Resizer\Nnedi3Doubler.cs" />
     <Compile Include="Resizer\WPFResizer.cs" />
     <Compile Include="Tools\PixelTool.cs" />
   </ItemGroup>

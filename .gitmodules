@@ -1,3 +1,6 @@
 [submodule "image-resampler"]
 	path = image-resampler
 	url = https://github.com/tongyuantongyu/image-resampler.git
+[submodule "znedi3"]
+	path = znedi3
+	url = https://github.com/tongyuantongyu/znedi3.git

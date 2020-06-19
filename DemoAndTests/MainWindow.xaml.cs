@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,23 +28,49 @@ namespace DemoAndTests {
       DataContext = SettingTest.GetInstance();
     }
 
-
+    private WriteableBitmap w;
+    private WriteableBitmap o;
     private void Window_Loaded(object sender, RoutedEventArgs e) {
+      w = new WriteableBitmap(new BitmapImage(new Uri("Yosemite.jpg", UriKind.Relative)));
+      Console.WriteLine("img load");
+      Img.Source = w;
+      Scale.ScaleX = w.DpiX / 120;
+      Scale.ScaleY = w.DpiY / 120;
     }
 
-    private static void ApplyFilter(Bitmap srcBp, Bitmap dstBp) {
-      // TODO: Change to your filter logic
-      Misc.CopyBitmap(srcBp, dstBp);
-    }
+    [DllImport("libnnedi3.dll", EntryPoint = "DoubleImage", CallingConvention = CallingConvention.Cdecl)]
+    private static extern bool DoubleImage(ref Bitmap src, ref Bitmap dst);
 
     private void Button_Click(object sender, RoutedEventArgs e) {
-      SettingTest.GetInstance().TestData = "TESTTESTUPDATE";
-      SettingTest.GetInstance().Status = true;
-    }
-
-    private void Button_Click_1(object sender, RoutedEventArgs e) {
-      var w = new SettingWindow {DataContext = SettingTest.GetInstance()};
-      w.Show();
+      // var b = Misc.BitmapOfWritableBitmap(w);
+      // for (int i = 0; i < 50; i++) {
+      //   Console.Write(Marshal.ReadByte(b.Scan0, i));
+      //   Console.Write(" ");
+      // }
+      // Console.WriteLine();
+      // o = Misc.AllocWriteableBitmap(2 * w.PixelWidth, 2 * w.PixelHeight, 8, w.BackBufferStride / w.PixelWidth);
+      // o.Lock();
+      // var ou = Misc.BitmapOfWritableBitmap(o);
+      // Console.WriteLine("mem alloc");
+      // for (int i = 0; i < 50; i++) {
+      //   Console.Write(Marshal.ReadByte(ou.Scan0, i));
+      //   Console.Write(" ");
+      // }
+      // Console.WriteLine();
+      // var r = DoubleImage(ref b, ref ou);
+      // Console.WriteLine($"enlarge finish with {r}");
+      // for (int i = 0; i < 50; i++) {
+      //   Console.Write(Marshal.ReadByte(ou.Scan0, i));
+      //   Console.Write(" ");
+      // }
+      // Console.WriteLine();
+      // o.AddDirtyRect(new Int32Rect(0, 0, o.PixelWidth, o.PixelHeight));
+      // o.Unlock();
+      // Console.WriteLine($"{o.PixelWidth} {o.PixelHeight}");
+      // Img.Source = o;
+      // Scale.ScaleX = o.DpiX / 120;
+      // Scale.ScaleY = o.DpiY / 120;
+      Topmost = true;
     }
   }
 
