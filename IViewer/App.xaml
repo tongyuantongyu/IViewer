@@ -252,6 +252,20 @@
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
             <Setter Property="HorizontalContentAlignment" Value="Left" />
         </Style>
+
+        <Style x:Key="SettingScrollBarStyle" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Grid.Column" Value="3"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+            <Setter Property="VerticalAlignment" Value="Top"></Setter>
+            <Setter Property="Height" Value="250"></Setter>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"></Setter>
+            <Setter Property="Minimum" Value="0.4"></Setter>
+            <Setter Property="Maximum" Value="3"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="109.667,0,0,0"></Setter>
+            <Setter Property="Grid.RowSpan" Value="5"></Setter>
+        </Style>
         <!--#endregion-->
     </Application.Resources>
 </Application>

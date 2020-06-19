@@ -7,10 +7,10 @@
         xmlns:iViewer="clr-namespace:IViewer"
         mc:Ignorable="d"
         Title="Config" Height="450" Width="800" Background="White" Closed="Window_Closed" ResizeMode="NoResize">
-    <Window.Resources>
+    <!--<Window.Resources>
         <iViewer:StringLongConverter x:Key="StringLongConverter"></iViewer:StringLongConverter>
         <iViewer:StringDoubleConverter x:Key="StringDoubleConverter"></iViewer:StringDoubleConverter>
-    </Window.Resources>
+    </Window.Resources>-->
     <Grid>
         <TabControl HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" BorderBrush="#FFB6B6B6" Background="{x:Null}">
             <TabItem Header="Behavior1" Style="{StaticResource TabItemStyle}">
@@ -59,9 +59,9 @@
                     </Label>
 
 
-                    <CheckBox x:Name="CheckBoxCenterBigImageByDefault" Content="Yes" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsCenterBigImageByDefault}"/>
-                    <CheckBox x:Name="CheckBoxEnlargeSmallImageByDefault" Content="Yes" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsEnlargeSmallImageByDefault}"/>
-                    <ComboBox x:Name="ComboBoxSortFileBy" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="6" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongSortFileBy}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <CheckBox x:Name="CheckBoxCenterBigImageByDefault" Content="Yes" Grid.Column="3" Grid.Row="4" Style="{StaticResource SettingCheckboxStyle}"/>
+                    <CheckBox x:Name="CheckBoxEnlargeSmallImageByDefault" Content="Yes" Grid.Column="3" Grid.Row="5" Style="{StaticResource SettingCheckboxStyle}"/>
+                    <ComboBox x:Name="ComboBoxSortFileBy" Grid.Row="6" Style="{StaticResource SettingComboboxStyle}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Behavior2" Style="{StaticResource TabItemStyle}">
@@ -100,17 +100,17 @@
                     <Label Name="LabelReRenderWaitTime" Grid.Row="5" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Re-render wait time(ms)"/>
                     </Label>
-                    <CheckBox x:Name="CheckBoxDescendingSort" Content="Yes" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsDescendingSort}"/>
-                    <ComboBox x:Name="ComboBoxBehaviorOnReachingFirstLastFile" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongBehaviorOnReachingFirstLastFile}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <CheckBox x:Name="CheckBoxDescendingSort" Content="Yes" Grid.Row="0" Grid.Column="3" Style="{StaticResource SettingCheckboxStyle}"/>
+                    <ComboBox x:Name="ComboBoxBehaviorOnReachingFirstLastFile" Grid.Row="1" Style="{StaticResource SettingComboboxStyle}"/>
 
-                    <Label x:Name="LabelDragMultiplierNum" Content="" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="LabelDragMultiplierNum" Content="" Grid.Row="2" Style="{StaticResource SettingLabelStyle}"/>
                     <TextBox Grid.Row="2"
                              PreviewTextInput="VerifyLong"
                              Style="{StaticResource SettingInputStyle}"
                              Text="{Binding LongAnimationSpan, Converter={StaticResource StringLongConverter}}"></TextBox>
 
-                    <Label x:Name="LabelAnimationSpanNum" Content="" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <ScrollBar x:Name="ScrollBarAnimationSpan" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="250" Width="30" RenderTransformOrigin="0.5,0.5" Minimum="0.4" Maximum="3" Value="{Binding DoubleAnimationSpan}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="109.667,0,0,0" Grid.RowSpan="5" ValueChanged="ScrollBarAnimationSpan_OnValueChanged">
+                    <Label x:Name="LabelAnimationSpanNum" Content="" Grid.Row="3" Style="{StaticResource SettingLabelStyle}"/>
+                    <ScrollBar x:Name="ScrollBarAnimationSpan" Grid.Row="1" Style="{StaticResource SettingScrollBarStyle}" ValueChanged="ScrollBarAnimationSpan_OnValueChanged">
                         <ScrollBar.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -121,8 +121,8 @@
                         </ScrollBar.RenderTransform>
                     </ScrollBar>
 
-                    <Label x:Name="LabelExtendRenderRatioNum" Content="" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <ScrollBar x:Name="ScrollBarExtendRenderRatio" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="250" Width="30" RenderTransformOrigin="0.5,0.5" Minimum="0" Maximum="1" Value="{Binding DoubleExtendRenderRatio}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="109.667,0,0,0" Grid.RowSpan="5" ValueChanged="ScrollBarExtendRenderRatio_OnValueChanged">
+                    <Label x:Name="LabelExtendRenderRatioNum" Content=""  Grid.Row="4" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ScrollBar x:Name="ScrollBarExtendRenderRatio" Grid.Row="2" Style="{StaticResource SettingScrollBarStyle}" ValueChanged="ScrollBarExtendRenderRatio_OnValueChanged">
                         <ScrollBar.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -134,7 +134,7 @@
                     </ScrollBar>
 
                     <Label x:Name="LabelReRenderWaitTimeNum" Content="" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <ScrollBar x:Name="ScrollBarReRenderWaitTime" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Height="250" Width="30" RenderTransformOrigin="0.5,0.5" Minimum="0.5" Maximum="2" Value="{Binding DoubleReRenderWaitTime}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="110.667,2,0,-52" Grid.RowSpan="4" ValueChanged="ScrollBarReRenderWaitTime_OnValueChanged">
+                    <ScrollBar x:Name="ScrollBarReRenderWaitTime" Grid.Row="3" Style="{StaticResource SettingScrollBarStyle}" ValueChanged="ScrollBarReRenderWaitTime_OnValueChanged">
                         <ScrollBar.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -186,13 +186,13 @@
                     <Label Name="LabelImageDoublingAlgorithm" Grid.Row="6" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Image doubling algorithm"/>
                     </Label>
-                    <ComboBox x:Name="ComboBoxFileInfo" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongFileInfo}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <ComboBox x:Name="ComboBoxEXIFInfo" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongEXIFInfo}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBox x:Name="TextBoxWindowBackgroundColor" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding StringWindowBackgroundColor}" VerticalAlignment="Center" Width="250" Grid.Row="2" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBox x:Name="TextBoxImageBackgroundColor" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding StringImageBackgroundColor}" VerticalAlignment="Center" Width="250" Grid.Row="3" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <ComboBox x:Name="ComboBoxImageEnlargingAlgorithm" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongImageEnlargingAlgorithm}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <ComboBox x:Name="ComboBoxShrinkingAlgorithm" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongImageShrinkingAlgorithm}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <ComboBox x:Name="ComboBoxDoublingAlgorithm" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="6" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongImageDoublingAlgorithm}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ComboBoxFileInfo" Grid.Row="0" Style="{StaticResource SettingComboboxStyle}"/>
+                    <ComboBox x:Name="ComboBoxEXIFInfo" Grid.Row="1" Style="{StaticResource SettingComboboxStyle}"/>
+                    <TextBox x:Name="TextBoxWindowBackgroundColor" Grid.Row="2" Style="{StaticResource SettingInputStyle}"/>
+                    <TextBox x:Name="TextBoxImageBackgroundColor" Grid.Row="3" Style="{StaticResource SettingInputStyle}"/>
+                    <ComboBox x:Name="ComboBoxImageEnlargingAlgorithm" Grid.Row="4" Style="{StaticResource SettingComboboxStyle}"/>
+                    <ComboBox x:Name="ComboBoxShrinkingAlgorithm" Grid.Row="5" Style="{StaticResource SettingComboboxStyle}"/>
+                    <ComboBox x:Name="ComboBoxDoublingAlgorithm" Grid.Row="6" Style="{StaticResource SettingComboboxStyle}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Other" Style="{StaticResource TabItemStyle}">
@@ -219,9 +219,9 @@
                     <Label Name="LabelLanguage" Grid.Row="1" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Language"/>
                     </Label>
-                    <TextBox x:Name="TextBoxImageEditorPath" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="{Binding StringImageEditorPath}" VerticalAlignment="Center" Width="250" Grid.Row="0" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsReadOnly="True"/>
-                    <ComboBox x:Name="ComboBoxLanguage" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongLanguage}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                     <Button x:Name="SelectFileButton" Content="更换" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top" Width="65" Click="SelectFileButton_OnClick"/>
+                    <TextBox x:Name="TextBoxImageEditorPath" Grid.Row="0" Style="{StaticResource SettingInputStyle}"/>
+                    <ComboBox x:Name="ComboBoxLanguage" Grid.Row="1" Style="{StaticResource SettingComboboxStyle}"/>
                 </Grid>
             </TabItem>
         </TabControl>
