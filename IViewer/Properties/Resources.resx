@@ -288,7 +288,7 @@
     <value>File name</value>
   </data>
   <data name="SortFileBy_ModifiedDate" xml:space="preserve">
-    <value>Modified data</value>
+    <value>Modified date</value>
   </data>
   <data name="SortFileBy_Size" xml:space="preserve">
     <value>File size</value>
@@ -301,6 +301,9 @@
   </data>
   <data name="Type_BMP" xml:space="preserve">
     <value>BMP Image</value>
+  </data>
+  <data name="Type_EXE" xml:space="preserve">
+    <value>Executable</value>
   </data>
   <data name="Type_FLIF" xml:space="preserve">
     <value>FLIF Image</value>

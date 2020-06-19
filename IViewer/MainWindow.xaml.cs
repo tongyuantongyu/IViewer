@@ -28,6 +28,7 @@ namespace IViewer {
       InitializeComponent();
       Focus();
       identicalScale = 96 / GetDPI();
+      DataContext = settings;
     }
 
     private readonly Settings settings = Settings.Instance;
@@ -681,6 +682,8 @@ namespace IViewer {
 
     #region File Handle
 
+    private string currentImagePath = null;
+
     private void OpenFile(object sender, EventArgs e) {
       var dialog = new OpenFileDialog {
         RestoreDirectory = true,
@@ -694,7 +697,9 @@ namespace IViewer {
         return;
       }
 
-      LoadImage(dialog.FileName);
+      currentImagePath = dialog.FileName;
+
+      LoadImage(currentImagePath);
     }
 
     private ImageLibrary.Image image;
@@ -716,8 +721,13 @@ namespace IViewer {
     #region Sub Windows
 
     private void OpenSettings(object sender, RoutedEventArgs e) {
+      settings.PauseNotify = true;
       var settingWindow = new SubWindow.ConfigWindow(settings);
       settingWindow.ShowDialog();
+      settings.PauseNotify = false;
+      if (currentImagePath != null) {
+        LoadImage(currentImagePath);
+      }
     }
 
     private void OpenAbout(object sender, RoutedEventArgs e) {

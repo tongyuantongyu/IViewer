@@ -10,7 +10,7 @@ namespace IViewer.Model {
   //ConfigEnum
   public enum EnumDefaultWindowMode {
     [Description("DefaultWindowMode_Normal")]
-    Normal = 1,
+    Normal = 0,
     [Description("DefaultWindowMode_Maximized")]
     Maximized,
     [Description("DefaultWindowMode_LastTime")]
@@ -19,14 +19,14 @@ namespace IViewer.Model {
 
   public enum EnumDefaultImageDisplayMode {
     [Description("DefaultImageDisplayMode_FitWindow")]
-    FitWindow = 1,
+    FitWindow = 0,
     [Description("DefaultImageDisplayMode_OriginalSize")]
     OriginalSize
   }
 
   public enum EnumSortFileBy {
     [Description("SortFileBy_FileName")]
-    FileName = 1,
+    FileName = 0,
     [Description("SortFileBy_ModifiedDate")]
     ModifiedDate,
     [Description("SortFileBy_Size")]
@@ -35,7 +35,7 @@ namespace IViewer.Model {
 
   public enum EnumBehaviorOnReachingFirstLastFile {
     [Description("BehaviorOnReachingFirstLastFile_Ask")]
-    Ask = 1,
+    Ask = 0,
     [Description("BehaviorOnReachingFirstLastFile_LoopInFolder")]
     LoopInFolder,
     [Description("BehaviorOnReachingFirstLastFile_Stop")]
@@ -46,7 +46,7 @@ namespace IViewer.Model {
 
   public enum EnumFileInfo {
     [Description("FileInfo_Hide")]
-    Hide = 1,
+    Hide = 0,
     [Description("FileInfo_Show")]
     Show,
     [Description("FileInfo_ShowOnHover")]
@@ -55,16 +55,14 @@ namespace IViewer.Model {
 
   public enum EnumEXIFInfo {
     [Description("EXIFInfo_Hide")]
-    Hide = 1,
+    Hide = 0,
     [Description("EXIFInfo_Show")]
-    Show,
-    [Description("EXIFInfo_ShowOnHover")]
-    ShowOnHover
+    Show
   }
 
   public enum EnumImageEnlargingAlgorithm {
     [Description("ImageEnlargingAlgorithm_System")]
-    System = 1,
+    System = 0,
     [Description("ImageEnlargingAlgorithm_NearestNeighbor")]
     NearestNeighbor,
     [Description("ImageEnlargingAlgorithm_Bilinear")]
@@ -79,7 +77,7 @@ namespace IViewer.Model {
 
   public enum EnumImageShrinkingAlgorithm {
     [Description("ImageShrinkingAlgorithm_System")]
-    System = 1,
+    System = 0,
     [Description("ImageShrinkingAlgorithm_NearestNeighbor")]
     NearestNeighbor,
     [Description("ImageShrinkingAlgorithm_Bilinear")]
@@ -94,7 +92,7 @@ namespace IViewer.Model {
 
   public enum EnumImageDoublingAlgorithm {
     [Description("ImageDoublingAlgorithm_None")]
-    None = 1,
+    None = 0,
     [Description("ImageDoublingAlgorithm_Nnedi3")]
     Nnedi3
   }
@@ -142,16 +140,16 @@ namespace IViewer.Model {
       LongDefaultImageDisplayMode = (long)EnumDefaultImageDisplayMode.FitWindow;
       IsCenterBigImageByDefault = true;
       IsEnlargeSmallImageByDefault = false;
-      LongSortFileBy = (long)EnumSortFileBy.Size;
+      LongSortFileBy = (long)EnumSortFileBy.FileName;
       IsDescendingSort = false;
-      LongBehaviorOnReachingFirstLastFile = (long)EnumBehaviorOnReachingFirstLastFile.Ask;
+      LongBehaviorOnReachingFirstLastFile = (long)EnumBehaviorOnReachingFirstLastFile.LoopInFolder;
       DoubleDragMultiplier = 2;
       LongAnimationSpan = 100;
       DoubleExtendRenderRatio = 1;
       LongReRenderWaitTime = 500;
       //view
-      LongFileInfo = (long)EnumFileInfo.Hide;
-      LongEXIFInfo = (long)EnumEXIFInfo.ShowOnHover;
+      LongFileInfo = (long)EnumFileInfo.ShowOnHover;
+      LongEXIFInfo = (long)EnumEXIFInfo.Show;
       StringWindowBackgroundColor = "(255,255,255)";
       StringImageBackgroundColor = "(0,0,0)";
       LongImageEnlargingAlgorithm = (long)EnumImageEnlargingAlgorithm.HighQualityBicubic;

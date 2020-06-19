@@ -47,3 +47,5 @@ InterpolateResizer/
 *.jpg
 *.png
 *.bin
+*.bak
+*.toml

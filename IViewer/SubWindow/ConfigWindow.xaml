@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:IViewer.SubWindow"
         xmlns:iViewer="clr-namespace:IViewer"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:model="clr-namespace:IViewer.Model"
         mc:Ignorable="d"
         Title="Config" Height="500" Width="800" Background="White" Closed="Window_Closed" ResizeMode="NoResize">
     <Window.Resources>
@@ -40,45 +41,66 @@
                     </Grid.RowDefinitions>
 
                     <CheckBox x:Name="CheckBoxAllowMultipleInstanceRunning" Content="Allow Multiple Instance Running"
-                              Grid.Row="0" IsChecked="{Binding IsAllowMultipleInstanceRunning}"
+                              Grid.Row="0"
+                              IsChecked="{Binding IsAllowMultipleInstanceRunning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource SettingCheckboxStyle}"/>
 
                     <CheckBox x:Name="CheckBoxConfirmBeforeDeleteFile" Content="Confirm Before Delete File"
-                              Grid.Row="1" IsChecked="{Binding IsConfirmBeforeDeleteFile}"
+                              Grid.Row="1"
+                              IsChecked="{Binding IsConfirmBeforeDeleteFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource SettingCheckboxStyle}"/>
 
                     <CheckBox x:Name="CheckBoxCenterBigImageByDefault" Content="Center big image by default"
+                              IsChecked="{Binding IsCenterBigImageByDefault, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Grid.Row="2" Style="{StaticResource SettingCheckboxStyle}"/>
 
                     <CheckBox x:Name="CheckBoxEnlargeSmallImageByDefault" Content="Enlarge small image by default"
+                              IsChecked="{Binding IsEnlargeSmallImageByDefault, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Grid.Row="3" Style="{StaticResource SettingCheckboxStyle}"/>
 
                     <CheckBox x:Name="CheckBoxDescendingSort" Content="Descending sort"
+                              IsChecked="{Binding IsDescendingSort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Grid.Row="4" Style="{StaticResource SettingCheckboxStyle}"/>
 
                     <Label Name="LabelDefaultWindowMode" Grid.Row="5" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Default Window Mode"/>
                     </Label>
                     <ComboBox x:Name="ComboBoxDefaultWindowMode" Grid.Row="5"
-                              SelectedIndex="{Binding LongDefaultWindowMode}"
+                              SelectedIndex="{Binding LongDefaultWindowMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding Source={iViewer:EnumToCollectionConverter EnumType={x:Type model:EnumDefaultWindowMode}}}"
+                              SelectedValuePath="Value"
+                              DisplayMemberPath="Description"
                               Style="{StaticResource SettingComboboxStyle}"/>
 
                     <Label Name="LabelDefaultImageDisplayMode" Grid.Row="6" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Default image display mode"/>
                     </Label>
                     <ComboBox x:Name="ComboBoxDefaultImageDisplayMode" Grid.Row="6"
-                              SelectedIndex="{Binding LongDefaultImageDisplayMode}"
+                              SelectedIndex="{Binding LongDefaultImageDisplayMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding Source={iViewer:EnumToCollectionConverter EnumType={x:Type model:EnumDefaultImageDisplayMode}}}"
+                              SelectedValuePath="Value"
+                              DisplayMemberPath="Description"
                               Style="{StaticResource SettingComboboxStyle}"/>
 
                     <Label Name="LabelSortFileBy" Grid.Row="7" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Sort file by"/>
                     </Label>
-                    <ComboBox x:Name="ComboBoxSortFileBy" Grid.Row="7" Style="{StaticResource SettingComboboxStyle}"/>
+                    <ComboBox x:Name="ComboBoxSortFileBy" Grid.Row="7"
+                              SelectedIndex="{Binding LongSortFileBy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding Source={iViewer:EnumToCollectionConverter EnumType={x:Type model:EnumSortFileBy}}}"
+                              SelectedValuePath="Value"
+                              DisplayMemberPath="Description"
+                              Style="{StaticResource SettingComboboxStyle}"/>
 
                     <Label Name="LabelBehaviorOnReachingFirstLastFile" Grid.Row="8" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Behavior on reaching first / last file"/>
                     </Label>
-                    <ComboBox x:Name="ComboBoxBehaviorOnReachingFirstLastFile" Grid.Row="8" Style="{StaticResource SettingComboboxStyle}"/>
+                    <ComboBox x:Name="ComboBoxBehaviorOnReachingFirstLastFile" Grid.Row="8"
+                              SelectedIndex="{Binding LongBehaviorOnReachingFirstLastFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding Source={iViewer:EnumToCollectionConverter EnumType={x:Type model:EnumBehaviorOnReachingFirstLastFile}}}"
+                              SelectedValuePath="Value"
+                              DisplayMemberPath="Description"
+                              Style="{StaticResource SettingComboboxStyle}"/>
 
                     <Label Name="LabelDragMultiplier" Grid.Row="9" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Drag multiplier"/>
@@ -86,7 +108,7 @@
                     <TextBox Grid.Row="9"
                              PreviewTextInput="VerifyDouble"
                              Style="{StaticResource SettingInputStyle}"
-                             Text="{Binding DoubleDragMultiplier, Converter={StaticResource StringDoubleConverter}}"></TextBox>
+                             Text="{Binding DoubleDragMultiplier, Converter={StaticResource StringDoubleConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
                     <Label Name="LabelAnimationSpan" Grid.Row="10" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Animation span(ms)"/>
@@ -94,7 +116,7 @@
                     <TextBox Grid.Row="10"
                              PreviewTextInput="VerifyLong"
                              Style="{StaticResource SettingInputStyle}"
-                             Text="{Binding LongAnimationSpan, Converter={StaticResource StringLongConverter}}"></TextBox>
+                             Text="{Binding LongAnimationSpan, Converter={StaticResource StringLongConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
                     <Label Name="LabelExtendRenderRatio" Grid.Row="11" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Extend render ratio"/>
@@ -102,7 +124,7 @@
                     <TextBox Grid.Row="11"
                              PreviewTextInput="VerifyDouble"
                              Style="{StaticResource SettingInputStyle}"
-                             Text="{Binding DoubleExtendRenderRatio, Converter={StaticResource StringDoubleConverter}}"></TextBox>
+                             Text="{Binding DoubleExtendRenderRatio, Converter={StaticResource StringDoubleConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
                     <Label Name="LabelReRenderWaitTime" Grid.Row="12" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Re-render wait time(ms)"/>
@@ -110,7 +132,7 @@
                     <TextBox Grid.Row="12"
                              PreviewTextInput="VerifyLong"
                              Style="{StaticResource SettingInputStyle}"
-                             Text="{Binding LongAnimationSpan, Converter={StaticResource StringLongConverter}}"></TextBox>
+                             Text="{Binding LongAnimationSpan, Converter={StaticResource StringLongConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 </Grid>
             </TabItem>
             <TabItem Header="View" Style="{StaticResource TabItemStyle}">
@@ -152,13 +174,39 @@
                     <Label Name="LabelImageDoublingAlgorithm" Grid.Row="6" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Image doubling algorithm"/>
                     </Label>
-                    <ComboBox x:Name="ComboBoxFileInfo" Grid.Row="0" Style="{StaticResource SettingComboboxStyle}"/>
-                    <ComboBox x:Name="ComboBoxEXIFInfo" Grid.Row="1" Style="{StaticResource SettingComboboxStyle}"/>
+                    <ComboBox x:Name="ComboBoxFileInfo" Grid.Row="0"
+                              SelectedIndex="{Binding LongFileInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding Source={iViewer:EnumToCollectionConverter EnumType={x:Type model:EnumFileInfo}}}"
+                              SelectedValuePath="Value"
+                              DisplayMemberPath="Description"
+                              Style="{StaticResource SettingComboboxStyle}"/>
+                    <ComboBox x:Name="ComboBoxEXIFInfo" Grid.Row="1"
+                              SelectedIndex="{Binding LongEXIFInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding Source={iViewer:EnumToCollectionConverter EnumType={x:Type model:EnumEXIFInfo}}}"
+                              SelectedValuePath="Value"
+                              DisplayMemberPath="Description"
+                              Style="{StaticResource SettingComboboxStyle}"/>
+
                     <xctk:ColorPicker x:Name="WindowBackgroundColorPicker" Grid.Row="2" Style="{StaticResource SettingColorPickerStyle}"></xctk:ColorPicker>
                     <xctk:ColorPicker x:Name="ImageBackgroundColorPicker" Grid.Row="3" Style="{StaticResource SettingColorPickerStyle}"></xctk:ColorPicker>
-                    <ComboBox x:Name="ComboBoxImageEnlargingAlgorithm" Grid.Row="4" Style="{StaticResource SettingComboboxStyle}"/>
-                    <ComboBox x:Name="ComboBoxShrinkingAlgorithm" Grid.Row="5" Style="{StaticResource SettingComboboxStyle}"/>
-                    <ComboBox x:Name="ComboBoxDoublingAlgorithm" Grid.Row="6" Style="{StaticResource SettingComboboxStyle}"/>
+                    <ComboBox x:Name="ComboBoxImageEnlargingAlgorithm" Grid.Row="4"
+                              SelectedIndex="{Binding LongImageEnlargingAlgorithm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding Source={iViewer:EnumToCollectionConverter EnumType={x:Type model:EnumImageEnlargingAlgorithm}}}"
+                              SelectedValuePath="Value"
+                              DisplayMemberPath="Description"
+                              Style="{StaticResource SettingComboboxStyle}"/>
+                    <ComboBox x:Name="ComboBoxShrinkingAlgorithm" Grid.Row="5"
+                              SelectedIndex="{Binding LongImageShrinkingAlgorithm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding Source={iViewer:EnumToCollectionConverter EnumType={x:Type model:EnumImageShrinkingAlgorithm}}}"
+                              SelectedValuePath="Value"
+                              DisplayMemberPath="Description"
+                              Style="{StaticResource SettingComboboxStyle}"/>
+                    <ComboBox x:Name="ComboBoxDoublingAlgorithm" Grid.Row="6"
+                              SelectedIndex="{Binding LongImageDoublingAlgorithm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding Source={iViewer:EnumToCollectionConverter EnumType={x:Type model:EnumImageDoublingAlgorithm}}}"
+                              SelectedValuePath="Value"
+                              DisplayMemberPath="Description"
+                              Style="{StaticResource SettingComboboxStyle}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Other" Style="{StaticResource TabItemStyle}">
@@ -182,8 +230,9 @@
                         <TextBlock Text="Language"/>
                     </Label>
                     <Button x:Name="SelectFileButton" Content="Select" Grid.Column="3" Grid.Row="0" Width="80" Height="25"
-                            HorizontalAlignment="Right" Margin="0" VerticalAlignment="Center" Click="SelectFileButton_OnClick"/>
-                    <TextBox x:Name="TextBoxImageEditorPath" Grid.Row="0" Style="{StaticResource SettingInputStyle}" Width="160"/>
+                            HorizontalAlignment="Right" Margin="0" VerticalAlignment="Center" Click="PickImageEditor"/>
+                    <TextBox x:Name="TextBoxImageEditorPath" Grid.Row="0" Style="{StaticResource SettingInputStyle}" Width="160"
+                             Text="{Binding StringImageEditorPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <ComboBox x:Name="ComboBoxLanguage" Grid.Row="1" Style="{StaticResource SettingComboboxStyle}"/>
                 </Grid>
             </TabItem>

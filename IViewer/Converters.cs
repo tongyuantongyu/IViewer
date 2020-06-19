@@ -9,7 +9,7 @@ using System.Windows.Markup;
 namespace IViewer {
   public class MatchingIntToBooleanConverter : IValueConverter {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-      return value != null && parameter as string == ((int)value).ToString();
+      return value != null && parameter as string == ((long)value).ToString();
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
@@ -17,7 +17,7 @@ namespace IViewer {
         return -1;
       }
 
-      var i = System.Convert.ToInt32((parameter ?? "0") as string);
+      var i = System.Convert.ToInt64((parameter ?? "0") as string);
 
       return b ? System.Convert.ChangeType(i, targetType) : 0;
     }
@@ -25,7 +25,7 @@ namespace IViewer {
 
   public class StringLongConverter : IValueConverter {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-      return System.Convert.ToInt64((value ?? "0") as string);
+      return $"{(long)(value ?? 0)}";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
@@ -35,7 +35,7 @@ namespace IViewer {
 
   public class StringDoubleConverter : IValueConverter {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-      return System.Convert.ToDouble((value ?? "0") as string);
+      return $"{(double)(value ?? 0)}";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
@@ -44,21 +44,29 @@ namespace IViewer {
   }
 
   public class ValueDescriptionPair {
-    public string Description;
-    public Enum Value;
+    public long Value { get; set; }
+    public string Description { get; set; }
   }
 
   public static class EnumHelper {
-    public static string Description(this Enum value) {
+    public static string ResourceDescription(this Enum value) {
+      string fallback = null;
       var attributes = value.GetType().GetField(value.ToString())
         .GetCustomAttributes(typeof(DescriptionAttribute), false);
-      if (attributes.Any()) { 
-        
-        return (attributes.First() as DescriptionAttribute)?.Description;
+      if (attributes.Any()) {
+        fallback = (attributes.First() as DescriptionAttribute)?.Description;
+        var result = Settings.Resource(fallback);
+        if (!string.IsNullOrWhiteSpace(result)) {
+          return result;
+        }
+      }
+
+      if (string.IsNullOrWhiteSpace(fallback)) {
+        fallback = value.ToString();
       }
 
       TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
-      return ti.ToTitleCase(ti.ToLower(value.ToString().Replace("_", " ")));
+      return ti.ToTitleCase(ti.ToLower(fallback.Replace("_", " ")));
     }
 
     public static IEnumerable<ValueDescriptionPair> GetAllValuesAndDescriptions(Type t) {
@@ -68,23 +76,18 @@ namespace IViewer {
 
       return Enum.GetValues(t)
         .Cast<Enum>()
-        .Select(e => new ValueDescriptionPair {Value = e, Description = e.Description()})
+        .Select(e => new ValueDescriptionPair {Value = Convert.ToInt64(e), Description = e.ResourceDescription()})
         .ToList();
     }
   }
 
-  [ValueConversion(typeof(Enum), typeof(IEnumerable<ValueDescriptionPair>))]
-  public class EnumToCollectionConverter : MarkupExtension, IValueConverter {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-      return value != null ? EnumHelper.GetAllValuesAndDescriptions(value.GetType()) : Enumerable.Empty<ValueDescriptionPair>();
-    }
+  [ValueConversion(typeof(Type), typeof(IEnumerable<ValueDescriptionPair>))]
+  public class EnumToCollectionConverter : MarkupExtension {
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
-      return null;
-    }
+    public Type EnumType { get; set; }
 
     public override object ProvideValue(IServiceProvider serviceProvider) {
-      return this;
+      return EnumHelper.GetAllValuesAndDescriptions(EnumType);
     }
   }
 }

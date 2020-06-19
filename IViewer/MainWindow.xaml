@@ -38,6 +38,9 @@
                        Canvas.Bottom="0" Canvas.Left="0" Height="20" Width="20" Fill="Red"
                        Visibility="Hidden"></Rectangle>
         </Canvas>
+        <TextBlock x:Name="ImageInfo" HorizontalAlignment="Left" VerticalAlignment="Stretch"
+                   Margin="10,30,0,0"
+                   TextWrapping="Wrap" Width="200" Foreground="White"/>
         <Canvas x:Name="ActionLayer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                 Margin="0,30,0,0" Grid.Column="0" Background="Transparent"
                 PreviewMouseLeftButtonDown="CanvasMouseDown" PreviewMouseLeftButtonUp="CanvasMouseUp" MouseWheel="CanvasScrollHandler">
@@ -47,20 +50,25 @@
                     <MenuItem Name="OpenImg" Header="{x:Static p:Resources.ContextMenu_Open}" Command="Open"></MenuItem>
                     <Separator></Separator>
                     <MenuItem Name="SortImg" Header="{x:Static p:Resources.ContextMenu_ImgSort}">
-                        <MenuItem Name="SortByFileName" Header="{x:Static p:Resources.ContextMenu_ImgSort_Filename}"
-                                  IsChecked="{Binding}"></MenuItem>
-                        <MenuItem Name="SortByModifyDate" Header="{x:Static p:Resources.ContextMenu_ImgSort_ModifiedDate}"></MenuItem>
-                        <MenuItem Name="SortByFileSize" Header="{x:Static p:Resources.ContextMenu_ImgSort_Size}"></MenuItem>
+                        <MenuItem Name="SortByFileName" Header="{x:Static p:Resources.ContextMenu_ImgSort_Filename}" IsCheckable="True"
+                                  IsChecked="{Binding LongSortFileBy, ConverterParameter=1, Converter={StaticResource MatchingIntToBooleanConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></MenuItem>
+                        <MenuItem Name="SortByModifyDate" Header="{x:Static p:Resources.ContextMenu_ImgSort_ModifiedDate}" IsCheckable="True"
+                                  IsChecked="{Binding LongSortFileBy, ConverterParameter=2, Converter={StaticResource MatchingIntToBooleanConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></MenuItem>
+                        <MenuItem Name="SortByFileSize" Header="{x:Static p:Resources.ContextMenu_ImgSort_Size}" IsCheckable="True"
+                                  IsChecked="{Binding LongSortFileBy, ConverterParameter=3, Converter={StaticResource MatchingIntToBooleanConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></MenuItem>
                         <Separator></Separator>
-                        <MenuItem Name="DescendingSort" Header="{x:Static p:Resources.ContextMenu_ImgSort_Desc}"></MenuItem>
+                        <MenuItem Name="DescendingSort" Header="{x:Static p:Resources.ContextMenu_ImgSort_Desc}" IsCheckable="True"
+                                  IsChecked="{Binding IsDescendingSort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></MenuItem>
                     </MenuItem>
 
                     <MenuItem Name="BrowseMode" Header="{x:Static p:Resources.Context_ViewMode}">
-                        <MenuItem Name="OriginalMode" Header="{x:Static p:Resources.Context_ViewMode_Org}" IsChecked="{Binding OriginalMode}"></MenuItem>
-                        <MenuItem Name="FitWindowMode" Header="{x:Static p:Resources.Context_ViewMode_Fit}" IsChecked="{Binding FitWindowMode}"></MenuItem>
+                        <MenuItem Name="OriginalMode" Header="{x:Static p:Resources.Context_ViewMode_Org}" IsCheckable="True"
+                                  IsChecked="{Binding LongDefaultImageDisplayMode, ConverterParameter=2, Converter={StaticResource MatchingIntToBooleanConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></MenuItem>
+                        <MenuItem Name="FitWindowMode" Header="{x:Static p:Resources.Context_ViewMode_Fit}" IsCheckable="True"
+                                  IsChecked="{Binding LongDefaultImageDisplayMode, ConverterParameter=1, Converter={StaticResource MatchingIntToBooleanConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></MenuItem>
                         <Separator></Separator>
-                        <MenuItem Name="StretchingMode" Header="{x:Static p:Resources.Context_ViewMode_StretchSmall}"></MenuItem>
-                        <MenuItem Name="CenterMode" Header="{x:Static p:Resources.Context_ViewMode_CenterBig}"></MenuItem>
+                        <MenuItem Name="StretchingMode" Header="{x:Static p:Resources.Context_ViewMode_StretchSmall}" IsCheckable="True"></MenuItem>
+                        <MenuItem Name="CenterMode" Header="{x:Static p:Resources.Context_ViewMode_CenterBig}" IsCheckable="True"></MenuItem>
                     </MenuItem>
 
                     <Separator></Separator>
@@ -71,9 +79,6 @@
             </Canvas.ContextMenu>
             <!--#endregion -->
         </Canvas>
-        <TextBlock x:Name="ImageInfo" HorizontalAlignment="Left" VerticalAlignment="Stretch"
-                   Margin="10,30,0,0"
-                   TextWrapping="Wrap" Width="200" Foreground="White"/>
         <Grid x:Name="TopBar" HorizontalAlignment="Stretch" Height="30" Margin="0,-30,0,0" VerticalAlignment="Top"
               Grid.Column="0" Grid.ZIndex="2">
             <Grid.ColumnDefinitions>

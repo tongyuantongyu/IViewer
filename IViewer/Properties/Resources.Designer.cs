@@ -565,7 +565,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Modified data 的本地化字符串。
+        ///   查找类似 Modified date 的本地化字符串。
         /// </summary>
         public static string SortFileBy_ModifiedDate {
             get {
@@ -606,6 +606,15 @@ namespace IViewer.Properties {
         public static string Type_BMP {
             get {
                 return ResourceManager.GetString("Type_BMP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Executable 的本地化字符串。
+        /// </summary>
+        public static string Type_EXE {
+            get {
+                return ResourceManager.GetString("Type_EXE", resourceCulture);
             }
         }
         
