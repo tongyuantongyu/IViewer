@@ -1,0 +1,31 @@
+﻿<Window x:Class="IViewer.OtherWindow.MoreImageInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IViewer.OtherWindow"
+        mc:Ignorable="d"
+        Title="MoreImageInfoWindow" Height="450" Width="400" Background="Black">
+    <TabControl HorizontalAlignment="Left" Height="422" Margin="0,0,-6.667,-1.333" VerticalAlignment="Top" Width="400" Background="Black" BorderBrush="Black">
+        <TabItem Header="Source" Width="60">
+            <Grid Background="Black">
+                <TextBlock x:Name="TextBlockSource" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="374" Width="373" Foreground="White" FontSize="15"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Image" Width="60">
+            <Grid Background="Black">
+                <TextBlock x:Name="TextBlockImage" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="374" Width="373" Foreground="White" FontSize="15"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Camera" Width="60">
+            <Grid Background="Black">
+                <TextBlock x:Name="TextBlockCamera" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="374" Width="373" Foreground="White" FontSize="15"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="File" Width="60">
+            <Grid Background="Black">
+                <TextBlock x:Name="TextBlockFile" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="374" Width="373" Foreground="White" FontSize="15"/>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>

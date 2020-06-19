@@ -6,8 +6,12 @@
         xmlns:local="clr-namespace:IViewer"
         xmlns:c="clr-namespace:System;assembly=mscorlib"
         xmlns:p="clr-namespace:IViewer.Properties"
+        xmlns:viewModel="clr-namespace:IViewer.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="Black" WindowStyle="None" MouseMove="MouseMoveHandler" KeyDown="KeyDownHandler" KeyUp="KeyUpHandler">
+    <Window.DataContext>
+        <viewModel:TomlViewModel></viewModel:TomlViewModel>
+    </Window.DataContext>
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" />
     </WindowChrome.WindowChrome>
@@ -41,10 +45,36 @@
             <!--#region Context Menu -->
             <Canvas.ContextMenu>
                 <ContextMenu Name="RightClickMenu" StaysOpen="True">
-                    <MenuItem Header="{x:Static p:Resources.ContextMenu_Open}" Command="Open" InputGestureText="F2"/>
-                    <MenuItem Header="{x:Static p:Resources.ContextMenu_Exit}" Command="Close" InputGestureText="F4"/>
+                    <!--<MenuItem Header="{x:Static p:Resources.ContextMenu_Open}" Command="Open" InputGestureText="F2"/>
+                    <MenuItem Header="{x:Static p:Resources.ContextMenu_Exit}" Command="Close" InputGestureText="F4"/>-->
+                    <MenuItem Name="OpenImg" Header="打开图像" Click="OpenImg_OnClick"></MenuItem>
+                    <MenuItem Name="CloseImg" Header="关闭图像" Click="CloseImg_OnClick"></MenuItem>
+                    <Separator></Separator>
+
+                    <MenuItem Name="SortImg" Header="图像排序">
+                        <MenuItem Name="SortByFileName" Header="文件名" Click="SortByFileName_OnClick" IsChecked="{Binding SortByFileName}" ></MenuItem>
+                        <MenuItem Name="SortByModifyDate" Header="修改日期" Click="SortByModifyDate_OnClick" IsChecked="{Binding SortByModifyDate}"></MenuItem>
+                        <MenuItem Name="SortByFileSize" Header="文件大小" Click="SortByFileSize_OnClick" IsChecked="{Binding SortBySize}" ></MenuItem>
+                        <Separator></Separator>
+                        <MenuItem Name="DescendingSort" Header="降序排序" IsChecked="{Binding IsDescendingSort}"  Click="DescendingSort_OnClick"></MenuItem>
+                    </MenuItem>
+
+                    <MenuItem Name="BrowseMode" Header="浏览模式">
+                        <MenuItem Name="OriginalMode" Header="原始模式" Click="OriginalMode_OnClick" IsChecked="{Binding OriginalMode}"></MenuItem>
+                        <MenuItem Name="FitWindowMode" Header="适合窗口" Click="FitWindowMode_OnClick" IsChecked="{Binding FitWindowMode}"></MenuItem>
+                        <Separator></Separator>
+                        <MenuItem Name="StretchingMode" Header="拉伸小图" Click="StretchingMode_OnClick"></MenuItem>
+                        <MenuItem Name="CenterMode" Header="居中大图" Click="CenterMode_OnClick"></MenuItem>
+                    </MenuItem>
+
+                    <Separator></Separator>
+                    <MenuItem Name="ConfigItem" Header="选项" Click="ConfigItem_OnClick"></MenuItem>
+                    <MenuItem Name="AboutItem" Header="关于" Click="AboutItem_OnClick"></MenuItem>
+                    <MenuItem Name="ExitItem" Header="退出" Click="ExitItem_OnClick"></MenuItem>
                 </ContextMenu>
             </Canvas.ContextMenu>
+            <TextBox x:Name="TomlTextBox" Height="360" Canvas.Left="211" TextWrapping="Wrap" Text="{Binding TomlResult}" Canvas.Top="43" Width="572" FontSize="16" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
+            <TextBlock x:Name="TextBlockImageInfo" Canvas.Left="10" TextWrapping="Wrap" Canvas.Top="10" Height="393" Width="196" Foreground="White" PreviewMouseDown="TextBlockImageInfo_OnPreviewMouseDown"/>
             <!--#endregion -->
         </Canvas>
         <Grid x:Name="TopBar" HorizontalAlignment="Stretch" Height="30" Margin="0,-30,-0.4,0" VerticalAlignment="Top"

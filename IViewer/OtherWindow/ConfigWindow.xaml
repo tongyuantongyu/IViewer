@@ -1,0 +1,234 @@
+﻿<Window x:Class="IViewer.OtherWindow.ConfigWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IViewer.OtherWindow"
+        xmlns:iViewer="clr-namespace:IViewer"
+        xmlns:viewModel="clr-namespace:IViewer.ViewModel"
+        mc:Ignorable="d"
+        Title="ConfigWindow" Height="450" Width="800" Background="#FF42405C" Closed="Window_Closed">
+    <Window.DataContext>
+        <viewModel:TomlViewModel></viewModel:TomlViewModel>
+    </Window.DataContext>
+    <Grid>
+
+        <TabControl HorizontalAlignment="Left" Height="401" Margin="10,10,0,0" VerticalAlignment="Top" Width="773" BorderBrush="{x:Null}" Background="{x:Null}">
+            <TabItem Header="Behavior1" Width="189" Height="50" FontSize="20">
+                <Grid x:Name="GridBehavior1" HorizontalAlignment="Left" Height="350" Margin="0,0,0,-7.333" Width="765" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"></ColumnDefinition>
+                        <ColumnDefinition Width="350"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="40"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Label Name="LabelAllowMultipleInstanceRunning" Grid.Column="1" Grid.Row="0" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Allow Multiple Instance Running" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelConfirmBeforeDeleteFile" Grid.Column="1" Grid.Row="1" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Confirm Before Delete File" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelDefaultWindowMode" Grid.Column="1" Grid.Row="2" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Default Window Mode" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelDefaultImageDisplayMode" Grid.Column="1" Grid.Row="3" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Default image display mode" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelCenterBigImageByDefault" Grid.Column="1" Grid.Row="4" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Center big image by default" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelEnlargeSmallImageByDefault" Grid.Column="1" Grid.Row="5" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Enlarge small image by default" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelSortFileBy" Grid.Column="1" Grid.Row="6" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Sort file by" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <CheckBox x:Name="CheckBoxAllowMultipleInstanceRunning" Content="Yes" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsAllowMultipleInstanceRunning}"/>
+                    <CheckBox x:Name="CheckBoxConfirmBeforeDeleteFile" Content="Yes" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsConfirmBeforeDeleteFile}"/>
+                    <ComboBox x:Name="ComboBoxDefaultWindowMode" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongDefaultWindowMode}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ComboBoxDefaultImageDisplayMode" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongDefaultImageDisplayMode}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <CheckBox x:Name="CheckBoxCenterBigImageByDefault" Content="Yes" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsCenterBigImageByDefault}"/>
+                    <CheckBox x:Name="CheckBoxEnlargeSmallImageByDefault" Content="Yes" Grid.Column="3" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsEnlargeSmallImageByDefault}"/>
+                    <ComboBox x:Name="ComboBoxSortFileBy" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="6" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongSortFileBy}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Behavior2" Width="189" Height="50" FontSize="20">
+                <Grid x:Name="GridBehavior2" HorizontalAlignment="Left" Height="350" Margin="0,0,0,-7.333" Width="765" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="350"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Label Name="LabelDescendingSort" Grid.Column="1" Grid.Row="0" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Descending sort" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelBehaviorOnReachingFirstLastFile" Grid.Column="1" Grid.Row="1" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Behavior on reaching first / last file" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelDragMultiplier" Grid.Column="1" Grid.Row="2" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Drag multiplier" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelAnimationSpan" Grid.Column="1" Grid.Row="3" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Animation span(ms)" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelExtendRenderRatio" Grid.Column="1" Grid.Row="4" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Extend render ratio" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelReRenderWaitTime" Grid.Column="1" Grid.Row="5" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Re-render wait time(ms)" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <CheckBox x:Name="CheckBoxDescendingSort" Content="Yes" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsDescendingSort}"/>
+                    <ComboBox x:Name="ComboBoxBehaviorOnReachingFirstLastFile" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongBehaviorOnReachingFirstLastFile}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+
+                    <Label x:Name="LabelDragMultiplierNum" Content="" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ScrollBar x:Name="ScrollBarDragMultiplier" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="250" Width="30" RenderTransformOrigin="0.5,0.5" Minimum="0" Maximum="2" Value="{Binding DoubleDragMultiplier}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="109.667,0,0,0" Grid.RowSpan="5" ValueChanged="ScrollBarDragMultiplier_ValueChanged">
+                        <ScrollBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ScrollBar.RenderTransform>
+                    </ScrollBar>
+
+                    <Label x:Name="LabelAnimationSpanNum" Content="" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ScrollBar x:Name="ScrollBarAnimationSpan" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="250" Width="30" RenderTransformOrigin="0.5,0.5" Minimum="0.4" Maximum="3" Value="{Binding DoubleAnimationSpan}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="109.667,0,0,0" Grid.RowSpan="5" ValueChanged="ScrollBarAnimationSpan_OnValueChanged">
+                        <ScrollBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ScrollBar.RenderTransform>
+                    </ScrollBar>
+
+                    <Label x:Name="LabelExtendRenderRatioNum" Content="" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ScrollBar x:Name="ScrollBarExtendRenderRatio" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="250" Width="30" RenderTransformOrigin="0.5,0.5" Minimum="0" Maximum="1" Value="{Binding DoubleExtendRenderRatio}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="109.667,0,0,0" Grid.RowSpan="5" ValueChanged="ScrollBarExtendRenderRatio_OnValueChanged">
+                        <ScrollBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ScrollBar.RenderTransform>
+                    </ScrollBar>
+
+                    <Label x:Name="LabelReRenderWaitTimeNum" Content="" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ScrollBar x:Name="ScrollBarReRenderWaitTime" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Height="250" Width="30" RenderTransformOrigin="0.5,0.5" Minimum="0.5" Maximum="2" Value="{Binding DoubleReRenderWaitTime}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="110.667,2,0,-52" Grid.RowSpan="4" ValueChanged="ScrollBarReRenderWaitTime_OnValueChanged">
+                        <ScrollBar.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </ScrollBar.RenderTransform>
+                    </ScrollBar>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="View" Width="189" Height="50" FontSize="20">
+                <Grid x:Name="GridView" HorizontalAlignment="Left" Height="350" Margin="0,0,0,-7.333" Width="765" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="350"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Label Name="LabelFileInfo" Grid.Column="1" Grid.Row="0" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="File info" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelEXIFInfo" Grid.Column="1" Grid.Row="1" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="EXIF info" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelWindowBackgroundColor" Grid.Column="1" Grid.Row="2" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Window background color" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelImageBackgroundColor" Grid.Column="1" Grid.Row="3" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Image background color" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelImageEnlargingAlgorithm" Grid.Column="1" Grid.Row="4" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Image enlarging algorithmo" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelImageShrinkingAlgorithm" Grid.Column="1" Grid.Row="5" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Image shrinking algorithm" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelImageDoublingAlgorithm" Grid.Column="1" Grid.Row="6" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Image doubling algorithm" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <ComboBox x:Name="ComboBoxFileInfo" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongFileInfo}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ComboBoxEXIFInfo" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongEXIFInfo}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxWindowBackgroundColor" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding StringWindowBackgroundColor}" VerticalAlignment="Center" Width="250" Grid.Row="2" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <TextBox x:Name="TextBoxImageBackgroundColor" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding StringImageBackgroundColor}" VerticalAlignment="Center" Width="250" Grid.Row="3" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ComboBoxImageEnlargingAlgorithm" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongImageEnlargingAlgorithm}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ComboBoxShrinkingAlgorithm" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongImageShrinkingAlgorithm}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ComboBoxDoublingAlgorithm" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="6" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongImageDoublingAlgorithm}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Other" Width="189" Height="50" FontSize="20">
+                <Grid x:Name="GridOther" HorizontalAlignment="Left" Height="350" Margin="0,0,0,-7.333" Width="765" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="350"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Label Name="LabelImageEditorPath" Grid.Column="1" Grid.Row="0" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Image editor path" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <Label Name="LabelLanguage" Grid.Column="1" Grid.Row="1" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap" Text="Language" VerticalAlignment="Top" FontSize="20"/>
+                    </Label>
+                    <TextBox x:Name="TextBoxImageEditorPath" HorizontalAlignment="Center"  TextWrapping="Wrap" Text="{Binding StringImageEditorPath}" VerticalAlignment="Center" Width="250" Grid.Row="0" Grid.Column="3" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsReadOnly="True"/>
+                    <ComboBox x:Name="ComboBoxLanguage" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center"  Width="250" Height="40" SelectedIndex="{Binding LongLanguage}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <Button x:Name="SelectFileButton" Content="更换" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top" Width="65" Click="SelectFileButton_OnClick"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
