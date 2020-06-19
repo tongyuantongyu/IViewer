@@ -1,29 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.ComponentModel;
+using System.Globalization;
+using System.Resources;
 using IViewer.Model;
+using IViewer.Properties;
 
 namespace IViewer {
   public class Settings : INotifyPropertyChanged {
     public static TomlConfig TomlConfig;
-    public event PropertyChangedEventHandler PropertyChanged;
     public static readonly Settings Instance = new Settings();
 
-    public void RaisePropertyChanged(string propertyName) {//属性更改方法
-      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    private static readonly ResourceManager ResourceManager =
+      new ResourceManager("IViewer.Properties.Resources", typeof(Resources).Assembly);
 
     private Settings() {
       TomlConfig = new TomlConfig();
       TomlConfig.Read(App.ConfigLocation);
     }
-    public static void SaveToFile(string fileName) { TomlConfig.Write(fileName);}
 
-    public static void ReadFromFile(string fileName) { TomlConfig.Read(fileName);}
+    public static CultureInfo Culture {
+      get => CultureInfo.GetCultureInfo(TomlConfig.StringLanguage);
+      set {
+        TomlConfig.StringLanguage = value.Name;
+      }
+    }
+
     //字段
     public string TomlResult => TomlConfig.ToString();
 
@@ -40,7 +40,7 @@ namespace IViewer {
 
     public long LongDefaultWindowMode {
       get { return TomlConfig.LongDefaultWindowMode; }
-      set { TomlConfig.LongDefaultWindowMode = (long)(value); }
+      set { TomlConfig.LongDefaultWindowMode = value; }
     }
 
     public long LongDefaultImageDisplayMode {
@@ -73,22 +73,24 @@ namespace IViewer {
       set { TomlConfig.LongBehaviorOnReachingFirstLastFile = value; }
     }
 
-    public string DoubleDragMultiplier {
-      get { return TomlConfig.DoubleDragMultiplier.ToString(); }
-      set { TomlConfig.DoubleDragMultiplier = double.Parse(value); }
+    public double DoubleDragMultiplier {
+      get { return TomlConfig.DoubleDragMultiplier; }
+      set { TomlConfig.DoubleDragMultiplier = value; }
     }
 
-    public string DoubleAnimationSpan {
-      get { return TomlConfig.DoubleAnimationSpan.ToString(); }
-      set { TomlConfig.DoubleAnimationSpan = double.Parse(value); }
+    public long DoubleAnimationSpan {
+      get { return TomlConfig.LongAnimationSpan; }
+      set { TomlConfig.LongAnimationSpan = value; }
     }
-    public string DoubleExtendRenderRatio {
-      get { return TomlConfig.DoubleExtendRenderRatio.ToString(); }
-      set { TomlConfig.DoubleExtendRenderRatio = double.Parse(value); }
+
+    public double DoubleExtendRenderRatio {
+      get { return TomlConfig.DoubleExtendRenderRatio; }
+      set { TomlConfig.DoubleExtendRenderRatio = value; }
     }
-    public string DoubleReRenderWaitTime {
-      get { return TomlConfig.DoubleReRenderWaitTime.ToString(); }
-      set { TomlConfig.DoubleReRenderWaitTime = double.Parse(value); }
+
+    public long LongReRenderWaitTime {
+      get { return TomlConfig.LongReRenderWaitTime; }
+      set { TomlConfig.LongReRenderWaitTime = value; }
     }
 
     //view
@@ -126,66 +128,32 @@ namespace IViewer {
       get { return TomlConfig.LongImageDoublingAlgorithm; }
       set { TomlConfig.LongImageDoublingAlgorithm = value; }
     }
+
     //other
     public string StringImageEditorPath {
       get { return TomlConfig.StringImageEditorPath; }
       set { TomlConfig.StringImageEditorPath = value; }
     }
 
-    public long LongLanguage {
-      get { return TomlConfig.LongLanguage; }
-      set { TomlConfig.LongLanguage = value; }
+    public long SortBy {
+      get { return TomlConfig.LongSortFileBy; }
+      set { TomlConfig.LongSortFileBy = value; }
     }
 
-    //ContexMenu
-    public bool SortByFileName {
-      get { return TomlConfig.LongSortFileBy == (long)EnumSortFileBy.FileName; }
-      set {
-        if (value == true) {
-          TomlConfig.LongSortFileBy = (long)EnumSortFileBy.FileName;RaisePropertyChanged("LongSortFileBy");
-          RaisePropertyChanged("TomlResult");
-        }
-      }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public static string Resource(string name) {
+      return ResourceManager.GetString(name, Culture) ?? name.Replace("_", " ");
     }
 
-    public bool SortByModifyDate {
-      get { return TomlConfig.LongSortFileBy == (long)EnumSortFileBy.ModifiedDate; }
-      set {
-        if (value == true) {
-          TomlConfig.LongSortFileBy = (long)EnumSortFileBy.ModifiedDate;RaisePropertyChanged("LongSortFileBy");
-          RaisePropertyChanged("TomlResult");
-        }
-      }
+    public void RaisePropertyChanged(string propertyName) {
+      //属性更改方法
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    public bool SortBySize {
-      get { return TomlConfig.LongSortFileBy == (long)EnumSortFileBy.Size; }
-      set {
-        if (value == true) {
-          TomlConfig.LongSortFileBy = (long)EnumSortFileBy.Size; RaisePropertyChanged("LongSortFileBy");
-          RaisePropertyChanged("TomlResult");
-        }
-      }
-    }
+    public static void SaveToFile(string fileName) { TomlConfig.Write(fileName); }
 
-    public bool OriginalMode {
-      get { return TomlConfig.LongDefaultImageDisplayMode == (long)EnumDefaultImageDisplayMode.OriginalSize; }
-      set {
-        if (value == true) {
-          TomlConfig.LongDefaultImageDisplayMode = (long)EnumDefaultImageDisplayMode.OriginalSize; RaisePropertyChanged("LongDefaultImageDisplayMode");
-          RaisePropertyChanged("TomlResult");
-        }
-      }
-    }
-
-    public bool FitWindowMode {
-      get { return TomlConfig.LongDefaultImageDisplayMode == (long)EnumDefaultImageDisplayMode.FitWindow; }
-      set {
-        if (value == true) {
-          TomlConfig.LongDefaultImageDisplayMode = (long)EnumDefaultImageDisplayMode.FitWindow; RaisePropertyChanged("LongDefaultImageDisplayMode");
-          RaisePropertyChanged("TomlResult");
-        }
-      }
-    }
+    public static void ReadFromFile(string fileName) { TomlConfig.Read(fileName); }
   }
 }

@@ -48,9 +48,9 @@ namespace IViewer.SubWindow {
         ComboBoxDoublingAlgorithm.Items.Add(Enum.GetName(typeof(EnumImageDoublingAlgorithm), i));
       }
 
-      for (int i = 0; i < Enum.GetValues(typeof(EnumLanguage)).Length; i++) {
-        ComboBoxLanguage.Items.Add(Enum.GetName(typeof(EnumLanguage), i));
-      }
+      // for (int i = 0; i < Enum.GetValues(typeof(EnumLanguage)).Length; i++) {
+      //   ComboBoxLanguage.Items.Add(Enum.GetName(typeof(EnumLanguage), i));
+      // }
 
       DataContext = settings;
     }

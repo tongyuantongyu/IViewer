@@ -11,6 +11,7 @@ namespace IViewer {
   /// App.xaml 的交互逻辑
   /// </summary>
   public partial class App : Application {
-    public static string ConfigLocation = "config.toml";
+    public const string ConfigLocation = "config.toml";
+    public const string ConfigTable = "IViewer";
   }
 }

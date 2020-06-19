@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -8,14 +9,17 @@ using Tomlyn.Model;
 namespace IViewer.Model {
   //ConfigEnum
   public enum EnumDefaultWindowMode {
+    [Description("DefaultWindowMode_Normal")]
     Normal = 0,
+    [Description("DefaultWindowMode_Maximized")]
     Maximized = 1,
+    [Description("DefaultWindowMode_LastTime")]
     LastTime = 2
   }
 
   public enum EnumDefaultImageDisplayMode {
-    OriginalSize = 0,
-    FitWindow = 1
+    FitWindow = 0,
+    OriginalSize = 1
   }
 
   public enum EnumSortFileBy {
@@ -44,34 +48,34 @@ namespace IViewer.Model {
   }
 
   public enum EnumImageEnlargingAlgorithm {
-    A = 0,
-    B = 1,
-    C = 2
+    System,
+    NearestNeighbor,
+    Bilinear,
+    Bicubic,
+    HighQualityBilinear,
+    HighQualityBicubic
   }
 
   public enum EnumImageShrinkingAlgorithm {
-    A = 0,
-    B = 1,
-    C = 2
+    System,
+    NearestNeighbor,
+    Bilinear,
+    Bicubic,
+    HighQualityBilinear,
+    HighQualityBicubic
   }
 
   public enum EnumImageDoublingAlgorithm {
-    A = 0,
-    B = 1,
-    C = 2
-  }
-
-  public enum EnumLanguage {
-    Chinese = 0,
-    English = 1
+    None,
+    Nnedi3
   }
 
   public class TomlConfig {
-    public double DoubleAnimationSpan;
+    public long LongAnimationSpan;
     public double DoubleDragMultiplier;
     public double DoubleExtendRenderRatio;
 
-    public double DoubleReRenderWaitTime;
+    public long LongReRenderWaitTime;
     //Config Values
 
     //Behavior 
@@ -91,7 +95,7 @@ namespace IViewer.Model {
     public long LongImageDoublingAlgorithm;
     public long LongImageEnlargingAlgorithm;
     public long LongImageShrinkingAlgorithm;
-    public long LongLanguage;
+    public string StringLanguage;
     public long LongSortFileBy;
 
     public string StringImageBackgroundColor;
@@ -112,40 +116,38 @@ namespace IViewer.Model {
       LongSortFileBy = (long)EnumSortFileBy.Size;
       IsDescendingSort = false;
       LongBehaviorOnReachingFirstLastFile = (long)EnumBehaviorOnReachingFirstLastFile.Ask;
-      DoubleDragMultiplier = 0.57;
-      DoubleAnimationSpan = 0.98;
-      DoubleExtendRenderRatio = 0.66;
-      DoubleReRenderWaitTime = 1.67;
+      DoubleDragMultiplier = 2;
+      LongAnimationSpan = 100;
+      DoubleExtendRenderRatio = 1;
+      LongReRenderWaitTime = 500;
       //view
       LongFileInfo = (long)EnumFileInfo.Hide;
       LongEXIFInfo = (long)EnumEXIFInfo.ShowOnHover;
       StringWindowBackgroundColor = "(255,255,255)";
       StringImageBackgroundColor = "(0,0,0)";
-      LongImageEnlargingAlgorithm = (long)EnumImageEnlargingAlgorithm.B;
-      LongImageShrinkingAlgorithm = (long)EnumImageShrinkingAlgorithm.C;
-      LongImageDoublingAlgorithm = (long)EnumImageDoublingAlgorithm.A;
+      LongImageEnlargingAlgorithm = (long)EnumImageEnlargingAlgorithm.HighQualityBicubic;
+      LongImageShrinkingAlgorithm = (long)EnumImageShrinkingAlgorithm.HighQualityBilinear;
+      LongImageDoublingAlgorithm = (long)EnumImageDoublingAlgorithm.None;
       //other
       StringImageEditorPath = "";
-      LongLanguage = (long)EnumLanguage.Chinese;
+      StringLanguage = "en";
     }
 
     public override string ToString() {
       return GenerateTomlString();
     }
 
-    public string GenerateTomlString() //生成toml字符串
-    {
-      bool BoolType = false;
-      string TableName = "TestTable";
+    public string GenerateTomlString() {
+      const string tableName = App.ConfigTable;
       //动态添加所有属性
-      string output = "[" + TableName + "]\n";
+      string output = "[" + tableName + "]\n";
       Type t = typeof(TomlConfig);
       FieldInfo[] infos = t.GetFields();
       foreach (FieldInfo info in infos) {
-        if (info.FieldType == output.GetType()) { //string类型需要添加单引号
+        if (info.FieldType == output.GetType()) {
           output += info.Name + "=" + "'" + info.GetValue(this) + "'" + "\n";
         }
-        else if (info.FieldType == false.GetType()) { //bool类型需要小写
+        else if (info.FieldType == false.GetType()) {
           output += info.Name + "=" + ((bool)info.GetValue(this) ? "true" : "false") + "\n";
         }
         else {
@@ -158,20 +160,18 @@ namespace IViewer.Model {
 
     public void Write(string fileName) //写文件
     {
-      using (FileStream fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write)) {
+      using (var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write)) {
         string output = GenerateTomlString();
         byte[] bytes = Encoding.UTF8.GetBytes(output);
         fileStream.Write(bytes, 0, bytes.Length);
       }
     }
 
-    public string ReadDoc(string fileName) { //读取文件返回字符串，如果文件不存在，则创建文件写入默认值返回null
-      if (File.Exists(fileName)) { //文件存在
+    public string ReadDoc(string fileName) {
+      if (File.Exists(fileName)) {
         using (var fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read)) {
           byte[] bytes = new byte[fileStream.Length];
-          //读取文件信息
           fileStream.Read(bytes, 0, bytes.Length);
-          //将得到的字节型数组重写编码为字符型数组
           char[] c = Encoding.UTF8.GetChars(bytes);
           string input = new string(c);
           return input;
@@ -182,9 +182,8 @@ namespace IViewer.Model {
       return null;
     }
 
-    public bool ReadString(string str) //处理字符串
-    {
-      string TableName = "TestTable";
+    public bool ReadString(string str) {
+      const string tableName = App.ConfigTable;
       var doc = Toml.Parse(str);
       if (doc.HasErrors) {
         return false; //解析错误则返回失败
@@ -192,14 +191,14 @@ namespace IViewer.Model {
 
       //使用Toml库解析
       var table = doc.ToModel();
-      var tomlTable = (TomlTable)table[TableName];
+      var tomlTable = (TomlTable)table[tableName];
 
       //反射自动导入所有属性
       Type t = typeof(TomlConfig);
       FieldInfo[] infos = t.GetFields();
       foreach (FieldInfo info in infos) {
         if (tomlTable.ContainsKey(info.Name)) {
-          info.SetValue(this, Convert.ChangeType(((TomlTable)table[TableName])[info.Name], info.FieldType));
+          info.SetValue(this, Convert.ChangeType(((TomlTable)table[tableName])[info.Name], info.FieldType));
         }
         else {
           return false; //key错误则返回
@@ -209,8 +208,7 @@ namespace IViewer.Model {
       return true;
     }
 
-    public bool Read(string fileName) //处理读取的文件，返回是否读取成功
-    {
+    public bool Read(string fileName) {
       string input = ReadDoc(fileName); //读取文件
       if (input != null) {
         if (ReadString(input)) {
