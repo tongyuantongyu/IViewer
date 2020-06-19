@@ -1,6 +1,8 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Media;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
@@ -40,6 +42,17 @@ namespace IViewer {
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
       return value is string s && double.TryParse(s, out var l) ? l : 0;
+    }
+  }
+
+  public class StringColorConverter : IValueConverter {
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+      return ColorConverter.ConvertFromString((value ?? "#00000000") as string);
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+      var r = value is Color s ? s.ToString() : "#00000000";
+      return r;
     }
   }
 

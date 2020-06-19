@@ -9,14 +9,15 @@
         xmlns:model="clr-namespace:IViewer.Model"
         xmlns:p="clr-namespace:IViewer.Properties"
         mc:Ignorable="d"
-        Title="Config" Height="500" Width="800" Background="White" Closed="Window_Closed" ResizeMode="NoResize">
+        Title="{x:Static p:Resources.WindowTitleConfig}" Height="500" Width="800" Background="White" Closed="Window_Closed" ResizeMode="NoResize">
     <Window.Resources>
         <iViewer:StringLongConverter x:Key="StringLongConverter"></iViewer:StringLongConverter>
         <iViewer:StringDoubleConverter x:Key="StringDoubleConverter"></iViewer:StringDoubleConverter>
+        <iViewer:StringColorConverter x:Key="StringColorConverter"></iViewer:StringColorConverter>
     </Window.Resources>
     <Grid>
         <TabControl x:Name="Base" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" BorderBrush="#FFB6B6B6" Background="{x:Null}">
-            <TabItem Header="Behavior" Style="{StaticResource TabItemStyle}">
+            <TabItem Header="{x:Static p:Resources.TabHeaderBehavior}" Style="{StaticResource TabItemStyle}">
                 <Grid x:Name="GridBehavior1" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40"></ColumnDefinition>
@@ -136,7 +137,7 @@
                              Text="{Binding LongAnimationSpan, Converter={StaticResource StringLongConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="View" Style="{StaticResource TabItemStyle}">
+            <TabItem Header="{x:Static p:Resources.TabHeaderView}" Style="{StaticResource TabItemStyle}">
                 <Grid x:Name="GridView" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"></ColumnDefinition>
@@ -188,8 +189,12 @@
                               DisplayMemberPath="Description"
                               Style="{StaticResource SettingComboboxStyle}"/>
 
-                    <xctk:ColorPicker x:Name="WindowBackgroundColorPicker" Grid.Row="2" Style="{StaticResource SettingColorPickerStyle}"></xctk:ColorPicker>
-                    <xctk:ColorPicker x:Name="ImageBackgroundColorPicker" Grid.Row="3" Style="{StaticResource SettingColorPickerStyle}"></xctk:ColorPicker>
+                    <xctk:ColorPicker x:Name="WindowBackgroundColorPicker" Grid.Row="2"
+                                      SelectedColor="{Binding StringWindowBackgroundColor, Converter={StaticResource StringColorConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Style="{StaticResource SettingColorPickerStyle}"></xctk:ColorPicker>
+                    <xctk:ColorPicker x:Name="ImageBackgroundColorPicker" Grid.Row="3"
+                                      SelectedColor="{Binding StringImageBackgroundColor, Converter={StaticResource StringColorConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Style="{StaticResource SettingColorPickerStyle}"></xctk:ColorPicker>
                     <ComboBox x:Name="ComboBoxImageEnlargingAlgorithm" Grid.Row="4"
                               SelectedIndex="{Binding LongImageEnlargingAlgorithm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               ItemsSource="{Binding Source={iViewer:EnumToCollectionConverter EnumType={x:Type model:EnumImageEnlargingAlgorithm}}}"
@@ -210,7 +215,7 @@
                               Style="{StaticResource SettingComboboxStyle}"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Other" Style="{StaticResource TabItemStyle}">
+            <TabItem Header="{x:Static p:Resources.TabHeaderOther}" Style="{StaticResource TabItemStyle}">
                 <Grid x:Name="GridOther" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"></ColumnDefinition>

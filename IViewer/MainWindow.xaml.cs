@@ -32,6 +32,7 @@ namespace IViewer {
       Focus();
       identicalScale = 96 / GetDPI();
       DataContext = settings;
+      Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(settings.StringWindowBackgroundColor));
     }
 
     private readonly Settings settings = Settings.Instance;
@@ -520,7 +521,7 @@ namespace IViewer {
 
     // Mouse scroll on canvas. Do scale.
     private void CanvasScrollHandler(object sender, MouseWheelEventArgs e) {
-      if (!imgLoad || !IsActive) {
+      if (!imgLoad || !IsActive || Updating) {
         return;
       }
 
@@ -626,7 +627,7 @@ namespace IViewer {
 
     
     private void CanvasMove(Vector pos) {
-      if (!mouseDown) {
+      if (!mouseDown || Updating) {
         return;
       }
 
@@ -754,6 +755,8 @@ namespace IViewer {
         GenMetadata();
       }
 
+      Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(settings.StringWindowBackgroundColor));
+
       resizer = getResizer();
 
       ActiveImage.Source = image.GetFull(resizer);
@@ -801,7 +804,7 @@ namespace IViewer {
           directory.Name,
           directory.Tags
             .Select(tag => new KeyValuePair<string, string>(tag.Name, tag.Description))
-            .Where(pair => !pair.Key.Contains("Unknown"))
+            .Where(pair => !(pair.Key.Contains("Unknown") || pair.Value.Contains("Unknown")))
           ));
 
       var detailWindow = new MetadataWindow(detail);

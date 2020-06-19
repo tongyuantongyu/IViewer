@@ -781,6 +781,33 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Behavior 的本地化字符串。
+        /// </summary>
+        public static string TabHeaderBehavior {
+            get {
+                return ResourceManager.GetString("TabHeaderBehavior", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Other 的本地化字符串。
+        /// </summary>
+        public static string TabHeaderOther {
+            get {
+                return ResourceManager.GetString("TabHeaderOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 View 的本地化字符串。
+        /// </summary>
+        public static string TabHeaderView {
+            get {
+                return ResourceManager.GetString("TabHeaderView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Any File 的本地化字符串。
         /// </summary>
         public static string Type_Any {
@@ -867,6 +894,24 @@ namespace IViewer.Properties {
         public static string Type_WEBP {
             get {
                 return ResourceManager.GetString("Type_WEBP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 About 的本地化字符串。
+        /// </summary>
+        public static string WindowTitleAbout {
+            get {
+                return ResourceManager.GetString("WindowTitleAbout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Settings 的本地化字符串。
+        /// </summary>
+        public static string WindowTitleConfig {
+            get {
+                return ResourceManager.GetString("WindowTitleConfig", resourceCulture);
             }
         }
     }

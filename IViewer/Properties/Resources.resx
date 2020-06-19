@@ -359,6 +359,15 @@
   <data name="SortFileBy_Size" xml:space="preserve">
     <value>File size</value>
   </data>
+  <data name="TabHeaderBehavior" xml:space="preserve">
+    <value>Behavior</value>
+  </data>
+  <data name="TabHeaderOther" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="TabHeaderView" xml:space="preserve">
+    <value>View</value>
+  </data>
   <data name="Type_Any" xml:space="preserve">
     <value>Any File</value>
   </data>
@@ -388,5 +397,11 @@
   </data>
   <data name="Type_WEBP" xml:space="preserve">
     <value>WEBP Image</value>
+  </data>
+  <data name="WindowTitleAbout" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="WindowTitleConfig" xml:space="preserve">
+    <value>Settings</value>
   </data>
 </root>
