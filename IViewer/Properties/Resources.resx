@@ -141,6 +141,21 @@
   <data name="BehaviorOnReachingFirstLastFile_Stop" xml:space="preserve">
     <value>Do nothing</value>
   </data>
+  <data name="CheckBoxAllowMultipleInstanceRunning" xml:space="preserve">
+    <value>Allow Multiple Instance Running</value>
+  </data>
+  <data name="CheckBoxCenterBigImageByDefault" xml:space="preserve">
+    <value>Center big image by default</value>
+  </data>
+  <data name="CheckBoxConfirmBeforeDeleteFile" xml:space="preserve">
+    <value>Confirm Before Delete File</value>
+  </data>
+  <data name="CheckBoxDescendingSort" xml:space="preserve">
+    <value>Descending sort</value>
+  </data>
+  <data name="CheckBoxEnlargeSmallImageByDefault" xml:space="preserve">
+    <value>Enlarge small image by default</value>
+  </data>
   <data name="ContextMenu_About" xml:space="preserve">
     <value>About</value>
   </data>
@@ -283,6 +298,57 @@
   </data>
   <data name="ImageShrinkingAlgorithm_System" xml:space="preserve">
     <value>System</value>
+  </data>
+  <data name="LabelAnimationSpan" xml:space="preserve">
+    <value>Animation span(ms)</value>
+  </data>
+  <data name="LabelBehaviorOnReachingFirstLastFile" xml:space="preserve">
+    <value>Behavior on reaching first / last file</value>
+  </data>
+  <data name="LabelDefaultImageDisplayMode" xml:space="preserve">
+    <value>Default image display mode</value>
+  </data>
+  <data name="LabelDefaultWindowMode" xml:space="preserve">
+    <value>Default Window Mode</value>
+  </data>
+  <data name="LabelDragMultiplier" xml:space="preserve">
+    <value>Drag multiplier</value>
+  </data>
+  <data name="LabelEXIFInfo" xml:space="preserve">
+    <value>EXIF info</value>
+  </data>
+  <data name="LabelExtendRenderRatio" xml:space="preserve">
+    <value>Extend render ratio</value>
+  </data>
+  <data name="LabelFileInfo" xml:space="preserve">
+    <value>File info</value>
+  </data>
+  <data name="LabelImageBackgroundColor" xml:space="preserve">
+    <value>Image background color</value>
+  </data>
+  <data name="LabelImageDoublingAlgorithm" xml:space="preserve">
+    <value>Image doubling algorithm</value>
+  </data>
+  <data name="LabelImageEditorPath" xml:space="preserve">
+    <value>Image editor path</value>
+  </data>
+  <data name="LabelImageEnlargingAlgorithm" xml:space="preserve">
+    <value>Image enlarging algorithm</value>
+  </data>
+  <data name="LabelImageShrinkingAlgorithm" xml:space="preserve">
+    <value>Image shrinking algorithm</value>
+  </data>
+  <data name="LabelLanguage" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LabelReRenderWaitTime" xml:space="preserve">
+    <value>Re-render wait time(ms)</value>
+  </data>
+  <data name="LabelSortFileBy" xml:space="preserve">
+    <value>Sort file by</value>
+  </data>
+  <data name="LabelWindowBackgroundColor" xml:space="preserve">
+    <value>Window background color</value>
   </data>
   <data name="SortFileBy_FileName" xml:space="preserve">
     <value>File name</value>
