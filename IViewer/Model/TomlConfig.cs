@@ -18,55 +18,84 @@ namespace IViewer.Model {
   }
 
   public enum EnumDefaultImageDisplayMode {
+    [Description("DefaultImageDisplayMode_FitWindow")]
     FitWindow = 0,
+    [Description("DefaultImageDisplayMode_OriginalSize")]
     OriginalSize = 1
   }
 
   public enum EnumSortFileBy {
+    [Description("SortFileBy_FileName")]
     FileName = 0,
+    [Description("SortFileBy_ModifiedDate")]
     ModifiedDate = 1,
+    [Description("SortFileBy_Size")]
     Size = 2
   }
 
   public enum EnumBehaviorOnReachingFirstLastFile {
+    [Description("BehaviorOnReachingFirstLastFile_Ask")]
     Ask = 0,
+    [Description("BehaviorOnReachingFirstLastFile_LoopInFolder")]
     LoopInFolder = 1,
+    [Description("BehaviorOnReachingFirstLastFile_Stop")]
     Stop = 2,
+    [Description("BehaviorOnReachingFirstLastFile_GotoPreviousNextFolder")]
     GotoPreviousNextFolder = 3
   }
 
   public enum EnumFileInfo {
+    [Description("FileInfo_Hide")]
     Hide = 0,
+    [Description("FileInfo_Show")]
     Show = 1,
+    [Description("FileInfo_ShowOnHover")]
     ShowOnHover = 2
   }
 
   public enum EnumEXIFInfo {
+    [Description("EXIFInfo_Hide")]
     Hide = 0,
+    [Description("EXIFInfo_Show")]
     Show = 1,
+    [Description("EXIFInfo_ShowOnHover")]
     ShowOnHover = 2
   }
 
   public enum EnumImageEnlargingAlgorithm {
+    [Description("ImageEnlargingAlgorithm_System")]
     System,
+    [Description("ImageEnlargingAlgorithm_NearestNeighbor")]
     NearestNeighbor,
+    [Description("ImageEnlargingAlgorithm_Bilinear")]
     Bilinear,
+    [Description("ImageEnlargingAlgorithm_Bicubic")]
     Bicubic,
+    [Description("ImageEnlargingAlgorithm_HighQualityBilinear")]
     HighQualityBilinear,
+    [Description("ImageEnlargingAlgorithm_HighQualityBicubic")]
     HighQualityBicubic
   }
 
   public enum EnumImageShrinkingAlgorithm {
+    [Description("ImageShrinkingAlgorithm_System")]
     System,
+    [Description("ImageShrinkingAlgorithm_NearestNeighbor")]
     NearestNeighbor,
+    [Description("ImageShrinkingAlgorithm_Bilinear")]
     Bilinear,
+    [Description("ImageShrinkingAlgorithm_Bicubic")]
     Bicubic,
+    [Description("ImageShrinkingAlgorithm_HighQualityBilinear")]
     HighQualityBilinear,
+    [Description("ImageShrinkingAlgorithm_HighQualityBicubic")]
     HighQualityBicubic
   }
 
   public enum EnumImageDoublingAlgorithm {
+    [Description("ImageDoublingAlgorithm_None")]
     None,
+    [Description("ImageDoublingAlgorithm_Nnedi3")]
     Nnedi3
   }
 

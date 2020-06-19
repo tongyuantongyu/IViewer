@@ -129,6 +129,18 @@
   <data name="Basic_Info_Modified_Date" xml:space="preserve">
     <value>Modified Date</value>
   </data>
+  <data name="BehaviorOnReachingFirstLastFile_Ask" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BehaviorOnReachingFirstLastFile_GotoPreviousNextFolder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BehaviorOnReachingFirstLastFile_LoopInFolder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BehaviorOnReachingFirstLastFile_Stop" xml:space="preserve">
+    <value />
+  </data>
   <data name="ContextMenu_Exit" xml:space="preserve">
     <value>Exit</value>
     <comment>Exit program</comment>
@@ -136,6 +148,30 @@
   <data name="ContextMenu_Open" xml:space="preserve">
     <value>Open</value>
     <comment>Open file</comment>
+  </data>
+  <data name="DefaultImageDisplayMode_FitWindow" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DefaultImageDisplayMode_OriginalSize" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DefaultWindowMode_LastTime" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DefaultWindowMode_MaximiDefaultWindowMode_Maximized" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DefaultWindowMode_Normal" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EXIFInfo_Hide" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EXIFInfo_Show" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EXIFInfo_ShowOnHover" xml:space="preserve">
+    <value />
   </data>
   <data name="Exif_Info_Apeture_Value" xml:space="preserve">
     <value>Apeture Value</value>
@@ -163,6 +199,66 @@
   </data>
   <data name="Exif_Info_Model" xml:space="preserve">
     <value>Model</value>
+  </data>
+  <data name="FileInfo_Hide" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FileInfo_Show" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FileInfo_ShowOnHover" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageDoublingAlgorithm_Nnedi3" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageDoublingAlgorithm_None" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageEnlargingAlgorithm_Bicubic" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageEnlargingAlgorithm_Bilinear" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageEnlargingAlgorithm_HighQualityBicubic" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageEnlargingAlgorithm_HighQualityBilinear" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageEnlargingAlgorithm_NearestNeighbor" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageEnlargingAlgorithm_System" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageShrinkingAlgorithm_Bicubic" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageShrinkingAlgorithm_Bilinear" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageShrinkingAlgorithm_HighQualityBicubic" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageShrinkingAlgorithm_HighQualityBilinear" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageShrinkingAlgorithm_NearestNeighbor" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ImageShrinkingAlgorithm_System" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SortFileBy_FileName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SortFileBy_ModifiedDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SortFileBy_Size" xml:space="preserve">
+    <value />
   </data>
   <data name="Type_Any" xml:space="preserve">
     <value>Any File</value>
