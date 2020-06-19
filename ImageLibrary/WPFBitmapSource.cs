@@ -47,6 +47,7 @@ namespace ImageLibrary {
       converted.EndInit();
 
       wb = new WriteableBitmap(converted);
+      wb.Freeze();
       FullBitmap = new Bitmap(Scan0, Stride, Width, Height, Depth, Channel);
     }
 
