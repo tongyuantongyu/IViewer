@@ -6,26 +6,6 @@
         xmlns:local="clr-namespace:IViewer.SubWindow"
         mc:Ignorable="d"
         Title="DetailInfo" Height="450" Width="400" Background="White">
-    <TabControl HorizontalAlignment="Left" Margin="10" BorderBrush="#FF9A9A9A">
-        <TabItem Header="Source" Width="60">
-            <Grid>
-                <TextBlock x:Name="TextBlockSource" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="374" Width="373" Foreground="White" FontSize="15"/>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Image" Width="60">
-            <Grid Background="Black">
-                <TextBlock x:Name="TextBlockImage" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="374" Width="373" Foreground="White" FontSize="15"/>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Camera" Width="60">
-            <Grid Background="Black">
-                <TextBlock x:Name="TextBlockCamera" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="374" Width="373" Foreground="White" FontSize="15"/>
-            </Grid>
-        </TabItem>
-        <TabItem Header="File" Width="60">
-            <Grid Background="Black">
-                <TextBlock x:Name="TextBlockFile" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="374" Width="373" Foreground="White" FontSize="15"/>
-            </Grid>
-        </TabItem>
+    <TabControl x:Name="Base" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" BorderBrush="#FF9A9A9A">
     </TabControl>
 </Window>

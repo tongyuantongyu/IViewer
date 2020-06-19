@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing.Drawing2D;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using ImageLibrary.Resizer;
 using IViewer.Model;
+using IViewer.SubWindow;
 using Microsoft.Win32;
 using Matrix = System.Windows.Media.Matrix;
 
@@ -39,6 +42,10 @@ namespace IViewer {
       var pos = e.GetPosition(this);
       ShowTopBar = pos.Y < 60;
 
+      if (fileInfo == EnumFileInfo.ShowOnHover) {
+        ShowInfo = pos.X < 210;
+      }
+
       if (mouseDown) {
         CanvasMove(point2Vector(pos));
       }
@@ -46,7 +53,7 @@ namespace IViewer {
 
     #endregion
 
-    #region TopBarAnimation
+    #region Animations
 
     private bool _showTopBar;
 
@@ -60,6 +67,22 @@ namespace IViewer {
         _showTopBar = value;
         TopBar.BeginAnimation(MarginProperty,
           value ? AnimationDict.TopBarShowAnimation : AnimationDict.TopBarHideAnimation);
+      }
+    }
+
+    private bool _showInfo;
+    private EnumFileInfo fileInfo;
+
+    private bool ShowInfo {
+      get => _showInfo;
+      set {
+        if (value == _showInfo) {
+          return;
+        }
+
+        _showInfo = value;
+        ImageInfo.BeginAnimation(OpacityProperty,
+          value ? AnimationDict.FadeInAnimation : AnimationDict.FadeOutAnimation);
       }
     }
 
@@ -480,7 +503,7 @@ namespace IViewer {
     // Mouse move on canvas. Use unified mouse move handler so absent here.
 
     // Mouse up on canvas. Drag end.
-    private void CanvasMouseUp(object sender, EventArgs e) {
+    private void CanvasMouseUp(object sender, MouseEventArgs e) {
       if (!imgLoad || !IsActive) {
         return;
       }
@@ -488,6 +511,11 @@ namespace IViewer {
       Mouse.Capture(null);
       mouseDown = false;
       UpdateTransform();
+
+      var pos = point2Vector(e.GetPosition(this));
+      if ((pos - mouseBegin).Length < 1 && pos.Y > 60 && pos.X < 210) {
+        OpenDetail();
+      }
     }
 
     // Mouse scroll on canvas. Do scale.
@@ -707,6 +735,25 @@ namespace IViewer {
 
     private void LoadImage(string dir) {
       image = ImageLibrary.Image.FromFile(dir);
+
+      PostLoadImage();
+    }
+
+    private void PostLoadImage() {
+      fileInfo = (EnumFileInfo)settings.LongFileInfo;
+      switch (fileInfo) {
+        case EnumFileInfo.Hide:
+          ImageInfo.Opacity = 0;
+          break;
+        case EnumFileInfo.Show:
+          ImageInfo.Opacity = 1;
+          break;
+      }
+
+      if (fileInfo != EnumFileInfo.Hide) {
+        GenMetadata();
+      }
+
       resizer = getResizer();
 
       ActiveImage.Source = image.GetFull(resizer);
@@ -714,6 +761,19 @@ namespace IViewer {
       realDimension = new Vector(image.Width, image.Height);
       identicalScale = 96 / GetDPI();
       InitTransform();
+    }
+
+    private void GenMetadata() {
+      var metadata = image.Metadata.BasicData().
+        Aggregate("", (current, item) => current + $"{Settings.Resource(item.Item1) ?? item.Item1}: {item.Item2}\n");
+
+      if ((EnumEXIFInfo)settings.LongEXIFInfo == EnumEXIFInfo.Show) {
+        metadata += "\n";
+        metadata += image.Metadata.ExifData().
+          Aggregate("", (current, item) => current + $"{Settings.Resource(item.Item1) ?? item.Item1}: {item.Item2}\n");
+      }
+
+      ImageInfo.Text = metadata;
     }
 
     #endregion
@@ -725,14 +785,27 @@ namespace IViewer {
       var settingWindow = new SubWindow.ConfigWindow(settings);
       settingWindow.ShowDialog();
       settings.PauseNotify = false;
-      if (currentImagePath != null) {
-        LoadImage(currentImagePath);
+      if (imgLoad) {
+        PostLoadImage();
       }
     }
 
     private void OpenAbout(object sender, RoutedEventArgs e) {
       var aboutWindow = new SubWindow.About();
       aboutWindow.ShowDialog();
+    }
+
+    private void OpenDetail() {
+      var detail = image.Metadata.Directories
+        .Select(directory => new KeyValuePair<string, IEnumerable<KeyValuePair<string, string>>>(
+          directory.Name,
+          directory.Tags
+            .Select(tag => new KeyValuePair<string, string>(tag.Name, tag.Description))
+            .Where(pair => !pair.Key.Contains("Unknown"))
+          ));
+
+      var detailWindow = new MetadataWindow(detail);
+      detailWindow.ShowDialog();
     }
 
     #endregion

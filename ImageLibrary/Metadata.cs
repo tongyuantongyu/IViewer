@@ -25,17 +25,17 @@ namespace ImageLibrary {
       var output = new List<Tuple<string, string>>();
 
       var fileMetadataDirectory = Directories.OfType<FileMetadataDirectory>().FirstOrDefault();
-      var fileName = fileMetadataDirectory?.GetDescription(ExifDirectoryBase.TagDocumentName);
+      var fileName = fileMetadataDirectory?.GetDescription(1);
       if (!string.IsNullOrEmpty(fileName)) {
         output.Add(new Tuple<string, string>("Basic_Info_Filename", fileName));
       }
 
-      var fileSize = fileMetadataDirectory?.GetDescription(ExifDirectoryBase.TagFileSource);
+      var fileSize = fileMetadataDirectory?.GetDescription(2);
       if (!string.IsNullOrEmpty(fileSize)) {
         output.Add(new Tuple<string, string>("Basic_Info_Filesize", fileSize));
       }
 
-      var modifiedDate = fileMetadataDirectory?.GetDescription(ExifDirectoryBase.TagDateTime);
+      var modifiedDate = fileMetadataDirectory?.GetDescription(3);
       if (!string.IsNullOrEmpty(modifiedDate)) {
         output.Add(new Tuple<string, string>("Basic_Info_Modified_Date", modifiedDate));
       }

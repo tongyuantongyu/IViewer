@@ -219,7 +219,7 @@
     <value>Flash</value>
   </data>
   <data name="Exif_Info_Focal_Length" xml:space="preserve">
-    <value> Focal Length</value>
+    <value>Focal Length</value>
   </data>
   <data name="Exif_Info_ISO_Speed_Ratings" xml:space="preserve">
     <value>ISO Speed Ratings</value>

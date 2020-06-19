@@ -340,7 +340,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  Focal Length 的本地化字符串。
+        ///   查找类似 Focal Length 的本地化字符串。
         /// </summary>
         public static string Exif_Info_Focal_Length {
             get {

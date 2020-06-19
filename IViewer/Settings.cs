@@ -209,7 +209,6 @@ namespace IViewer {
       }
     }
 
-
     public event PropertyChangedEventHandler PropertyChanged;
 
     public static string Resource(string name) {

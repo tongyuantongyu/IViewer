@@ -25,6 +25,21 @@ namespace IViewer {
             new CubicEase())
         }
       };
+
+    public static readonly DoubleAnimationUsingKeyFrames FadeInAnimation =
+      new DoubleAnimationUsingKeyFrames {
+        KeyFrames = new DoubleKeyFrameCollection {
+          new EasingDoubleKeyFrame(1, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(200)))
+        }
+      };
+
+    public static readonly DoubleAnimationUsingKeyFrames FadeOutAnimation =
+      new DoubleAnimationUsingKeyFrames {
+        KeyFrames = new DoubleKeyFrameCollection {
+          new EasingDoubleKeyFrame(1, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(500))),
+          new EasingDoubleKeyFrame(0, KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(700)))
+        }
+      };
   }
 
   // Following code comes from http://pwlodek.blogspot.com/2010/12/matrixanimation-for-wpf.html

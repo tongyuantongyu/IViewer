@@ -39,8 +39,8 @@
                        Visibility="Hidden"></Rectangle>
         </Canvas>
         <TextBlock x:Name="ImageInfo" HorizontalAlignment="Left" VerticalAlignment="Stretch"
-                   Margin="10,30,0,0"
-                   TextWrapping="Wrap" Width="200" Foreground="White"/>
+                   Margin="10,60,0,0" FontSize="14"
+                   TextWrapping="Wrap" Width="200" Foreground="White" Opacity="1"/>
         <Canvas x:Name="ActionLayer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                 Margin="0,30,0,0" Grid.Column="0" Background="Transparent"
                 PreviewMouseLeftButtonDown="CanvasMouseDown" PreviewMouseLeftButtonUp="CanvasMouseUp" MouseWheel="CanvasScrollHandler">

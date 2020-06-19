@@ -14,7 +14,7 @@
         <iViewer:StringDoubleConverter x:Key="StringDoubleConverter"></iViewer:StringDoubleConverter>
     </Window.Resources>
     <Grid>
-        <TabControl HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" BorderBrush="#FFB6B6B6" Background="{x:Null}">
+        <TabControl x:Name="Base" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" BorderBrush="#FFB6B6B6" Background="{x:Null}">
             <TabItem Header="Behavior" Style="{StaticResource TabItemStyle}">
                 <Grid x:Name="GridBehavior1" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
