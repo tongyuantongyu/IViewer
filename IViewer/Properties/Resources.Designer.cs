@@ -133,6 +133,51 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Allow Multiple Instance Running 的本地化字符串。
+        /// </summary>
+        public static string CheckBoxAllowMultipleInstanceRunning {
+            get {
+                return ResourceManager.GetString("CheckBoxAllowMultipleInstanceRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Center big image by default 的本地化字符串。
+        /// </summary>
+        public static string CheckBoxCenterBigImageByDefault {
+            get {
+                return ResourceManager.GetString("CheckBoxCenterBigImageByDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Confirm Before Delete File 的本地化字符串。
+        /// </summary>
+        public static string CheckBoxConfirmBeforeDeleteFile {
+            get {
+                return ResourceManager.GetString("CheckBoxConfirmBeforeDeleteFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Descending sort 的本地化字符串。
+        /// </summary>
+        public static string CheckBoxDescendingSort {
+            get {
+                return ResourceManager.GetString("CheckBoxDescendingSort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Enlarge small image by default 的本地化字符串。
+        /// </summary>
+        public static string CheckBoxEnlargeSmallImageByDefault {
+            get {
+                return ResourceManager.GetString("CheckBoxEnlargeSmallImageByDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 View Mode 的本地化字符串。
         /// </summary>
         public static string Context_ViewMode {
@@ -552,6 +597,159 @@ namespace IViewer.Properties {
         public static string ImageShrinkingAlgorithm_System {
             get {
                 return ResourceManager.GetString("ImageShrinkingAlgorithm_System", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Animation span(ms) 的本地化字符串。
+        /// </summary>
+        public static string LabelAnimationSpan {
+            get {
+                return ResourceManager.GetString("LabelAnimationSpan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Behavior on reaching first / last file 的本地化字符串。
+        /// </summary>
+        public static string LabelBehaviorOnReachingFirstLastFile {
+            get {
+                return ResourceManager.GetString("LabelBehaviorOnReachingFirstLastFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Default image display mode 的本地化字符串。
+        /// </summary>
+        public static string LabelDefaultImageDisplayMode {
+            get {
+                return ResourceManager.GetString("LabelDefaultImageDisplayMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Default Window Mode 的本地化字符串。
+        /// </summary>
+        public static string LabelDefaultWindowMode {
+            get {
+                return ResourceManager.GetString("LabelDefaultWindowMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Drag multiplier 的本地化字符串。
+        /// </summary>
+        public static string LabelDragMultiplier {
+            get {
+                return ResourceManager.GetString("LabelDragMultiplier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 EXIF info 的本地化字符串。
+        /// </summary>
+        public static string LabelEXIFInfo {
+            get {
+                return ResourceManager.GetString("LabelEXIFInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Extend render ratio 的本地化字符串。
+        /// </summary>
+        public static string LabelExtendRenderRatio {
+            get {
+                return ResourceManager.GetString("LabelExtendRenderRatio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 File info 的本地化字符串。
+        /// </summary>
+        public static string LabelFileInfo {
+            get {
+                return ResourceManager.GetString("LabelFileInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Image background color 的本地化字符串。
+        /// </summary>
+        public static string LabelImageBackgroundColor {
+            get {
+                return ResourceManager.GetString("LabelImageBackgroundColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Image doubling algorithm 的本地化字符串。
+        /// </summary>
+        public static string LabelImageDoublingAlgorithm {
+            get {
+                return ResourceManager.GetString("LabelImageDoublingAlgorithm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Image editor path 的本地化字符串。
+        /// </summary>
+        public static string LabelImageEditorPath {
+            get {
+                return ResourceManager.GetString("LabelImageEditorPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Image enlarging algorithm 的本地化字符串。
+        /// </summary>
+        public static string LabelImageEnlargingAlgorithm {
+            get {
+                return ResourceManager.GetString("LabelImageEnlargingAlgorithm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Image shrinking algorithm 的本地化字符串。
+        /// </summary>
+        public static string LabelImageShrinkingAlgorithm {
+            get {
+                return ResourceManager.GetString("LabelImageShrinkingAlgorithm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Language 的本地化字符串。
+        /// </summary>
+        public static string LabelLanguage {
+            get {
+                return ResourceManager.GetString("LabelLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Re-render wait time(ms) 的本地化字符串。
+        /// </summary>
+        public static string LabelReRenderWaitTime {
+            get {
+                return ResourceManager.GetString("LabelReRenderWaitTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Sort file by 的本地化字符串。
+        /// </summary>
+        public static string LabelSortFileBy {
+            get {
+                return ResourceManager.GetString("LabelSortFileBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Window background color 的本地化字符串。
+        /// </summary>
+        public static string LabelWindowBackgroundColor {
+            get {
+                return ResourceManager.GetString("LabelWindowBackgroundColor", resourceCulture);
             }
         }
         

@@ -7,6 +7,7 @@
         xmlns:iViewer="clr-namespace:IViewer"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:model="clr-namespace:IViewer.Model"
+        xmlns:p="clr-namespace:IViewer.Properties"
         mc:Ignorable="d"
         Title="Config" Height="500" Width="800" Background="White" Closed="Window_Closed" ResizeMode="NoResize">
     <Window.Resources>
@@ -40,30 +41,30 @@
                         <RowDefinition Height="30" />
                     </Grid.RowDefinitions>
 
-                    <CheckBox x:Name="CheckBoxAllowMultipleInstanceRunning" Content="Allow Multiple Instance Running"
+                    <CheckBox x:Name="CheckBoxAllowMultipleInstanceRunning" Content="{x:Static p:Resources.CheckBoxAllowMultipleInstanceRunning}"
                               Grid.Row="0"
                               IsChecked="{Binding IsAllowMultipleInstanceRunning, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource SettingCheckboxStyle}"/>
 
-                    <CheckBox x:Name="CheckBoxConfirmBeforeDeleteFile" Content="Confirm Before Delete File"
+                    <CheckBox x:Name="CheckBoxConfirmBeforeDeleteFile" Content="{x:Static p:Resources.CheckBoxConfirmBeforeDeleteFile}"
                               Grid.Row="1"
                               IsChecked="{Binding IsConfirmBeforeDeleteFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource SettingCheckboxStyle}"/>
 
-                    <CheckBox x:Name="CheckBoxCenterBigImageByDefault" Content="Center big image by default"
+                    <CheckBox x:Name="CheckBoxCenterBigImageByDefault" Content="{x:Static p:Resources.CheckBoxCenterBigImageByDefault}"
                               IsChecked="{Binding IsCenterBigImageByDefault, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Grid.Row="2" Style="{StaticResource SettingCheckboxStyle}"/>
 
-                    <CheckBox x:Name="CheckBoxEnlargeSmallImageByDefault" Content="Enlarge small image by default"
+                    <CheckBox x:Name="CheckBoxEnlargeSmallImageByDefault" Content="{x:Static p:Resources.CheckBoxEnlargeSmallImageByDefault}"
                               IsChecked="{Binding IsEnlargeSmallImageByDefault, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Grid.Row="3" Style="{StaticResource SettingCheckboxStyle}"/>
 
-                    <CheckBox x:Name="CheckBoxDescendingSort" Content="Descending sort"
+                    <CheckBox x:Name="CheckBoxDescendingSort" Content="{x:Static p:Resources.CheckBoxDescendingSort}"
                               IsChecked="{Binding IsDescendingSort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Grid.Row="4" Style="{StaticResource SettingCheckboxStyle}"/>
 
                     <Label Name="LabelDefaultWindowMode" Grid.Row="5" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Default Window Mode"/>
+                        <TextBlock Text="{x:Static p:Resources.LabelDefaultWindowMode}"/>
                     </Label>
                     <ComboBox x:Name="ComboBoxDefaultWindowMode" Grid.Row="5"
                               SelectedIndex="{Binding LongDefaultWindowMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -73,7 +74,7 @@
                               Style="{StaticResource SettingComboboxStyle}"/>
 
                     <Label Name="LabelDefaultImageDisplayMode" Grid.Row="6" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Default image display mode"/>
+                        <TextBlock Text="{x:Static p:Resources.LabelDefaultImageDisplayMode}"/>
                     </Label>
                     <ComboBox x:Name="ComboBoxDefaultImageDisplayMode" Grid.Row="6"
                               SelectedIndex="{Binding LongDefaultImageDisplayMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -83,7 +84,7 @@
                               Style="{StaticResource SettingComboboxStyle}"/>
 
                     <Label Name="LabelSortFileBy" Grid.Row="7" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Sort file by"/>
+                        <TextBlock Text="{x:Static p:Resources.LabelSortFileBy}"/>
                     </Label>
                     <ComboBox x:Name="ComboBoxSortFileBy" Grid.Row="7"
                               SelectedIndex="{Binding LongSortFileBy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -93,7 +94,7 @@
                               Style="{StaticResource SettingComboboxStyle}"/>
 
                     <Label Name="LabelBehaviorOnReachingFirstLastFile" Grid.Row="8" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Behavior on reaching first / last file"/>
+                        <TextBlock Text="{x:Static p:Resources.LabelBehaviorOnReachingFirstLastFile}"/>
                     </Label>
                     <ComboBox x:Name="ComboBoxBehaviorOnReachingFirstLastFile" Grid.Row="8"
                               SelectedIndex="{Binding LongBehaviorOnReachingFirstLastFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -103,7 +104,7 @@
                               Style="{StaticResource SettingComboboxStyle}"/>
 
                     <Label Name="LabelDragMultiplier" Grid.Row="9" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Drag multiplier"/>
+                        <TextBlock Text="{x:Static p:Resources.LabelDragMultiplier}"/>
                     </Label>
                     <TextBox Grid.Row="9"
                              PreviewTextInput="VerifyDouble"
@@ -111,7 +112,7 @@
                              Text="{Binding DoubleDragMultiplier, Converter={StaticResource StringDoubleConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
                     <Label Name="LabelAnimationSpan" Grid.Row="10" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Animation span(ms)"/>
+                        <TextBlock Text="{x:Static p:Resources.LabelAnimationSpan}"/>
                     </Label>
                     <TextBox Grid.Row="10"
                              PreviewTextInput="VerifyLong"
@@ -119,7 +120,7 @@
                              Text="{Binding LongAnimationSpan, Converter={StaticResource StringLongConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
                     <Label Name="LabelExtendRenderRatio" Grid.Row="11" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Extend render ratio"/>
+                        <TextBlock Text="{x:Static p:Resources.LabelExtendRenderRatio}"/>
                     </Label>
                     <TextBox Grid.Row="11"
                              PreviewTextInput="VerifyDouble"
@@ -127,7 +128,7 @@
                              Text="{Binding DoubleExtendRenderRatio, Converter={StaticResource StringDoubleConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
                     <Label Name="LabelReRenderWaitTime" Grid.Row="12" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Re-render wait time(ms)"/>
+                        <TextBlock Text="{x:Static p:Resources.LabelReRenderWaitTime}"/>
                     </Label>
                     <TextBox Grid.Row="12"
                              PreviewTextInput="VerifyLong"
@@ -154,25 +155,25 @@
                         <RowDefinition Height="30" />
                     </Grid.RowDefinitions>
                     <Label Name="LabelFileInfo" Grid.Row="0" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="File info"/>
+                        <TextBlock Text="{x:Static p:Resources.LabelFileInfo}"/>
                     </Label>
                     <Label Name="LabelEXIFInfo" Grid.Row="1" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="EXIF info"/>
+                        <TextBlock Text="{x:Static p:Resources.LabelEXIFInfo}"/>
                     </Label>
                     <Label Name="LabelWindowBackgroundColor" Grid.Row="2" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Window background color"/>
+                        <TextBlock Text="{x:Static p:Resources.LabelWindowBackgroundColor}"/>
                     </Label>
                     <Label Name="LabelImageBackgroundColor" Grid.Row="3" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Image background color"/>
+                        <TextBlock Text="{x:Static p:Resources.LabelImageBackgroundColor}"/>
                     </Label>
                     <Label Name="LabelImageEnlargingAlgorithm" Grid.Row="4" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Image enlarging algorithm"/>
+                        <TextBlock Text="{x:Static p:Resources.LabelImageEnlargingAlgorithm}"/>
                     </Label>
                     <Label Name="LabelImageShrinkingAlgorithm" Grid.Row="5" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Image shrinking algorithm"/>
+                        <TextBlock Text="{x:Static p:Resources.LabelImageShrinkingAlgorithm}"/>
                     </Label>
                     <Label Name="LabelImageDoublingAlgorithm" Grid.Row="6" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Image doubling algorithm"/>
+                        <TextBlock Text="{x:Static p:Resources.LabelImageDoublingAlgorithm}"/>
                     </Label>
                     <ComboBox x:Name="ComboBoxFileInfo" Grid.Row="0"
                               SelectedIndex="{Binding LongFileInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -224,10 +225,10 @@
                         <RowDefinition Height="30" />
                     </Grid.RowDefinitions>
                     <Label Name="LabelImageEditorPath" Grid.Row="0" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Image editor path"/>
+                        <TextBlock Text="{x:Static p:Resources.LabelImageEditorPath}"/>
                     </Label>
                     <Label Name="LabelLanguage" Grid.Row="1" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Language"/>
+                        <TextBlock Text="{x:Static p:Resources.LabelLanguage}"/>
                     </Label>
                     <Button x:Name="SelectFileButton" Content="Select" Grid.Column="3" Grid.Row="0" Width="80" Height="25"
                             HorizontalAlignment="Right" Margin="0" VerticalAlignment="Center" Click="PickImageEditor"/>
