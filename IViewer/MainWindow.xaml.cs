@@ -26,7 +26,7 @@ namespace IViewer {
       identicalScale = 96 / GetDPI();
     }
 
-    private Settings settings = new Settings();
+    private Settings settings = Settings.Instance;
 
     #region MouseMove
 

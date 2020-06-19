@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
+using IViewer.Model;
 using Microsoft.Win32;
 
 namespace IViewer.SubWindow {
