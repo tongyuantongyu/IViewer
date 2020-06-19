@@ -97,6 +97,42 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string BehaviorOnReachingFirstLastFile_Ask {
+            get {
+                return ResourceManager.GetString("BehaviorOnReachingFirstLastFile_Ask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string BehaviorOnReachingFirstLastFile_GotoPreviousNextFolder {
+            get {
+                return ResourceManager.GetString("BehaviorOnReachingFirstLastFile_GotoPreviousNextFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string BehaviorOnReachingFirstLastFile_LoopInFolder {
+            get {
+                return ResourceManager.GetString("BehaviorOnReachingFirstLastFile_LoopInFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string BehaviorOnReachingFirstLastFile_Stop {
+            get {
+                return ResourceManager.GetString("BehaviorOnReachingFirstLastFile_Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Exit 的本地化字符串。
         /// </summary>
         public static string ContextMenu_Exit {
@@ -115,7 +151,25 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Same as last time 的本地化字符串。
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string DefaultImageDisplayMode_FitWindow {
+            get {
+                return ResourceManager.GetString("DefaultImageDisplayMode_FitWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string DefaultImageDisplayMode_OriginalSize {
+            get {
+                return ResourceManager.GetString("DefaultImageDisplayMode_OriginalSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
         /// </summary>
         public static string DefaultWindowMode_LastTime {
             get {
@@ -124,16 +178,16 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Maximized 的本地化字符串。
+        ///   查找类似  的本地化字符串。
         /// </summary>
-        public static string DefaultWindowMode_Maximized {
+        public static string DefaultWindowMode_MaximiDefaultWindowMode_Maximized {
             get {
-                return ResourceManager.GetString("DefaultWindowMode_Maximized", resourceCulture);
+                return ResourceManager.GetString("DefaultWindowMode_MaximiDefaultWindowMode_Maximized", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 Normal 的本地化字符串。
+        ///   查找类似  的本地化字符串。
         /// </summary>
         public static string DefaultWindowMode_Normal {
             get {
@@ -219,6 +273,213 @@ namespace IViewer.Properties {
         public static string Exif_Info_Model {
             get {
                 return ResourceManager.GetString("Exif_Info_Model", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string EXIFInfo_Hide {
+            get {
+                return ResourceManager.GetString("EXIFInfo_Hide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string EXIFInfo_Show {
+            get {
+                return ResourceManager.GetString("EXIFInfo_Show", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string EXIFInfo_ShowOnHover {
+            get {
+                return ResourceManager.GetString("EXIFInfo_ShowOnHover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string FileInfo_Hide {
+            get {
+                return ResourceManager.GetString("FileInfo_Hide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string FileInfo_Show {
+            get {
+                return ResourceManager.GetString("FileInfo_Show", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string FileInfo_ShowOnHover {
+            get {
+                return ResourceManager.GetString("FileInfo_ShowOnHover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ImageDoublingAlgorithm_Nnedi3 {
+            get {
+                return ResourceManager.GetString("ImageDoublingAlgorithm_Nnedi3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ImageDoublingAlgorithm_None {
+            get {
+                return ResourceManager.GetString("ImageDoublingAlgorithm_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ImageEnlargingAlgorithm_Bicubic {
+            get {
+                return ResourceManager.GetString("ImageEnlargingAlgorithm_Bicubic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ImageEnlargingAlgorithm_Bilinear {
+            get {
+                return ResourceManager.GetString("ImageEnlargingAlgorithm_Bilinear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ImageEnlargingAlgorithm_HighQualityBicubic {
+            get {
+                return ResourceManager.GetString("ImageEnlargingAlgorithm_HighQualityBicubic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ImageEnlargingAlgorithm_HighQualityBilinear {
+            get {
+                return ResourceManager.GetString("ImageEnlargingAlgorithm_HighQualityBilinear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ImageEnlargingAlgorithm_NearestNeighbor {
+            get {
+                return ResourceManager.GetString("ImageEnlargingAlgorithm_NearestNeighbor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ImageEnlargingAlgorithm_System {
+            get {
+                return ResourceManager.GetString("ImageEnlargingAlgorithm_System", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ImageShrinkingAlgorithm_Bicubic {
+            get {
+                return ResourceManager.GetString("ImageShrinkingAlgorithm_Bicubic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ImageShrinkingAlgorithm_Bilinear {
+            get {
+                return ResourceManager.GetString("ImageShrinkingAlgorithm_Bilinear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ImageShrinkingAlgorithm_HighQualityBicubic {
+            get {
+                return ResourceManager.GetString("ImageShrinkingAlgorithm_HighQualityBicubic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ImageShrinkingAlgorithm_HighQualityBilinear {
+            get {
+                return ResourceManager.GetString("ImageShrinkingAlgorithm_HighQualityBilinear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ImageShrinkingAlgorithm_NearestNeighbor {
+            get {
+                return ResourceManager.GetString("ImageShrinkingAlgorithm_NearestNeighbor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string ImageShrinkingAlgorithm_System {
+            get {
+                return ResourceManager.GetString("ImageShrinkingAlgorithm_System", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string SortFileBy_FileName {
+            get {
+                return ResourceManager.GetString("SortFileBy_FileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string SortFileBy_ModifiedDate {
+            get {
+                return ResourceManager.GetString("SortFileBy_ModifiedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        public static string SortFileBy_Size {
+            get {
+                return ResourceManager.GetString("SortFileBy_Size", resourceCulture);
             }
         }
         
