@@ -32,7 +32,7 @@ namespace ImageLibrary {
       try {
         var format = FileTypeDetector.DetectFileType(stream);
         stream.Seek(0, SeekOrigin.Begin);
-        image.Metadata.ReadPic(path);
+        image.Metadata = new Metadata(path);
         stream.Seek(0, SeekOrigin.Begin);
         byte[] data;
 

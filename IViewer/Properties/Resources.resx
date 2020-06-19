@@ -130,48 +130,81 @@
     <value>Modified Date</value>
   </data>
   <data name="BehaviorOnReachingFirstLastFile_Ask" xml:space="preserve">
-    <value />
+    <value>Ask</value>
   </data>
   <data name="BehaviorOnReachingFirstLastFile_GotoPreviousNextFolder" xml:space="preserve">
-    <value />
+    <value>Goto previous or next folder</value>
   </data>
   <data name="BehaviorOnReachingFirstLastFile_LoopInFolder" xml:space="preserve">
-    <value />
+    <value>Loop in current folder</value>
   </data>
   <data name="BehaviorOnReachingFirstLastFile_Stop" xml:space="preserve">
-    <value />
+    <value>Do nothing</value>
+  </data>
+  <data name="ContextMenu_About" xml:space="preserve">
+    <value>About</value>
   </data>
   <data name="ContextMenu_Exit" xml:space="preserve">
     <value>Exit</value>
     <comment>Exit program</comment>
   </data>
+  <data name="ContextMenu_ImgSort" xml:space="preserve">
+    <value>Sort image by</value>
+  </data>
+  <data name="ContextMenu_ImgSort_Desc" xml:space="preserve">
+    <value>Descending sort</value>
+  </data>
+  <data name="ContextMenu_ImgSort_Filename" xml:space="preserve">
+    <value>File name</value>
+  </data>
+  <data name="ContextMenu_ImgSort_ModifiedDate" xml:space="preserve">
+    <value>Modified date</value>
+  </data>
+  <data name="ContextMenu_ImgSort_Size" xml:space="preserve">
+    <value>File size</value>
+  </data>
   <data name="ContextMenu_Open" xml:space="preserve">
     <value>Open</value>
     <comment>Open file</comment>
   </data>
+  <data name="ContextMenu_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Context_ViewMode" xml:space="preserve">
+    <value>View Mode</value>
+  </data>
+  <data name="Context_ViewMode_CenterBig" xml:space="preserve">
+    <value>Center big image</value>
+  </data>
+  <data name="Context_ViewMode_Fit" xml:space="preserve">
+    <value>Fit window</value>
+  </data>
+  <data name="Context_ViewMode_Org" xml:space="preserve">
+    <value>Original size</value>
+  </data>
+  <data name="Context_ViewMode_StretchSmall" xml:space="preserve">
+    <value>Stretch small image</value>
+  </data>
   <data name="DefaultImageDisplayMode_FitWindow" xml:space="preserve">
-    <value />
+    <value>Fit window size</value>
   </data>
   <data name="DefaultImageDisplayMode_OriginalSize" xml:space="preserve">
-    <value />
+    <value>In original size</value>
   </data>
   <data name="DefaultWindowMode_LastTime" xml:space="preserve">
-    <value />
+    <value>Same as last time</value>
   </data>
-  <data name="DefaultWindowMode_MaximiDefaultWindowMode_Maximized" xml:space="preserve">
-    <value />
+  <data name="DefaultWindowMode_Maximized" xml:space="preserve">
+    <value>Maximized</value>
   </data>
   <data name="DefaultWindowMode_Normal" xml:space="preserve">
-    <value />
+    <value>Normal</value>
   </data>
   <data name="EXIFInfo_Hide" xml:space="preserve">
-    <value />
+    <value>Hide</value>
   </data>
   <data name="EXIFInfo_Show" xml:space="preserve">
-    <value />
-  </data>
-  <data name="EXIFInfo_ShowOnHover" xml:space="preserve">
-    <value />
+    <value>Show</value>
   </data>
   <data name="Exif_Info_Apeture_Value" xml:space="preserve">
     <value>Apeture Value</value>
@@ -201,73 +234,88 @@
     <value>Model</value>
   </data>
   <data name="FileInfo_Hide" xml:space="preserve">
-    <value />
+    <value>Hide</value>
   </data>
   <data name="FileInfo_Show" xml:space="preserve">
-    <value />
+    <value>Show</value>
   </data>
   <data name="FileInfo_ShowOnHover" xml:space="preserve">
-    <value />
+    <value>Show when hover</value>
   </data>
   <data name="ImageDoublingAlgorithm_Nnedi3" xml:space="preserve">
-    <value />
+    <value>NNEDI3</value>
   </data>
   <data name="ImageDoublingAlgorithm_None" xml:space="preserve">
-    <value />
+    <value>None</value>
   </data>
   <data name="ImageEnlargingAlgorithm_Bicubic" xml:space="preserve">
-    <value />
+    <value>Bicubic</value>
   </data>
   <data name="ImageEnlargingAlgorithm_Bilinear" xml:space="preserve">
-    <value />
+    <value>Bilinear</value>
   </data>
   <data name="ImageEnlargingAlgorithm_HighQualityBicubic" xml:space="preserve">
-    <value />
+    <value>Bicubic (Prefiltered)</value>
   </data>
   <data name="ImageEnlargingAlgorithm_HighQualityBilinear" xml:space="preserve">
-    <value />
+    <value>Bilinear (Prefiltered)</value>
   </data>
   <data name="ImageEnlargingAlgorithm_NearestNeighbor" xml:space="preserve">
-    <value />
+    <value>Nearest neighbor</value>
   </data>
   <data name="ImageEnlargingAlgorithm_System" xml:space="preserve">
-    <value />
+    <value>System</value>
   </data>
   <data name="ImageShrinkingAlgorithm_Bicubic" xml:space="preserve">
-    <value />
+    <value>Bicubic</value>
   </data>
   <data name="ImageShrinkingAlgorithm_Bilinear" xml:space="preserve">
-    <value />
+    <value>Bilinear</value>
   </data>
   <data name="ImageShrinkingAlgorithm_HighQualityBicubic" xml:space="preserve">
-    <value />
+    <value>Bicubic (Prefiltered)</value>
   </data>
   <data name="ImageShrinkingAlgorithm_HighQualityBilinear" xml:space="preserve">
-    <value />
+    <value>Bilinear (Prefiltered)</value>
   </data>
   <data name="ImageShrinkingAlgorithm_NearestNeighbor" xml:space="preserve">
-    <value />
+    <value>Nearest neighbor</value>
   </data>
   <data name="ImageShrinkingAlgorithm_System" xml:space="preserve">
-    <value />
+    <value>System</value>
   </data>
   <data name="SortFileBy_FileName" xml:space="preserve">
-    <value />
+    <value>File name</value>
   </data>
   <data name="SortFileBy_ModifiedDate" xml:space="preserve">
-    <value />
+    <value>Modified data</value>
   </data>
   <data name="SortFileBy_Size" xml:space="preserve">
-    <value />
+    <value>File size</value>
   </data>
   <data name="Type_Any" xml:space="preserve">
     <value>Any File</value>
   </data>
+  <data name="Type_AVIF" xml:space="preserve">
+    <value>AVIF Image</value>
+  </data>
+  <data name="Type_BMP" xml:space="preserve">
+    <value>BMP Image</value>
+  </data>
+  <data name="Type_FLIF" xml:space="preserve">
+    <value>FLIF Image</value>
+  </data>
   <data name="Type_HEIF" xml:space="preserve">
     <value>HEIF Image</value>
   </data>
+  <data name="Type_JPG" xml:space="preserve">
+    <value>JPEG Image</value>
+  </data>
   <data name="Type_PNG" xml:space="preserve">
     <value>PNG Image</value>
+  </data>
+  <data name="Type_TIF" xml:space="preserve">
+    <value>TIFF Image</value>
   </data>
   <data name="Type_WEBP" xml:space="preserve">
     <value>WEBP Image</value>

@@ -11,11 +11,7 @@ namespace ImageLibrary {
   public class Metadata {
     public IEnumerable<Directory> Directories { get; private set; }
 
-    public bool IsReaded() {
-      return Directories == null;
-    }
-
-    public void ReadPic(string imagePath) {
+    public Metadata(string imagePath) {
       if (File.Exists(imagePath)) {
         Directories = ImageMetadataReader.ReadMetadata(imagePath);
       }

@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IViewer.SubWindow"
         xmlns:iViewer="clr-namespace:IViewer"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Config" Height="450" Width="800" Background="White" Closed="Window_Closed" ResizeMode="NoResize">
-    <!--<Window.Resources>
+        Title="Config" Height="500" Width="800" Background="White" Closed="Window_Closed" ResizeMode="NoResize">
+    <Window.Resources>
         <iViewer:StringLongConverter x:Key="StringLongConverter"></iViewer:StringLongConverter>
         <iViewer:StringDoubleConverter x:Key="StringDoubleConverter"></iViewer:StringDoubleConverter>
-    </Window.Resources>-->
+    </Window.Resources>
     <Grid>
         <TabControl HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" BorderBrush="#FFB6B6B6" Background="{x:Null}">
-            <TabItem Header="Behavior1" Style="{StaticResource TabItemStyle}">
+            <TabItem Header="Behavior" Style="{StaticResource TabItemStyle}">
                 <Grid x:Name="GridBehavior1" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40"></ColumnDefinition>
@@ -30,125 +31,90 @@
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
                     </Grid.RowDefinitions>
-                    <CheckBox x:Name="CheckBoxAllowMultipleInstanceRunning" Content="Allow Multiple Instance Running" Grid.Row="0" IsChecked="{Binding IsAllowMultipleInstanceRunning}"
+
+                    <CheckBox x:Name="CheckBoxAllowMultipleInstanceRunning" Content="Allow Multiple Instance Running"
+                              Grid.Row="0" IsChecked="{Binding IsAllowMultipleInstanceRunning}"
                               Style="{StaticResource SettingCheckboxStyle}"/>
+
                     <CheckBox x:Name="CheckBoxConfirmBeforeDeleteFile" Content="Confirm Before Delete File"
                               Grid.Row="1" IsChecked="{Binding IsConfirmBeforeDeleteFile}"
                               Style="{StaticResource SettingCheckboxStyle}"/>
-                    <Label Name="LabelDefaultWindowMode" Grid.Row="2" Style="{StaticResource SettingLabelStyle}">
+
+                    <CheckBox x:Name="CheckBoxCenterBigImageByDefault" Content="Center big image by default"
+                              Grid.Row="2" Style="{StaticResource SettingCheckboxStyle}"/>
+
+                    <CheckBox x:Name="CheckBoxEnlargeSmallImageByDefault" Content="Enlarge small image by default"
+                              Grid.Row="3" Style="{StaticResource SettingCheckboxStyle}"/>
+
+                    <CheckBox x:Name="CheckBoxDescendingSort" Content="Descending sort"
+                              Grid.Row="4" Style="{StaticResource SettingCheckboxStyle}"/>
+
+                    <Label Name="LabelDefaultWindowMode" Grid.Row="5" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Default Window Mode"/>
                     </Label>
-                    <ComboBox x:Name="ComboBoxDefaultWindowMode" Grid.Row="2"
+                    <ComboBox x:Name="ComboBoxDefaultWindowMode" Grid.Row="5"
                               SelectedIndex="{Binding LongDefaultWindowMode}"
                               Style="{StaticResource SettingComboboxStyle}"/>
-                    <Label Name="LabelDefaultImageDisplayMode" Grid.Row="3" Style="{StaticResource SettingLabelStyle}">
+
+                    <Label Name="LabelDefaultImageDisplayMode" Grid.Row="6" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Default image display mode"/>
                     </Label>
-                    <ComboBox x:Name="ComboBoxDefaultImageDisplayMode" Grid.Row="3"
+                    <ComboBox x:Name="ComboBoxDefaultImageDisplayMode" Grid.Row="6"
                               SelectedIndex="{Binding LongDefaultImageDisplayMode}"
                               Style="{StaticResource SettingComboboxStyle}"/>
-                    <Label Name="LabelCenterBigImageByDefault" Grid.Row="4" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Center big image by default"/>
-                    </Label>
-                    <Label Name="LabelEnlargeSmallImageByDefault" Grid.Row="5" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Enlarge small image by default"/>
-                    </Label>
-                    <Label Name="LabelSortFileBy" Grid.Row="6" Style="{StaticResource SettingLabelStyle}">
+
+                    <Label Name="LabelSortFileBy" Grid.Row="7" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Sort file by"/>
                     </Label>
+                    <ComboBox x:Name="ComboBoxSortFileBy" Grid.Row="7" Style="{StaticResource SettingComboboxStyle}"/>
 
-
-                    <CheckBox x:Name="CheckBoxCenterBigImageByDefault" Content="Yes" Grid.Column="3" Grid.Row="4" Style="{StaticResource SettingCheckboxStyle}"/>
-                    <CheckBox x:Name="CheckBoxEnlargeSmallImageByDefault" Content="Yes" Grid.Column="3" Grid.Row="5" Style="{StaticResource SettingCheckboxStyle}"/>
-                    <ComboBox x:Name="ComboBoxSortFileBy" Grid.Row="6" Style="{StaticResource SettingComboboxStyle}"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Behavior2" Style="{StaticResource TabItemStyle}">
-                <Grid x:Name="GridBehavior2" HorizontalAlignment="Left" Height="350" Margin="0,0,0,-7.333" Width="765" VerticalAlignment="Top">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                        <ColumnDefinition Width="350"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="250"></ColumnDefinition>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                    </Grid.RowDefinitions>
-                    <Label Name="LabelDescendingSort" Grid.Row="0" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Descending sort"/>
-                    </Label>
-                    <Label Name="LabelBehaviorOnReachingFirstLastFile" Grid.Row="1" Style="{StaticResource SettingLabelStyle}">
+                    <Label Name="LabelBehaviorOnReachingFirstLastFile" Grid.Row="8" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Behavior on reaching first / last file"/>
                     </Label>
-                    <Label Name="LabelDragMultiplier" Grid.Row="2" Style="{StaticResource SettingLabelStyle}">
+                    <ComboBox x:Name="ComboBoxBehaviorOnReachingFirstLastFile" Grid.Row="8" Style="{StaticResource SettingComboboxStyle}"/>
+
+                    <Label Name="LabelDragMultiplier" Grid.Row="9" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Drag multiplier"/>
                     </Label>
-                    <Label Name="LabelAnimationSpan" Grid.Row="3" Style="{StaticResource SettingLabelStyle}">
+                    <TextBox Grid.Row="9"
+                             PreviewTextInput="VerifyDouble"
+                             Style="{StaticResource SettingInputStyle}"
+                             Text="{Binding DoubleDragMultiplier, Converter={StaticResource StringDoubleConverter}}"></TextBox>
+
+                    <Label Name="LabelAnimationSpan" Grid.Row="10" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Animation span(ms)"/>
                     </Label>
-                    <Label Name="LabelExtendRenderRatio" Grid.Row="4" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Extend render ratio"/>
-                    </Label>
-                    <Label Name="LabelReRenderWaitTime" Grid.Row="5" Style="{StaticResource SettingLabelStyle}">
-                        <TextBlock Text="Re-render wait time(ms)"/>
-                    </Label>
-                    <CheckBox x:Name="CheckBoxDescendingSort" Content="Yes" Grid.Row="0" Grid.Column="3" Style="{StaticResource SettingCheckboxStyle}"/>
-                    <ComboBox x:Name="ComboBoxBehaviorOnReachingFirstLastFile" Grid.Row="1" Style="{StaticResource SettingComboboxStyle}"/>
-
-                    <Label x:Name="LabelDragMultiplierNum" Content="" Grid.Row="2" Style="{StaticResource SettingLabelStyle}"/>
-                    <TextBox Grid.Row="2"
+                    <TextBox Grid.Row="10"
                              PreviewTextInput="VerifyLong"
                              Style="{StaticResource SettingInputStyle}"
                              Text="{Binding LongAnimationSpan, Converter={StaticResource StringLongConverter}}"></TextBox>
 
-                    <Label x:Name="LabelAnimationSpanNum" Content="" Grid.Row="3" Style="{StaticResource SettingLabelStyle}"/>
-                    <ScrollBar x:Name="ScrollBarAnimationSpan" Grid.Row="1" Style="{StaticResource SettingScrollBarStyle}" ValueChanged="ScrollBarAnimationSpan_OnValueChanged">
-                        <ScrollBar.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform Angle="-90"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </ScrollBar.RenderTransform>
-                    </ScrollBar>
+                    <Label Name="LabelExtendRenderRatio" Grid.Row="11" Style="{StaticResource SettingLabelStyle}">
+                        <TextBlock Text="Extend render ratio"/>
+                    </Label>
+                    <TextBox Grid.Row="11"
+                             PreviewTextInput="VerifyDouble"
+                             Style="{StaticResource SettingInputStyle}"
+                             Text="{Binding DoubleExtendRenderRatio, Converter={StaticResource StringDoubleConverter}}"></TextBox>
 
-                    <Label x:Name="LabelExtendRenderRatioNum" Content=""  Grid.Row="4" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <ScrollBar x:Name="ScrollBarExtendRenderRatio" Grid.Row="2" Style="{StaticResource SettingScrollBarStyle}" ValueChanged="ScrollBarExtendRenderRatio_OnValueChanged">
-                        <ScrollBar.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform Angle="-90"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </ScrollBar.RenderTransform>
-                    </ScrollBar>
-
-                    <Label x:Name="LabelReRenderWaitTimeNum" Content="" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <ScrollBar x:Name="ScrollBarReRenderWaitTime" Grid.Row="3" Style="{StaticResource SettingScrollBarStyle}" ValueChanged="ScrollBarReRenderWaitTime_OnValueChanged">
-                        <ScrollBar.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform Angle="-90"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </ScrollBar.RenderTransform>
-                    </ScrollBar>
-
+                    <Label Name="LabelReRenderWaitTime" Grid.Row="12" Style="{StaticResource SettingLabelStyle}">
+                        <TextBlock Text="Re-render wait time(ms)"/>
+                    </Label>
+                    <TextBox Grid.Row="12"
+                             PreviewTextInput="VerifyLong"
+                             Style="{StaticResource SettingInputStyle}"
+                             Text="{Binding LongAnimationSpan, Converter={StaticResource StringLongConverter}}"></TextBox>
                 </Grid>
             </TabItem>
             <TabItem Header="View" Style="{StaticResource TabItemStyle}">
-                <Grid x:Name="GridView" HorizontalAlignment="Left" Height="350" Margin="0,0,0,-7.333" Width="765" VerticalAlignment="Top">
+                <Grid x:Name="GridView" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"></ColumnDefinition>
                         <ColumnDefinition Width="350"></ColumnDefinition>
@@ -157,13 +123,13 @@
                         <ColumnDefinition Width="50"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
                     </Grid.RowDefinitions>
                     <Label Name="LabelFileInfo" Grid.Row="0" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="File info"/>
@@ -188,15 +154,15 @@
                     </Label>
                     <ComboBox x:Name="ComboBoxFileInfo" Grid.Row="0" Style="{StaticResource SettingComboboxStyle}"/>
                     <ComboBox x:Name="ComboBoxEXIFInfo" Grid.Row="1" Style="{StaticResource SettingComboboxStyle}"/>
-                    <TextBox x:Name="TextBoxWindowBackgroundColor" Grid.Row="2" Style="{StaticResource SettingInputStyle}"/>
-                    <TextBox x:Name="TextBoxImageBackgroundColor" Grid.Row="3" Style="{StaticResource SettingInputStyle}"/>
+                    <xctk:ColorPicker x:Name="WindowBackgroundColorPicker" Grid.Row="2" Style="{StaticResource SettingColorPickerStyle}"></xctk:ColorPicker>
+                    <xctk:ColorPicker x:Name="ImageBackgroundColorPicker" Grid.Row="3" Style="{StaticResource SettingColorPickerStyle}"></xctk:ColorPicker>
                     <ComboBox x:Name="ComboBoxImageEnlargingAlgorithm" Grid.Row="4" Style="{StaticResource SettingComboboxStyle}"/>
                     <ComboBox x:Name="ComboBoxShrinkingAlgorithm" Grid.Row="5" Style="{StaticResource SettingComboboxStyle}"/>
                     <ComboBox x:Name="ComboBoxDoublingAlgorithm" Grid.Row="6" Style="{StaticResource SettingComboboxStyle}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Other" Style="{StaticResource TabItemStyle}">
-                <Grid x:Name="GridOther" HorizontalAlignment="Left" Height="350" Margin="0,0,0,-7.333" Width="765" VerticalAlignment="Top">
+                <Grid x:Name="GridOther" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"></ColumnDefinition>
                         <ColumnDefinition Width="350"></ColumnDefinition>
@@ -205,13 +171,9 @@
                         <ColumnDefinition Width="50"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
                     </Grid.RowDefinitions>
                     <Label Name="LabelImageEditorPath" Grid.Row="0" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Image editor path"/>
@@ -219,8 +181,9 @@
                     <Label Name="LabelLanguage" Grid.Row="1" Style="{StaticResource SettingLabelStyle}">
                         <TextBlock Text="Language"/>
                     </Label>
-                    <Button x:Name="SelectFileButton" Content="更换" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top" Width="65" Click="SelectFileButton_OnClick"/>
-                    <TextBox x:Name="TextBoxImageEditorPath" Grid.Row="0" Style="{StaticResource SettingInputStyle}"/>
+                    <Button x:Name="SelectFileButton" Content="Select" Grid.Column="3" Grid.Row="0" Width="80" Height="25"
+                            HorizontalAlignment="Right" Margin="0" VerticalAlignment="Center" Click="SelectFileButton_OnClick"/>
+                    <TextBox x:Name="TextBoxImageEditorPath" Grid.Row="0" Style="{StaticResource SettingInputStyle}" Width="160"/>
                     <ComboBox x:Name="ComboBoxLanguage" Grid.Row="1" Style="{StaticResource SettingComboboxStyle}"/>
                 </Grid>
             </TabItem>

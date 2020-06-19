@@ -97,7 +97,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Ask 的本地化字符串。
         /// </summary>
         public static string BehaviorOnReachingFirstLastFile_Ask {
             get {
@@ -106,7 +106,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Goto previous or next folder 的本地化字符串。
         /// </summary>
         public static string BehaviorOnReachingFirstLastFile_GotoPreviousNextFolder {
             get {
@@ -115,7 +115,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Loop in current folder 的本地化字符串。
         /// </summary>
         public static string BehaviorOnReachingFirstLastFile_LoopInFolder {
             get {
@@ -124,11 +124,65 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Do nothing 的本地化字符串。
         /// </summary>
         public static string BehaviorOnReachingFirstLastFile_Stop {
             get {
                 return ResourceManager.GetString("BehaviorOnReachingFirstLastFile_Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 View Mode 的本地化字符串。
+        /// </summary>
+        public static string Context_ViewMode {
+            get {
+                return ResourceManager.GetString("Context_ViewMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Center big image 的本地化字符串。
+        /// </summary>
+        public static string Context_ViewMode_CenterBig {
+            get {
+                return ResourceManager.GetString("Context_ViewMode_CenterBig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Fit window 的本地化字符串。
+        /// </summary>
+        public static string Context_ViewMode_Fit {
+            get {
+                return ResourceManager.GetString("Context_ViewMode_Fit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Original size 的本地化字符串。
+        /// </summary>
+        public static string Context_ViewMode_Org {
+            get {
+                return ResourceManager.GetString("Context_ViewMode_Org", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Stretch small image 的本地化字符串。
+        /// </summary>
+        public static string Context_ViewMode_StretchSmall {
+            get {
+                return ResourceManager.GetString("Context_ViewMode_StretchSmall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 About 的本地化字符串。
+        /// </summary>
+        public static string ContextMenu_About {
+            get {
+                return ResourceManager.GetString("ContextMenu_About", resourceCulture);
             }
         }
         
@@ -142,6 +196,51 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Sort image by 的本地化字符串。
+        /// </summary>
+        public static string ContextMenu_ImgSort {
+            get {
+                return ResourceManager.GetString("ContextMenu_ImgSort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Descending sort 的本地化字符串。
+        /// </summary>
+        public static string ContextMenu_ImgSort_Desc {
+            get {
+                return ResourceManager.GetString("ContextMenu_ImgSort_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 File name 的本地化字符串。
+        /// </summary>
+        public static string ContextMenu_ImgSort_Filename {
+            get {
+                return ResourceManager.GetString("ContextMenu_ImgSort_Filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Modified date 的本地化字符串。
+        /// </summary>
+        public static string ContextMenu_ImgSort_ModifiedDate {
+            get {
+                return ResourceManager.GetString("ContextMenu_ImgSort_ModifiedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 File size 的本地化字符串。
+        /// </summary>
+        public static string ContextMenu_ImgSort_Size {
+            get {
+                return ResourceManager.GetString("ContextMenu_ImgSort_Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Open 的本地化字符串。
         /// </summary>
         public static string ContextMenu_Open {
@@ -151,7 +250,16 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Settings 的本地化字符串。
+        /// </summary>
+        public static string ContextMenu_Settings {
+            get {
+                return ResourceManager.GetString("ContextMenu_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Fit window size 的本地化字符串。
         /// </summary>
         public static string DefaultImageDisplayMode_FitWindow {
             get {
@@ -160,7 +268,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 In original size 的本地化字符串。
         /// </summary>
         public static string DefaultImageDisplayMode_OriginalSize {
             get {
@@ -169,7 +277,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Same as last time 的本地化字符串。
         /// </summary>
         public static string DefaultWindowMode_LastTime {
             get {
@@ -178,16 +286,16 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Maximized 的本地化字符串。
         /// </summary>
-        public static string DefaultWindowMode_MaximiDefaultWindowMode_Maximized {
+        public static string DefaultWindowMode_Maximized {
             get {
-                return ResourceManager.GetString("DefaultWindowMode_MaximiDefaultWindowMode_Maximized", resourceCulture);
+                return ResourceManager.GetString("DefaultWindowMode_Maximized", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Normal 的本地化字符串。
         /// </summary>
         public static string DefaultWindowMode_Normal {
             get {
@@ -277,7 +385,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Hide 的本地化字符串。
         /// </summary>
         public static string EXIFInfo_Hide {
             get {
@@ -286,7 +394,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Show 的本地化字符串。
         /// </summary>
         public static string EXIFInfo_Show {
             get {
@@ -295,16 +403,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
-        /// </summary>
-        public static string EXIFInfo_ShowOnHover {
-            get {
-                return ResourceManager.GetString("EXIFInfo_ShowOnHover", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Hide 的本地化字符串。
         /// </summary>
         public static string FileInfo_Hide {
             get {
@@ -313,7 +412,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Show 的本地化字符串。
         /// </summary>
         public static string FileInfo_Show {
             get {
@@ -322,7 +421,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Show when hover 的本地化字符串。
         /// </summary>
         public static string FileInfo_ShowOnHover {
             get {
@@ -331,7 +430,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 NNEDI3 的本地化字符串。
         /// </summary>
         public static string ImageDoublingAlgorithm_Nnedi3 {
             get {
@@ -340,7 +439,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 None 的本地化字符串。
         /// </summary>
         public static string ImageDoublingAlgorithm_None {
             get {
@@ -349,7 +448,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Bicubic 的本地化字符串。
         /// </summary>
         public static string ImageEnlargingAlgorithm_Bicubic {
             get {
@@ -358,7 +457,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Bilinear 的本地化字符串。
         /// </summary>
         public static string ImageEnlargingAlgorithm_Bilinear {
             get {
@@ -367,7 +466,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Bicubic (Prefiltered) 的本地化字符串。
         /// </summary>
         public static string ImageEnlargingAlgorithm_HighQualityBicubic {
             get {
@@ -376,7 +475,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Bilinear (Prefiltered) 的本地化字符串。
         /// </summary>
         public static string ImageEnlargingAlgorithm_HighQualityBilinear {
             get {
@@ -385,7 +484,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Nearest neighbor 的本地化字符串。
         /// </summary>
         public static string ImageEnlargingAlgorithm_NearestNeighbor {
             get {
@@ -394,7 +493,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 System 的本地化字符串。
         /// </summary>
         public static string ImageEnlargingAlgorithm_System {
             get {
@@ -403,7 +502,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Bicubic 的本地化字符串。
         /// </summary>
         public static string ImageShrinkingAlgorithm_Bicubic {
             get {
@@ -412,7 +511,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Bilinear 的本地化字符串。
         /// </summary>
         public static string ImageShrinkingAlgorithm_Bilinear {
             get {
@@ -421,7 +520,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Bicubic (Prefiltered) 的本地化字符串。
         /// </summary>
         public static string ImageShrinkingAlgorithm_HighQualityBicubic {
             get {
@@ -430,7 +529,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Bilinear (Prefiltered) 的本地化字符串。
         /// </summary>
         public static string ImageShrinkingAlgorithm_HighQualityBilinear {
             get {
@@ -439,7 +538,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Nearest neighbor 的本地化字符串。
         /// </summary>
         public static string ImageShrinkingAlgorithm_NearestNeighbor {
             get {
@@ -448,7 +547,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 System 的本地化字符串。
         /// </summary>
         public static string ImageShrinkingAlgorithm_System {
             get {
@@ -457,7 +556,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 File name 的本地化字符串。
         /// </summary>
         public static string SortFileBy_FileName {
             get {
@@ -466,7 +565,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Modified data 的本地化字符串。
         /// </summary>
         public static string SortFileBy_ModifiedDate {
             get {
@@ -475,7 +574,7 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 File size 的本地化字符串。
         /// </summary>
         public static string SortFileBy_Size {
             get {
@@ -493,6 +592,33 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
+        ///   查找类似 AVIF Image 的本地化字符串。
+        /// </summary>
+        public static string Type_AVIF {
+            get {
+                return ResourceManager.GetString("Type_AVIF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 BMP Image 的本地化字符串。
+        /// </summary>
+        public static string Type_BMP {
+            get {
+                return ResourceManager.GetString("Type_BMP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 FLIF Image 的本地化字符串。
+        /// </summary>
+        public static string Type_FLIF {
+            get {
+                return ResourceManager.GetString("Type_FLIF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 HEIF Image 的本地化字符串。
         /// </summary>
         public static string Type_HEIF {
@@ -502,11 +628,29 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
+        ///   查找类似 JPEG Image 的本地化字符串。
+        /// </summary>
+        public static string Type_JPG {
+            get {
+                return ResourceManager.GetString("Type_JPG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 PNG Image 的本地化字符串。
         /// </summary>
         public static string Type_PNG {
             get {
                 return ResourceManager.GetString("Type_PNG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 TIFF Image 的本地化字符串。
+        /// </summary>
+        public static string Type_TIF {
+            get {
+                return ResourceManager.GetString("Type_TIF", resourceCulture);
             }
         }
         

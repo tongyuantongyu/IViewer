@@ -7,8 +7,8 @@ namespace IViewer.SubWindow {
   public partial class About : Window {
     public About() {
       InitializeComponent();
-      TextBlockAbout.Text = "Ivewer" + "\n" +
-                            "感谢：" + "\n" +
+      TextBlockAbout.Text = "IViewer v0.1.0" + "\n" +
+                            "Thanks：" + "\n" +
                             "metadata-extractor" + "\n" +
                             "Tomlyn" + "\n"
         ;

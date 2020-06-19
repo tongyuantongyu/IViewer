@@ -64,30 +64,6 @@ namespace IViewer.SubWindow {
       settings.RaisePropertyChanged("TomlResult");
     }
 
-    private void ScrollBarDragMultiplier_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-      ScrollBar scrollBar = sender as ScrollBar;
-      double num = scrollBar.Value;
-      LabelDragMultiplierNum.Content = num.ToString();
-    }
-
-    private void ScrollBarAnimationSpan_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-      ScrollBar scrollBar = sender as ScrollBar;
-      double num = scrollBar.Value;
-      LabelAnimationSpanNum.Content = num.ToString();
-    }
-
-    private void ScrollBarExtendRenderRatio_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-      ScrollBar scrollBar = sender as ScrollBar;
-      double num = scrollBar.Value;
-      LabelExtendRenderRatioNum.Content = num.ToString();
-    }
-
-    private void ScrollBarReRenderWaitTime_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-      ScrollBar scrollBar = sender as ScrollBar;
-      double num = scrollBar.Value;
-      LabelReRenderWaitTimeNum.Content = num.ToString();
-    }
-
     private void SelectFileButton_OnClick(object sender, RoutedEventArgs e) {
       var dialog = new OpenFileDialog {
         RestoreDirectory = true,
@@ -104,11 +80,21 @@ namespace IViewer.SubWindow {
     }
 
     private void VerifyLong(object sender, System.Windows.Input.TextCompositionEventArgs e) {
-      e.Handled = !long.TryParse(e.Text, out _);
+      if (!long.TryParse(e.Text, out var v)) {
+        e.Handled = true;
+      }
+      else if (v < 0) {
+        e.Handled = true;
+      }
     }
 
     private void VerifyDouble(object sender, System.Windows.Input.TextCompositionEventArgs e) {
-      e.Handled = !long.TryParse(e.Text, out _);
+      if (!double.TryParse(e.Text, out var v)) {
+        e.Handled = true;
+      }
+      else if (v < 0 || double.IsInfinity(v) || double.IsNaN(v)) {
+        e.Handled = true;
+      }
     }
   }
 }

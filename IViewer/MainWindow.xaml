@@ -19,6 +19,9 @@
         <KeyBinding Key="F2" Modifiers="Control" Command="Open" />
         <KeyBinding Key="F4" Modifiers="Control" Command="Close" />
     </Window.InputBindings>
+    <Window.Resources>
+        <local:MatchingIntToBooleanConverter x:Key="MatchingIntToBooleanConverter"></local:MatchingIntToBooleanConverter>
+    </Window.Resources>
     <Grid>
         <Canvas x:Name="ImageLayer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SizeChanged="SizeChangeHandler">
             <Image x:Name="Image1" Margin="0" Stretch="None" Visibility="Visible">
@@ -41,38 +44,37 @@
             <!--#region Context Menu -->
             <Canvas.ContextMenu>
                 <ContextMenu Name="RightClickMenu" StaysOpen="True">
-                    <!--<MenuItem Header="{x:Static p:Resources.ContextMenu_Open}" Command="Open" InputGestureText="F2"/>
-                    <MenuItem Header="{x:Static p:Resources.ContextMenu_Exit}" Command="Close" InputGestureText="F4"/>-->
-                    <MenuItem Name="OpenImg" Header="打开图像"></MenuItem>
-                    <MenuItem Name="CloseImg" Header="关闭图像"></MenuItem>
+                    <MenuItem Name="OpenImg" Header="{x:Static p:Resources.ContextMenu_Open}" Command="Open"></MenuItem>
                     <Separator></Separator>
-
-                    <MenuItem Name="SortImg" Header="图像排序">
-                        <MenuItem Name="SortByFileName" Header="文件名"></MenuItem>
-                        <MenuItem Name="SortByModifyDate" Header="修改日期"></MenuItem>
-                        <MenuItem Name="SortByFileSize" Header="文件大小"></MenuItem>
+                    <MenuItem Name="SortImg" Header="{x:Static p:Resources.ContextMenu_ImgSort}">
+                        <MenuItem Name="SortByFileName" Header="{x:Static p:Resources.ContextMenu_ImgSort_Filename}"
+                                  IsChecked="{Binding}"></MenuItem>
+                        <MenuItem Name="SortByModifyDate" Header="{x:Static p:Resources.ContextMenu_ImgSort_ModifiedDate}"></MenuItem>
+                        <MenuItem Name="SortByFileSize" Header="{x:Static p:Resources.ContextMenu_ImgSort_Size}"></MenuItem>
                         <Separator></Separator>
-                        <MenuItem Name="DescendingSort" Header="降序排序"></MenuItem>
+                        <MenuItem Name="DescendingSort" Header="{x:Static p:Resources.ContextMenu_ImgSort_Desc}"></MenuItem>
                     </MenuItem>
 
-                    <MenuItem Name="BrowseMode" Header="浏览模式">
-                        <MenuItem Name="OriginalMode" Header="原始模式" IsChecked="{Binding OriginalMode}"></MenuItem>
-                        <MenuItem Name="FitWindowMode" Header="适合窗口" IsChecked="{Binding FitWindowMode}"></MenuItem>
+                    <MenuItem Name="BrowseMode" Header="{x:Static p:Resources.Context_ViewMode}">
+                        <MenuItem Name="OriginalMode" Header="{x:Static p:Resources.Context_ViewMode_Org}" IsChecked="{Binding OriginalMode}"></MenuItem>
+                        <MenuItem Name="FitWindowMode" Header="{x:Static p:Resources.Context_ViewMode_Fit}" IsChecked="{Binding FitWindowMode}"></MenuItem>
                         <Separator></Separator>
-                        <MenuItem Name="StretchingMode" Header="拉伸小图"></MenuItem>
-                        <MenuItem Name="CenterMode" Header="居中大图"></MenuItem>
+                        <MenuItem Name="StretchingMode" Header="{x:Static p:Resources.Context_ViewMode_StretchSmall}"></MenuItem>
+                        <MenuItem Name="CenterMode" Header="{x:Static p:Resources.Context_ViewMode_CenterBig}"></MenuItem>
                     </MenuItem>
 
                     <Separator></Separator>
-                    <MenuItem Name="ConfigItem" Header="选项"></MenuItem>
-                    <MenuItem Name="AboutItem" Header="关于"></MenuItem>
-                    <MenuItem Name="ExitItem" Header="退出"></MenuItem>
+                    <MenuItem Name="ConfigItem" Header="{x:Static p:Resources.ContextMenu_Settings}" Click="OpenSettings"></MenuItem>
+                    <MenuItem Name="AboutItem" Header="{x:Static p:Resources.ContextMenu_About}" Click="OpenAbout"></MenuItem>
+                    <MenuItem Name="ExitItem" Header="{x:Static p:Resources.ContextMenu_Exit}" Command="Close"></MenuItem>
                 </ContextMenu>
             </Canvas.ContextMenu>
-            <TextBlock x:Name="TextBlockImageInfo" Canvas.Left="10" TextWrapping="Wrap" Canvas.Top="10" Height="393" Width="196" Foreground="White"/>
             <!--#endregion -->
         </Canvas>
-        <Grid x:Name="TopBar" HorizontalAlignment="Stretch" Height="30" Margin="0,-30,-0.4,0" VerticalAlignment="Top"
+        <TextBlock x:Name="ImageInfo" HorizontalAlignment="Left" VerticalAlignment="Stretch"
+                   Margin="10,30,0,0"
+                   TextWrapping="Wrap" Width="200" Foreground="White"/>
+        <Grid x:Name="TopBar" HorizontalAlignment="Stretch" Height="30" Margin="0,-30,0,0" VerticalAlignment="Top"
               Grid.Column="0" Grid.ZIndex="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50" />

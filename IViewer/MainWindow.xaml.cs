@@ -712,5 +712,20 @@ namespace IViewer {
     }
 
     #endregion
+
+    #region Sub Windows
+
+    private void OpenSettings(object sender, RoutedEventArgs e) {
+      var settingWindow = new SubWindow.ConfigWindow(settings);
+      settingWindow.ShowDialog();
+    }
+
+    private void OpenAbout(object sender, RoutedEventArgs e) {
+      var aboutWindow = new SubWindow.About();
+      aboutWindow.ShowDialog();
+    }
+
+    #endregion
+
   }
 }
