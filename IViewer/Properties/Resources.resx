@@ -124,7 +124,10 @@
     <value>File size</value>
   </data>
   <data name="Basic_Info_Image_Info" xml:space="preserve">
-    <value>Image Info</value>
+    <value>Image dimension</value>
+  </data>
+  <data name="Basic_Info_Image_Scale" xml:space="preserve">
+    <value>Scale</value>
   </data>
   <data name="Basic_Info_Modified_Date" xml:space="preserve">
     <value>Modified Date</value>
@@ -350,6 +353,12 @@
   <data name="LabelWindowBackgroundColor" xml:space="preserve">
     <value>Window background color</value>
   </data>
+  <data name="OpenImageFailMessage" xml:space="preserve">
+    <value>This is not a supported image file.</value>
+  </data>
+  <data name="OpenImageFailTitle" xml:space="preserve">
+    <value>Failed open image</value>
+  </data>
   <data name="SortFileBy_FileName" xml:space="preserve">
     <value>File name</value>
   </data>
@@ -370,6 +379,9 @@
   </data>
   <data name="Type_Any" xml:space="preserve">
     <value>Any File</value>
+  </data>
+  <data name="Type_AnyImage" xml:space="preserve">
+    <value>All Supported Image</value>
   </data>
   <data name="Type_AVIF" xml:space="preserve">
     <value>AVIF Image</value>

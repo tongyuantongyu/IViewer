@@ -79,11 +79,20 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Image Info 的本地化字符串。
+        ///   查找类似 Image dimension 的本地化字符串。
         /// </summary>
         public static string Basic_Info_Image_Info {
             get {
                 return ResourceManager.GetString("Basic_Info_Image_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Scale 的本地化字符串。
+        /// </summary>
+        public static string Basic_Info_Image_Scale {
+            get {
+                return ResourceManager.GetString("Basic_Info_Image_Scale", resourceCulture);
             }
         }
         
@@ -754,6 +763,24 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
+        ///   查找类似 This is not a supported image file. 的本地化字符串。
+        /// </summary>
+        public static string OpenImageFailMessage {
+            get {
+                return ResourceManager.GetString("OpenImageFailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Failed open image 的本地化字符串。
+        /// </summary>
+        public static string OpenImageFailTitle {
+            get {
+                return ResourceManager.GetString("OpenImageFailTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 File name 的本地化字符串。
         /// </summary>
         public static string SortFileBy_FileName {
@@ -813,6 +840,15 @@ namespace IViewer.Properties {
         public static string Type_Any {
             get {
                 return ResourceManager.GetString("Type_Any", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 All Supported Image 的本地化字符串。
+        /// </summary>
+        public static string Type_AnyImage {
+            get {
+                return ResourceManager.GetString("Type_AnyImage", resourceCulture);
             }
         }
         

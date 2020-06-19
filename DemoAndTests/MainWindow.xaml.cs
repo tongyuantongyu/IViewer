@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace DemoAndTests {
   /// <summary>
@@ -31,6 +32,7 @@ namespace DemoAndTests {
     private WriteableBitmap w;
     private WriteableBitmap o;
     private void Window_Loaded(object sender, RoutedEventArgs e) {
+      Console.WriteLine(Path.GetDirectoryName(Application.ResourceAssembly.Location));
       w = new WriteableBitmap(new BitmapImage(new Uri("Yosemite.jpg", UriKind.Relative)));
       Console.WriteLine("img load");
       Img.Source = w;

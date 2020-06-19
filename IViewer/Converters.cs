@@ -56,7 +56,7 @@ namespace IViewer {
     }
   }
 
-  public class ValueDescriptionPair {
+  public class LongDescriptionPair {
     public long Value { get; set; }
     public string Description { get; set; }
   }
@@ -82,19 +82,19 @@ namespace IViewer {
       return ti.ToTitleCase(ti.ToLower(fallback.Replace("_", " ")));
     }
 
-    public static IEnumerable<ValueDescriptionPair> GetAllValuesAndDescriptions(Type t) {
+    public static IEnumerable<LongDescriptionPair> GetAllValuesAndDescriptions(Type t) {
       if (!t.IsEnum) {
         throw new ArgumentException($"{nameof(t)} must be an enum type");
       }
 
       return Enum.GetValues(t)
         .Cast<Enum>()
-        .Select(e => new ValueDescriptionPair {Value = Convert.ToInt64(e), Description = e.ResourceDescription()})
+        .Select(e => new LongDescriptionPair {Value = Convert.ToInt64(e), Description = e.ResourceDescription()})
         .ToList();
     }
   }
 
-  [ValueConversion(typeof(Type), typeof(IEnumerable<ValueDescriptionPair>))]
+  [ValueConversion(typeof(Type), typeof(IEnumerable<LongDescriptionPair>))]
   public class EnumToCollectionConverter : MarkupExtension {
 
     public Type EnumType { get; set; }

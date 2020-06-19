@@ -11,6 +11,7 @@ using ImageLibrary.Decoder.Format.Heif;
 using ImageLibrary.Decoder.Format.Webp;
 using ImageLibrary.Decoder.Format.Wpf;
 using ImageLibrary.Resizer;
+using MetadataExtractor.Formats.QuickTime;
 using MetadataExtractor.Util;
 
 namespace ImageLibrary {
@@ -49,10 +50,9 @@ namespace ImageLibrary {
             break;
           case FileType.QuickTime:
             var qtFt = image.Metadata.Directories
-              .First(dir => dir.Name == "QuickTime File Type")
-              .Tags
-              .First(tag => tag.Name == "QuickTime File Type")
-              .Description;
+              .OfType<QuickTimeFileTypeDirectory>()
+              .FirstOrDefault()
+              ?.GetDescription(1);
             if (qtFt != "avif" && qtFt != "avis" && qtFt != "av01") {
               return null;
             }
@@ -93,6 +93,9 @@ namespace ImageLibrary {
         }
 
         return image.source != null ? image : null;
+      }
+      catch (Exception) {
+        return null;
       }
       finally {
         stream.Dispose();

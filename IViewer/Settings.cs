@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Resources;
 using IViewer.Model;
 using IViewer.Properties;
@@ -34,6 +36,17 @@ namespace IViewer {
         TomlConfig.StringLanguage = value.Name;
       }
     }
+
+    public static IEnumerable<CultureInfo> Cultures => CultureInfo.GetCultures(CultureTypes.AllCultures).Where(
+      culture => {
+        try {
+          return !culture.Equals(CultureInfo.InvariantCulture) &&
+                 ResourceManager.GetResourceSet(culture, true, false) != null;
+        }
+        catch (CultureNotFoundException) {
+          return false;
+        }
+      });
 
     //字段
     public string TomlResult => TomlConfig.ToString();

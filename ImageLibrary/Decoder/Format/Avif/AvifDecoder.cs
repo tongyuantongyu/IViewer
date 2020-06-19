@@ -77,7 +77,7 @@ namespace ImageLibrary.Decoder.Format.Avif {
 
       }
       finally {
-        LibAvifNative.AvifDecoderDestroy(ref decoder);
+        // LibAvifNative.AvifDecoderDestroy(ref decoder);
       }
 
       return b;

@@ -12,7 +12,16 @@ namespace ImageLibrary.Resizer {
       var source = Misc.AllocWriteableBitmap(src.Width, src.Height, src.Depth, src.Channel);
       Misc.CopyToWritableBitmap(source, src);
       var scaleTransform = new ScaleTransform((double) dst.Width / src.Width, (double) dst.Height / src.Height);
-      var transformed = new TransformedBitmap(source, scaleTransform);
+      BitmapSource transformed = new TransformedBitmap(source, scaleTransform);
+      if (transformed.Format.BitsPerPixel > 64) {
+        var converted = new FormatConvertedBitmap();
+        converted.BeginInit();
+        converted.Source = transformed;
+        converted.DestinationFormat = dst.Channel == 4 ? PixelFormats.Rgba64 : PixelFormats.Rgb48;
+        converted.EndInit();
+
+        transformed = converted;
+      }
       transformed.CopyPixels(Int32Rect.Empty, dst.Scan0, dst.Stride * dst.Height, dst.Stride);
     }
   }

@@ -15,6 +15,7 @@ using System.Windows.Media.Animation;
 using ImageLibrary.Resizer;
 using IViewer.Model;
 using IViewer.SubWindow;
+using MetadataExtractor;
 using Microsoft.Win32;
 using Matrix = System.Windows.Media.Matrix;
 
@@ -296,6 +297,12 @@ namespace IViewer {
         case Key.D0:
           CenterFit();
           break;
+        case Key.Left:
+          TryLoadImage(true);
+          break;
+        case Key.Right:
+          TryLoadImage();
+          break;
       }
     }
 
@@ -468,6 +475,7 @@ namespace IViewer {
     }
 
     private void UpdateImage() {
+      GenMetadata();
       Task.Run(async delegate {
         // debounce user operation
         try {
@@ -560,6 +568,7 @@ namespace IViewer {
       ActiveImage.Source = image.GetFull(WPFResizer.Resizer, realScale);
 
       InternalUpdateTransform();
+      GenMetadata();
     }
 
     private void InternalAdjustTransform() {
@@ -713,13 +722,23 @@ namespace IViewer {
 
     private string currentImagePath = null;
 
+    private readonly List<Tuple<string, string>> fileTypes = new List<Tuple<string, string>> {
+      new Tuple<string, string>(Properties.Resources.Type_AVIF, "*.avif"),
+      new Tuple<string, string>(Properties.Resources.Type_BMP, "*.bmp"),
+      new Tuple<string, string>(Properties.Resources.Type_FLIF, "*.flif"),
+      new Tuple<string, string>(Properties.Resources.Type_HEIF, "*.heic"),
+      new Tuple<string, string>(Properties.Resources.Type_JPG, "*.jpg;*.jpeg;*.jpe;*.jfif"),
+      new Tuple<string, string>(Properties.Resources.Type_TIF, "*.png"),
+      new Tuple<string, string>(Properties.Resources.Type_WEBP, "*.webp"),
+    };
+
     private void OpenFile(object sender, EventArgs e) {
+      var allType = string.Join(";", fileTypes.Select(entry => entry.Item2));
       var dialog = new OpenFileDialog {
         RestoreDirectory = true,
-        Filter = $"{Properties.Resources.Type_WEBP} (*.webp)|*.webp|" +
-                 $"{Properties.Resources.Type_PNG} (*.png)|*.png|" +
-                 $"{Properties.Resources.Type_HEIF} (*.heic)|*.heic|" +
-                 $"{Properties.Resources.Type_Any} (*.*)|*.*",
+        Filter = $"{Properties.Resources.Type_AnyImage} ({allType})|{allType}|"
+                 + string.Join("|", fileTypes.Select(entry => $"{entry.Item1} ({entry.Item2})|{entry.Item2}"))
+                 + $"|{Properties.Resources.Type_Any} (*.*)|*.*",
         FilterIndex = 1
       };
       if (dialog.ShowDialog() != true) {
@@ -736,7 +755,16 @@ namespace IViewer {
 
     private void LoadImage(string dir) {
       image = ImageLibrary.Image.FromFile(dir);
+      if (image == null) {
+        MessageBox.Show(Properties.Resources.OpenImageFailMessage,
+          Properties.Resources.OpenImageFailTitle,
+          MessageBoxButton.OK,
+          MessageBoxImage.Error);
+        currentImagePath = null;
+        return;
+      }
 
+      InitFileList();
       PostLoadImage();
     }
 
@@ -752,6 +780,7 @@ namespace IViewer {
       }
 
       if (fileInfo != EnumFileInfo.Hide) {
+        PreGenMetadata();
         GenMetadata();
       }
 
@@ -766,17 +795,89 @@ namespace IViewer {
       InitTransform();
     }
 
-    private void GenMetadata() {
-      var metadata = image.Metadata.BasicData().
+    private string metadataBasic = "";
+    private string metadataExif = "";
+
+    private void PreGenMetadata() {
+      metadataBasic = image.Metadata.BasicData().
         Aggregate("", (current, item) => current + $"{Settings.Resource(item.Item1) ?? item.Item1}: {item.Item2}\n");
 
+      metadataBasic += $"{Properties.Resources.Basic_Info_Image_Info}: {image.Width}x{image.Height}\n";
+
       if ((EnumEXIFInfo)settings.LongEXIFInfo == EnumEXIFInfo.Show) {
-        metadata += "\n";
-        metadata += image.Metadata.ExifData().
+        metadataExif = "\n" + image.Metadata.ExifData().
           Aggregate("", (current, item) => current + $"{Settings.Resource(item.Item1) ?? item.Item1}: {item.Item2}\n");
+      }
+    }
+
+    private void GenMetadata() {
+      var metadata = metadataBasic;
+      metadata += $"{Properties.Resources.Basic_Info_Image_Scale}: {realScale * 100:F2}%\n";
+
+      if ((EnumEXIFInfo)settings.LongEXIFInfo == EnumEXIFInfo.Show) {
+        metadata += metadataExif;
       }
 
       ImageInfo.Text = metadata;
+    }
+
+    private List<string> directoryFileList = new List<string>();
+    private int currentOffset = 0;
+
+    private void InitFileList() {
+      if (currentImagePath == null) {
+        directoryFileList = new List<string>();
+        return;
+      }
+
+      directoryFileList = System.IO.Directory.GetParent(currentImagePath)
+        .GetFiles()
+        .OrderBy(s => s.Name)
+        .Select(s => s.FullName)
+        .ToList();
+
+      currentOffset = directoryFileList.FindIndex(x => x.EndsWith(currentImagePath));
+    }
+
+    private void TryLoadImage(bool forward = false) {
+      ImageLibrary.Image temp = null;
+      while (temp == null) {
+        if (forward) {
+          currentOffset--;
+          if (currentOffset == -1) {
+            currentOffset += directoryFileList.Count;
+          }
+        }
+        else {
+          currentOffset++;
+          if (currentOffset == directoryFileList.Count) {
+            currentOffset = 0;
+          }
+        }
+
+        temp = ImageLibrary.Image.FromFile(directoryFileList[currentOffset]);
+      }
+
+      image = temp;
+      PostLoadImage();
+    }
+
+    private void HandleDragFile(object sender, DragEventArgs e) {
+      if (!e.Data.GetDataPresent(DataFormats.FileDrop)) {
+        return;
+      }
+
+      string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+      if (files != null && files.Length > 0) {
+        LoadImage(files[0]);
+      }
+    }
+
+    private void CommandArgProcess(object sender, RoutedEventArgs e) {
+      var args = Environment.GetCommandLineArgs();
+      if (args.Length > 1) {
+        LoadImage(args[1]);
+      }
     }
 
     #endregion
@@ -812,6 +913,5 @@ namespace IViewer {
     }
 
     #endregion
-
   }
 }

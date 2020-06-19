@@ -7,7 +7,7 @@
         xmlns:c="clr-namespace:System;assembly=mscorlib"
         xmlns:p="clr-namespace:IViewer.Properties"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="Black" WindowStyle="None" MouseMove="MouseMoveHandler" KeyDown="KeyDownHandler" KeyUp="KeyUpHandler">
+        Title="MainWindow" Height="450" Width="800" Background="Black" WindowStyle="None" MouseMove="MouseMoveHandler" KeyDown="KeyDownHandler" KeyUp="KeyUpHandler" Loaded="CommandArgProcess">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" />
     </WindowChrome.WindowChrome>
@@ -40,10 +40,18 @@
         </Canvas>
         <TextBlock x:Name="ImageInfo" HorizontalAlignment="Left" VerticalAlignment="Stretch"
                    Margin="10,60,0,0" FontSize="14"
-                   TextWrapping="Wrap" Width="200" Foreground="White" Opacity="1"/>
+                   TextWrapping="Wrap" Width="400" Foreground="White" Opacity="1">
+            <TextBlock.Effect>
+                <DropShadowEffect
+                    ShadowDepth="2"
+                    Direction="315"
+                    Color="Black"
+                    BlurRadius="2"/>
+            </TextBlock.Effect>
+        </TextBlock>
         <Canvas x:Name="ActionLayer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                Margin="0,30,0,0" Grid.Column="0" Background="Transparent"
-                PreviewMouseLeftButtonDown="CanvasMouseDown" PreviewMouseLeftButtonUp="CanvasMouseUp" MouseWheel="CanvasScrollHandler">
+                Margin="0,30,0,0" Grid.Column="0" Background="Transparent" AllowDrop="True"
+                PreviewMouseLeftButtonDown="CanvasMouseDown" PreviewMouseLeftButtonUp="CanvasMouseUp" MouseWheel="CanvasScrollHandler" Drop="HandleDragFile">
             <!--#region Context Menu -->
             <Canvas.ContextMenu>
                 <ContextMenu Name="RightClickMenu" StaysOpen="True">
