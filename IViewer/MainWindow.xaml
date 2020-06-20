@@ -78,37 +78,7 @@
                         <MenuItem Name="StretchingMode" Header="{x:Static p:Resources.Context_ViewMode_StretchSmall}" IsCheckable="True"></MenuItem>
                         <MenuItem Name="CenterMode" Header="{x:Static p:Resources.Context_ViewMode_CenterBig}" IsCheckable="True"></MenuItem>
                     </MenuItem>
-                    <MenuItem Header="基础滤镜">
-                        <MenuItem Header="底片" Click="rev_click"/>
-                        <MenuItem Header="灰度滤镜" Click="greyColor_click"/>
-                        <MenuItem Header="黑白滤镜" Click="blackOrWhite_click"/>
-                        <MenuItem Header="去色" Click="deleteColor_click"/>
-                        <MenuItem Header="单红色" Click="redOnly_click"/>
-                        <MenuItem Header="单蓝色" Click="blueOnly_click"/>
-                        <MenuItem Header="单绿色" Click="greenOnly_click"/>
-                    </MenuItem>
-                    <MenuItem Header="艺术滤镜">
-                     <!--   <MenuItem Header="高斯模糊" Click="gauss_click"/>-->
-                        <MenuItem Header="怀旧风格" Click="getOld_click"/>
-                        <MenuItem Header="油画风格" Click="colorFul_click"/>
-                        <MenuItem Header="浮雕" Click="relief_click"/>
-                        <MenuItem Header="卡通" Click="cartoon_click"/>
-                        <MenuItem Header="素描" Click="sketch_click"/>
-                    </MenuItem>
-                    <MenuItem Header="亮度">
-                        <MenuItem Header="+50" Click="brightness_plus50_click"/>
-                        <MenuItem Header="+30" Click="brightness_plus30_click"/>
-                        <MenuItem Header="0" Click="brightness_plus0_click"/>
-                        <MenuItem Header="-30" Click="brightness_delete30_click"/>
-                        <MenuItem Header="-50" Click="brightness_delete50_click"/>
-                    </MenuItem>
-                    <MenuItem Header="对比度">
-                        <MenuItem Header="+50" Click="contrast_plus50_click"/>
-                        <MenuItem Header="+30" Click="contrast_plus30_click"/>
-                        <MenuItem Header="0" Click="contrast_plus0_click"/>
-                        <MenuItem Header="-30" Click="contrast_delete30_click"/>
-                        <MenuItem Header="-50" Click="contrast_delete50_click"/>
-                    </MenuItem>
+
                     <Separator></Separator>
                     <MenuItem Name="ConfigItem" Header="{x:Static p:Resources.ContextMenu_Settings}" Click="OpenSettings"></MenuItem>
                     <MenuItem Name="AboutItem" Header="{x:Static p:Resources.ContextMenu_About}" Click="OpenAbout"></MenuItem>
