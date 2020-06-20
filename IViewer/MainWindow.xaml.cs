@@ -54,6 +54,13 @@ namespace IViewer {
       }
     }
 
+    private void MouseLeaveHandler(object sender, MouseEventArgs e) {
+      ShowTopBar = false;
+      if (fileInfo == EnumFileInfo.ShowOnHover) {
+        ShowInfo = false;
+      }
+    }
+
     #endregion
 
     #region Animations
@@ -556,7 +563,7 @@ namespace IViewer {
 
       // TODO Configurable init scale rule
       // Keep original size for small pictures but scale down for large ones
-      realScale = Math.Min(scale, identicalScale);
+      realScale = Math.Min(scale, 1);
       intrinsicScale = realScale;
 
       sourceArea = new Int32Rect(0, 0, image.Width, image.Height);
@@ -619,7 +626,7 @@ namespace IViewer {
 
       realScale = 1;
       realOffset =
-        new Vector(ImageLayer.ActualWidth - virtualDimension.X, ImageLayer.ActualHeight - virtualDimension.Y) / 2;
+        new Vector(viewportWidth - virtualDimension.X, viewportHeight - virtualDimension.Y) / 2;
 
       AnimateTransform();
     }

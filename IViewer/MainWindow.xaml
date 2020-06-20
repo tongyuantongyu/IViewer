@@ -7,7 +7,7 @@
         xmlns:c="clr-namespace:System;assembly=mscorlib"
         xmlns:p="clr-namespace:IViewer.Properties"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="Black" WindowStyle="None" MouseMove="MouseMoveHandler" KeyDown="KeyDownHandler" KeyUp="KeyUpHandler" Loaded="CommandArgProcess">
+        Title="MainWindow" Height="450" Width="800" Background="Black" WindowStyle="None" MouseMove="MouseMoveHandler" KeyDown="KeyDownHandler" KeyUp="KeyUpHandler" Loaded="CommandArgProcess" MouseLeave="MouseLeaveHandler">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" />
     </WindowChrome.WindowChrome>
