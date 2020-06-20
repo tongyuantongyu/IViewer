@@ -889,6 +889,7 @@ namespace IViewer {
       var settingWindow = new SubWindow.ConfigWindow(settings);
       settingWindow.ShowDialog();
       settings.PauseNotify = false;
+      Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(settings.StringWindowBackgroundColor));
       if (imgLoad) {
         PostLoadImage();
       }
