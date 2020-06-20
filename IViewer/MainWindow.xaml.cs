@@ -19,6 +19,7 @@ using IViewer.SubWindow;
 using MetadataExtractor;
 using Microsoft.Win32;
 using Matrix = System.Windows.Media.Matrix;
+using ImageLibrary.Filter;
 
 //////////////////////////////
 // USE ONLY ENGLISH COMMENT //
@@ -427,6 +428,7 @@ namespace IViewer {
     #region Image Update Functions
 
     private Int32Rect sourceArea;
+    private static int FilterLabel = -1;
 
     private void InstantUpdateImage() {
       // image area required to be computed (but don't go over original image bound)
@@ -464,7 +466,31 @@ namespace IViewer {
         intrinsicOffset = -iOffset;
         intrinsicScale = realScale;
         InternalUpdateTransform();
-
+        switch (FilterLabel) {
+          case 0: { rev_click();break; }
+          case 1: { greyColor_click(); break; }
+          case 2: { blackOrWhite_click(); break; }
+          case 3: { deleteColor_click(); break; }
+          case 4: { redOnly_click(); break; }
+          case 5: { blueOnly_click(); break; }
+          case 6: { greenOnly_click(); break; }
+          case 7: { getOld_click(); break; }
+          case 8: { colorFul_click(); break; }
+          case 9: { relief_click(); break; }
+          case 10: { cartoon_click(); break; }
+          case 11: { sketch_click(); break; }
+          case 12: { brightness_plus50_click(); break; }
+          case 13: { brightness_plus30_click(); break; }
+          case 14: { brightness_plus0_click(); break; }
+          case 15: { brightness_delete30_click(); break; }
+          case 16: { brightness_delete50_click(); break; }
+          case 17: { contrast_plus50_click(); break; }
+          case 18: { contrast_plus30_click(); break; }
+          case 19: { contrast_plus0_click(); break; }
+          case 20: { contrast_delete30_click(); break; }
+          case 21: { contrast_delete50_click(); break; }
+        }
+        
         ActiveImage.Visibility = Visibility.Visible;
         inactive.Visibility = Visibility.Hidden;
         Debug.WriteLine(
@@ -473,6 +499,10 @@ namespace IViewer {
       Debug.WriteLine("Update image: set: end");
       Dispatcher.Invoke(() => Updating = false);
       Debug.WriteLine("Update image: end");
+      //rev_click(sender, e);
+      //rev_click();
+
+
     }
 
     private void UpdateImage() {
@@ -493,6 +523,7 @@ namespace IViewer {
 
         Debug.WriteLine("Update image: Finished.");
       });
+      //rev_click();
     }
 
     #endregion
@@ -521,6 +552,7 @@ namespace IViewer {
       Mouse.Capture(null);
       mouseDown = false;
       UpdateTransform();
+      //rev_click(sender, e);
 
       var pos = point2Vector(e.GetPosition(this));
       if ((pos - mouseBegin).Length < 1 && pos.Y > 60 && pos.X < 210) {
@@ -535,6 +567,8 @@ namespace IViewer {
       }
 
       CanvasScroll(e.Delta > 0);
+      
+
     }
 
     // Window size change. Adjust image position on resize.
@@ -545,6 +579,7 @@ namespace IViewer {
       }
 
       AdjustTransform();
+      //rev_click(sender, e);
     }
 
     #endregion
@@ -713,6 +748,8 @@ namespace IViewer {
       AnimateTransform();
 
       Debug.WriteLine($"Current scale: {realScale}");
+
+      //rev_click();
     }
 
     #endregion
@@ -919,8 +956,30 @@ namespace IViewer {
     #region Fliter
     private WriteableBitmap src;
     private WriteableBitmap dst;
-    private void rev_click(object sender, EventArgs e) {
+    private void rev_click() {
+      
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
 
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var rev = new ImageLibrary.Filter.Rev();
+      rev.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), -1);
+      //WPFilter.Rev(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst));
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void rev_click(object sender, EventArgs e) {
+      FilterLabel = 0;
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -941,7 +1000,29 @@ namespace IViewer {
 
       ActiveImage.Source = dst;
     }
+    private void greyColor_click() {
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.GrayColor();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), -1);
+      //WPFilter.grayColor(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst));
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
     private void greyColor_click(object sender, EventArgs e) {
+      FilterLabel = 1;
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -963,6 +1044,28 @@ namespace IViewer {
       ActiveImage.Source = dst;
     }
     private void blackOrWhite_click(object sender, EventArgs e) {
+      FilterLabel = 2;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.BlackOrWhite();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), -1);
+      //WPFilter.blackOrWhite(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst));
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void blackOrWhite_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -984,6 +1087,28 @@ namespace IViewer {
       ActiveImage.Source = dst;
     }
     private void deleteColor_click(object sender, EventArgs e) {
+      FilterLabel = 3;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.DeleteColor();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), -1);
+      //WPFilter.deleteColor(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst));
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void deleteColor_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1005,6 +1130,28 @@ namespace IViewer {
       ActiveImage.Source = dst;
     }
     private void redOnly_click(object sender, EventArgs e) {
+      FilterLabel = 4;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.RedOnly();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), -1);
+      //WPFilter.redOnly(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst));
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void redOnly_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1026,6 +1173,28 @@ namespace IViewer {
       ActiveImage.Source = dst;
     }
     private void blueOnly_click(object sender, EventArgs e) {
+      FilterLabel = 5;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.BlueOnly();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), -1);
+      //WPFilter.blueOnly(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst));
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void blueOnly_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1047,6 +1216,28 @@ namespace IViewer {
       ActiveImage.Source = dst;
     }
     private void greenOnly_click(object sender, EventArgs e) {
+      FilterLabel = 6;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.GreenOnly();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), -1);
+      //WPFilter.greenOnly(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst));
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void greenOnly_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1089,6 +1280,28 @@ namespace IViewer {
       ActiveImage.Source = dst;
     }
     private void getOld_click(object sender, EventArgs e) {
+      FilterLabel = 7;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.GetOld();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), -1);
+      //WPFilter.getOld(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst));
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void getOld_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1110,6 +1323,28 @@ namespace IViewer {
       ActiveImage.Source = dst;
     }
     private void colorFul_click(object sender, EventArgs e) {
+      FilterLabel = 8;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.ColorFul();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), -1);
+      //WPFilter.colorFul(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst));
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void colorFul_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1131,6 +1366,28 @@ namespace IViewer {
       ActiveImage.Source = dst;
     }
     private void relief_click(object sender, EventArgs e) {
+      FilterLabel = 9;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.Relief();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), -1);
+      //WPFilter.relief(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst));
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void relief_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1152,6 +1409,28 @@ namespace IViewer {
       ActiveImage.Source = dst;
     }
     private void cartoon_click(object sender, EventArgs e) {
+      FilterLabel = 10;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.Cartoon();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), -1);
+      //WPFilter.cartoon(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst));
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void cartoon_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1173,6 +1452,28 @@ namespace IViewer {
       ActiveImage.Source = dst;
     }
     private void sketch_click(object sender, EventArgs e) {
+      FilterLabel = 11;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.Sketch();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), -1);
+      //WPFilter.sketch(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst));
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void sketch_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1194,6 +1495,28 @@ namespace IViewer {
       ActiveImage.Source = dst;
     }
     private void brightness_plus50_click(object sender, EventArgs e) {
+      FilterLabel = 12;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.Brightness();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), 0.5);
+      //WPFilter.brightness(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst), 0.3);
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void brightness_plus50_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1215,6 +1538,28 @@ namespace IViewer {
       ActiveImage.Source = dst;
     }
     private void brightness_plus30_click(object sender, EventArgs e) {
+      FilterLabel = 13;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.Brightness();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), 0.3);
+      //WPFilter.brightness(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst), 0.3);
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void brightness_plus30_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1236,6 +1581,28 @@ namespace IViewer {
       ActiveImage.Source = dst;
     }
     private void brightness_plus0_click(object sender, EventArgs e) {
+      FilterLabel = 14;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.Brightness();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), 0);
+      //WPFilter.brightness(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst), 0);
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void brightness_plus0_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1257,6 +1624,28 @@ namespace IViewer {
       ActiveImage.Source = dst;
     }
     private void brightness_delete30_click(object sender, EventArgs e) {
+      FilterLabel = 15;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.Brightness();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), -0.3);
+      //WPFilter.brightness(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst), -0.3);
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void brightness_delete30_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1278,6 +1667,28 @@ namespace IViewer {
       ActiveImage.Source = dst;
     }
     private void brightness_delete50_click(object sender, EventArgs e) {
+      FilterLabel = 16;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.Brightness();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), -0.5);
+      //WPFilter.brightness(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst), -0.3);
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void brightness_delete50_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1300,6 +1711,28 @@ namespace IViewer {
     }
 
     private void contrast_plus50_click(object sender, EventArgs s) {
+      FilterLabel = 17;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.Contrast();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), 0.5);
+      //WPFilter.Filter(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst), 0.3);
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void contrast_plus50_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1321,6 +1754,28 @@ namespace IViewer {
       ActiveImage.Source = dst;
     }
     private void contrast_plus30_click(object sender, EventArgs s) {
+      FilterLabel = 18;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.Contrast();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), 0.3);
+      //WPFilter.Filter(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst), 0.3);
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void contrast_plus30_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1343,6 +1798,28 @@ namespace IViewer {
     }
 
     private void contrast_plus0_click(object sender, EventArgs s) {
+      FilterLabel = 19;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.Contrast();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), 0);
+      //WPFilter.Filter(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst), 0);
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void contrast_plus0_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1365,6 +1842,28 @@ namespace IViewer {
     }
 
     private void contrast_delete30_click(object sender, EventArgs s) {
+      FilterLabel = 20;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.Contrast();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), -0.3);
+      //WPFilter.Filter(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst), -0.3);
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void contrast_delete30_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
@@ -1386,6 +1885,28 @@ namespace IViewer {
       ActiveImage.Source = dst;
     }
     private void contrast_delete50_click(object sender, EventArgs s) {
+      FilterLabel = 21;
+      var newImage = image.GetPartial(resizer, sourceArea, realScale);
+      //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
+      src = new WriteableBitmap(newImage);
+
+      // Maybe you need to change dst infos
+      dst = ImageLibrary.Misc.AllocWriteableBitmap(src.PixelWidth, src.PixelHeight,
+      8, src.BackBufferStride / src.PixelWidth);
+
+      dst = new WriteableBitmap(src.PixelWidth, src.PixelHeight, 96, 96, PixelFormats.Bgr24, null);
+
+      dst.Lock();
+      var filter = new ImageLibrary.Filter.Contrast();
+      filter.Filter(ImageLibrary.Misc.BitmapOfWritableBitmap(src), ImageLibrary.Misc.BitmapOfWritableBitmap(dst), -0.5);
+      //WPFilter.Filter(Misc.BitmapOfWritableBitmap(src), Misc.BitmapOfWritableBitmap(dst), -0.3);
+      dst.AddDirtyRect(new Int32Rect(0, 0, dst.PixelWidth, dst.PixelHeight));
+
+      dst.Unlock();
+
+      ActiveImage.Source = dst;
+    }
+    private void contrast_delete50_click() {
       var newImage = image.GetPartial(resizer, sourceArea, realScale);
       //src = new WriteableBitmap(new BitmapImage(new Uri("b5.jpg", UriKind.Relative)));
       src = new WriteableBitmap(newImage);
