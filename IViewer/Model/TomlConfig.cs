@@ -150,8 +150,8 @@ namespace IViewer.Model {
       //view
       LongFileInfo = (long)EnumFileInfo.ShowOnHover;
       LongEXIFInfo = (long)EnumEXIFInfo.Show;
-      StringWindowBackgroundColor = "#00000000";
-      StringImageBackgroundColor = "#00000000";
+      StringWindowBackgroundColor = "#FF000000";
+      StringImageBackgroundColor = "#FF000000";
       LongImageEnlargingAlgorithm = (long)EnumImageEnlargingAlgorithm.HighQualityBicubic;
       LongImageShrinkingAlgorithm = (long)EnumImageShrinkingAlgorithm.HighQualityBilinear;
       LongImageDoublingAlgorithm = (long)EnumImageDoublingAlgorithm.None;

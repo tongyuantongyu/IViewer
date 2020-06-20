@@ -47,11 +47,11 @@ namespace IViewer {
 
   public class StringColorConverter : IValueConverter {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-      return ColorConverter.ConvertFromString((value ?? "#00000000") as string);
+      return ColorConverter.ConvertFromString((value ?? "#FF000000") as string);
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
-      var r = value is Color s ? s.ToString() : "#00000000";
+      var r = value is Color s ? s.ToString() : "#FF000000";
       return r;
     }
   }
