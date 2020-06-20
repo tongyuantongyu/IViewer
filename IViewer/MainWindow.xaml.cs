@@ -877,6 +877,7 @@ namespace IViewer {
 
       string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
       if (files != null && files.Length > 0) {
+        currentImagePath = files[0];
         LoadImage(files[0]);
       }
     }
@@ -884,6 +885,7 @@ namespace IViewer {
     private void CommandArgProcess(object sender, RoutedEventArgs e) {
       var args = Environment.GetCommandLineArgs();
       if (args.Length > 1) {
+        currentImagePath = args[1];
         LoadImage(args[1]);
       }
     }
