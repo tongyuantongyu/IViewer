@@ -896,7 +896,7 @@ namespace IViewer {
       }
 
       try {
-        Process.Start(settings.StringImageEditorPath, Path.GetFullPath(currentImagePath));
+        Process.Start(settings.StringImageEditorPath, $"\"{Path.GetFullPath(currentImagePath)}\"");
       }
       catch (Exception) {}
     }
