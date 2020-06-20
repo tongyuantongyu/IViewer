@@ -65,6 +65,9 @@
     <Reference Include="MetadataExtractor, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\MetadataExtractor.2.4.2\lib\net45\MetadataExtractor.dll</HintPath>
     </Reference>
+    <Reference Include="MetadataExtractor.StrongName, Version=2.4.2.0, Culture=neutral, PublicKeyToken=b66b5ccaf776c301, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetadataExtractor.StrongName.2.4.2\lib\net45\MetadataExtractor.StrongName.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -100,6 +103,9 @@
     </Reference>
     <Reference Include="XmpCore, Version=6.1.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\XmpCore.6.1.10\lib\net35\XmpCore.dll</HintPath>
+    </Reference>
+    <Reference Include="XmpCore.StrongName, Version=6.1.10.0, Culture=neutral, PublicKeyToken=961f4f366277b80e, processorArchitecture=MSIL">
+      <HintPath>..\packages\XmpCore.StrongName.6.1.10\lib\net35\XmpCore.StrongName.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

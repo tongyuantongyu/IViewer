@@ -59,10 +59,32 @@
     <Reference Include="MetadataExtractor, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\IViewer\packages\MetadataExtractor.2.4.2\lib\net45\MetadataExtractor.dll</HintPath>
     </Reference>
+    <Reference Include="MetadataExtractor.StrongName, Version=2.4.2.0, Culture=neutral, PublicKeyToken=b66b5ccaf776c301, processorArchitecture=MSIL">
+      <HintPath>..\packages\MetadataExtractor.StrongName.2.4.2\lib\net45\MetadataExtractor.StrongName.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.7.1\lib\net461\System.Collections.Immutable.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata, Version=1.4.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.Metadata.1.8.1\lib\net461\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -72,6 +94,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="XmpCore, Version=6.1.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\IViewer\packages\XmpCore.6.1.10\lib\net35\XmpCore.dll</HintPath>
+    </Reference>
+    <Reference Include="XmpCore.StrongName, Version=6.1.10.0, Culture=neutral, PublicKeyToken=961f4f366277b80e, processorArchitecture=MSIL">
+      <HintPath>..\packages\XmpCore.StrongName.6.1.10\lib\net35\XmpCore.StrongName.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -87,7 +112,23 @@
     <Compile Include="Decoder\Format\Webp\WebpDecoder.cs" />
     <Compile Include="Decoder\DecoderTools.cs" />
     <Compile Include="Decoder\Format\Wpf\WpfDecoder.cs" />
+    <Compile Include="Filter\BlackOrWhite.cs" />
+    <Compile Include="Filter\BlueOnly.cs" />
+    <Compile Include="Filter\Brightness.cs" />
+    <Compile Include="Filter\Cartoon.cs" />
+    <Compile Include="Filter\ColorFul.cs" />
+    <Compile Include="Filter\Contrast.cs" />
+    <Compile Include="Filter\DeleteColor.cs" />
+    <Compile Include="Filter\FilterMISC.cs" />
+    <Compile Include="Filter\Gauss.cs" />
+    <Compile Include="Filter\GetOld.cs" />
+    <Compile Include="Filter\GrayColor.cs" />
+    <Compile Include="Filter\GreenOnly.cs" />
     <Compile Include="Filter\IFilter.cs" />
+    <Compile Include="Filter\RedOnly.cs" />
+    <Compile Include="Filter\Relief.cs" />
+    <Compile Include="Filter\Rev.cs" />
+    <Compile Include="Filter\Sketch.cs" />
     <Compile Include="Filter\TestFilter.cs" />
     <Compile Include="IBitmapSource.cs" />
     <Compile Include="Bitmap.cs" />
