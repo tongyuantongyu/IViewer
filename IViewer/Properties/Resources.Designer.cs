@@ -304,6 +304,15 @@ namespace IViewer.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Open in image editor 的本地化字符串。
+        /// </summary>
+        public static string ContextMenu_OpenExternal {
+            get {
+                return ResourceManager.GetString("ContextMenu_OpenExternal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Settings 的本地化字符串。
         /// </summary>
         public static string ContextMenu_Settings {

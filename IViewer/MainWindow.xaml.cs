@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -878,6 +879,17 @@ namespace IViewer {
       if (args.Length > 1) {
         LoadImage(args[1]);
       }
+    }
+
+    private void OpenExternal(object sender, RoutedEventArgs e) {
+      if (string.IsNullOrWhiteSpace(settings.StringImageEditorPath)) {
+        return;
+      }
+
+      try {
+        Process.Start(settings.StringImageEditorPath, Path.GetFullPath(currentImagePath));
+      }
+      catch (Exception) {}
     }
 
     #endregion

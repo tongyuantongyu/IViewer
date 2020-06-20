@@ -80,6 +80,7 @@
                     </MenuItem>
 
                     <Separator></Separator>
+                    <MenuItem Name="StartExtItem" Header="{x:Static p:Resources.ContextMenu_OpenExternal}" Click="OpenExternal"></MenuItem>
                     <MenuItem Name="ConfigItem" Header="{x:Static p:Resources.ContextMenu_Settings}" Click="OpenSettings"></MenuItem>
                     <MenuItem Name="AboutItem" Header="{x:Static p:Resources.ContextMenu_About}" Click="OpenAbout"></MenuItem>
                     <MenuItem Name="ExitItem" Header="{x:Static p:Resources.ContextMenu_Exit}" Command="Close"></MenuItem>

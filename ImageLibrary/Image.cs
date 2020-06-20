@@ -94,7 +94,7 @@ namespace ImageLibrary {
 
         return image.source != null ? image : null;
       }
-      catch (Exception) {
+      catch (Exception e) {
         return null;
       }
       finally {

@@ -185,6 +185,9 @@
     <value>Open</value>
     <comment>Open file</comment>
   </data>
+  <data name="ContextMenu_OpenExternal" xml:space="preserve">
+    <value>Open in image editor</value>
+  </data>
   <data name="ContextMenu_Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
