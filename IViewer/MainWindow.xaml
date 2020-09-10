@@ -78,7 +78,37 @@
                         <MenuItem Name="StretchingMode" Header="{x:Static p:Resources.Context_ViewMode_StretchSmall}" IsCheckable="True"></MenuItem>
                         <MenuItem Name="CenterMode" Header="{x:Static p:Resources.Context_ViewMode_CenterBig}" IsCheckable="True"></MenuItem>
                     </MenuItem>
-
+                    <MenuItem Header="Basic Filter">
+                        <MenuItem Header="Negative" Click="rev_click"/>
+                        <MenuItem Header="GetGray" Click="greyColor_click"/>
+                        <MenuItem Header="BlackAndWhite" Click="blackOrWhite_click"/>
+                        <MenuItem Header="Decolor" Click="deleteColor_click"/>
+                        <MenuItem Header="RedOnly" Click="redOnly_click"/>
+                        <MenuItem Header="BlueOnly" Click="blueOnly_click"/>
+                        <MenuItem Header="GreenOnly" Click="greenOnly_click"/>
+                    </MenuItem>
+                    <MenuItem Header="Art Filter">
+                     <!--   <MenuItem Header="高斯模糊" Click="gauss_click"/>-->
+                        <MenuItem Header="Nostalgia" Click="getOld_click"/>
+                        <MenuItem Header="Oil_Painting" Click="colorFul_click"/>
+                        <MenuItem Header="Relief" Click="relief_click"/>
+                        <MenuItem Header="Cartoon" Click="cartoon_click"/>
+                        <MenuItem Header="Sketch" Click="sketch_click"/>
+                    </MenuItem>
+                    <MenuItem Header="Brightness">
+                        <MenuItem Header="+50" Click="brightness_plus50_click"/>
+                        <MenuItem Header="+30" Click="brightness_plus30_click"/>
+                        <MenuItem Header="0" Click="brightness_plus0_click"/>
+                        <MenuItem Header="-30" Click="brightness_delete30_click"/>
+                        <MenuItem Header="-50" Click="brightness_delete50_click"/>
+                    </MenuItem>
+                    <MenuItem Header="ContrastRadio">
+                        <MenuItem Header="+50" Click="contrast_plus50_click"/>
+                        <MenuItem Header="+30" Click="contrast_plus30_click"/>
+                        <MenuItem Header="0" Click="contrast_plus0_click"/>
+                        <MenuItem Header="-30" Click="contrast_delete30_click"/>
+                        <MenuItem Header="-50" Click="contrast_delete50_click"/>
+                    </MenuItem>
                     <Separator></Separator>
                     <MenuItem Name="StartExtItem" Header="{x:Static p:Resources.ContextMenu_OpenExternal}" Click="OpenExternal"></MenuItem>
                     <MenuItem Name="ConfigItem" Header="{x:Static p:Resources.ContextMenu_Settings}" Click="OpenSettings"></MenuItem>
